@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<title>Taco Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+    <img class="w3-image" src="https://d2qgx4jylglh9c.cloudfront.net/en/wp-content/uploads/2017/09/Plastic-Eating-Bird.jpg" alt="Architecture" width="1500" height="800">
+    <div class="w3-display-middle w3-margin-top w3-center">
+      <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Taco Project</b></span>
+      <h1 class="w3-xlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Summer 2021</b></span>
+    </div>
+</header>
+
+<body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
+            <!-- Float links to the right. Hide them on small screens -->
+            <div class="w3-right w3-hide-small">
+                <a href="/" class="w3-bar-item w3-button">Home</a> 
+                <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
+                <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
+                <a href="/#capabilities" class="w3-bar-item w3-button">Capabilities</a>
+                <a href="/#process" class="w3-bar-item w3-button">Process</a>
+                <a href="/#about" class="w3-bar-item w3-button">About</a>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="w3-content w3-padding" style="max-width:1564px">
+
+        <!-- Capabilities Section -->
+        <div class="w3-container w3-padding-8" id="capabilities">
+            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><u><b>Current Capabilities</b></u></h3>
+            <p>Works both on still images and video</p>
+            <p>Image Detection</p>
+            <p>Provides basic visualizations</p>
+            <p>Provides basic labeling and confidence labels</p>
+            <p>Provides a bounding box overlay of known object</p>
+        </div>
+
+        <!-- Process Section -->
+        <div class="w3-container w3-padding-8" id="process">
+            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><u><b>Process</b></u></h3>
+            <p>User provides input in the form of an image/video/live feed</p>
+            <p>Upload to folder, all images  within the folder will be processed</p>
+            <p>Algorithm processes the input</p>
+            <p>Program displays labeled images or provides results in SQL format</p>
+        </div>
+
+        <!-- About Section -->
+        <div class="w3-container w3-row-padding w3-padding-8" id="about">
+            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><u><b>About</b></u></h3>
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/M8sGNY4/unknown-adobespark.png" alt="Ryan" style="width:100%">
+            <h3>Ryan Lubin</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at Emory University studying Information Systems and Operations Management.</p>
+            </div>
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/41pK6Vf/image0-adobespark.jpg" alt="Henry" style="width:100%">
+            <h3>Henry Lewis</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at the University of Cincinnati studying Business Analytics and Information Systems.</p>
+            </div>
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/hysD2TM/1-adobespark.jpg" alt="Moez" style="width:100%">
+            <h3>Moez Abbes</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at Michigan State University studying Computer Science.</p>
+            </div>
+        </div>
+
+    <!-- End page content -->
+    </div>
+</body>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+</footer>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Upload</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html> -->
+
+<!-- Contact Section
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
+    <p>Lets get in touch and talk about your next project.</p>
+    <form action="/action_page.php" target="_blank">
+      <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Subject" required name="Subject">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="Comment" required name="Comment">
+      <button class="w3-button w3-black w3-section" type="submit">
+        <i class="fa fa-paper-plane"></i> SEND MESSAGE
+      </button>
+    </form>
+  </div> -->

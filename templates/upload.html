@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taco Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/upload.js"></script>
+</head>
+
+<body>
+    <header>
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
+                <!-- Float links to the right. Hide them on small screens -->
+                <div class="w3-right w3-hide-small">
+                    <a href="/" class="w3-bar-item w3-button">Home</a> 
+                    <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
+                    <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
+                    <a href="/#capabilities" class="w3-bar-item w3-button">Capabilities</a>
+                    <a href="/#process" class="w3-bar-item w3-button">Process</a>
+                    <a href="/#about" class="w3-bar-item w3-button">About</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
+        <!-- Upload Section -->
+        <div class="w3-container w3-padding-8 w3-margin-top" id="upload">
+            <h2>Select a file to upload</h2>
+            <p>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            </p>
+            {% if filename %}
+                <div>
+                    <img src="{{ url_for('display_image', filename=filename) }}">
+                </div>
+            {% endif %}
+            <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+                <dl>
+                    <p>
+                        <input type="file" name="file" class="form-control" autocomplete="off" required>
+                    </p>
+                </dl>
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-info">
+                </p>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

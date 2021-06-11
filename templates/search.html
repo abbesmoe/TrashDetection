@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head></head>
+    <title>Taco Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="/static/table.css" />
+</head>
+
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+        <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
+        <!-- Float links to the right. Hide them on small screens -->
+        <div class="w3-right w3-hide-small">
+            <a href="/" class="w3-bar-item w3-button">Home</a> 
+            <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
+            <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
+            <a href="/#capabilities" class="w3-bar-item w3-button">Capabilities</a>
+            <a href="/#process" class="w3-bar-item w3-button">Process</a>
+            <a href="/#about" class="w3-bar-item w3-button">About</a>
+        </div>
+    </div>
+</div>
+
+<!-- Header -->
+<header>
+
+</header>
+
+<body>
+
+    <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
+
+        <!-- Capabilities Section -->
+        <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities">
+            <form name="form1" id="form1" method="POST" action="/search">
+                Types:
+                <select name="types" id="types">
+                    <option value="" selected="selected"></option>
+                    <option value="">Recyclable</option>
+                    <option value="">Non-Recyclable</option>
+                </select>
+                <br><br>Trash:
+                <select name="trash" id="trash">
+                    {% for n in trash_list %}
+                        {% if n == "Plastic" %} 
+                            <option value="Plastic">Plastic</option>
+                        {% endif %}
+                        {% if n == "Aluminium" %} 
+                            <option value="Aluminium">Aluminium</option>
+                        {% endif %}
+                        {% if n == "Cardboard" %} 
+                            <option value="Cardboard">Cardboard</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <input type="submit" name="+" id="+"  value="+">
+                <br><br>Selected Trash:
+                <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple">  
+                    {% for n in selected_trash_list %}
+                        {% if n == "Plastic" %} 
+                            <option value="Plastic">Plastic</option>
+                        {% endif %}
+                        {% if n == "Aluminium" %} 
+                            <option value="Aluminium">Aluminium</option>
+                        {% endif %}
+                        {% if n == "Cardboard" %} 
+                            <option value="Cardboard">Cardboard</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <input type="submit" name="-" id="-" value="-">
+                <br><br>Quantity:
+                <select name="quantity" id="quantity">
+                    <option value="" selected="selected"></option>
+                    <option value="">Greater than</option>
+                    <option value="">Less than</option>
+                </select>
+                <input type="text" placeholder="Quantity">
+                <br><br>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities"></div>
+            <table class="table">
+                <tr class="table__header">
+                {% for header in headings %}
+                    <th class="table__cell">{{ header }}</th>
+                {% endfor %}
+                </tr>
+                {% for row in data %}
+                <tr class="table__row">
+                    {% for cell in row %}
+                    <td class="table__cell">{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
