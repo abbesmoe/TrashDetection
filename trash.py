@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, flash
+from flask import Flask, redirect, url_for, render_template, request, flash, send_file
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 trash_list = ["Plastic","Cardboard","Aluminium"]
 selected_trash_list = []
+uploads_list = []
 
 headings = ("Images","Quantity","Recyclables")
 data = (
@@ -30,6 +31,21 @@ def allowed_file(filename):
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route('/download', methods=['GET'])
+def download_file():
+    if request.method=="GET":
+        p = "static/uploads/"+request.args.get("img")
+        return send_file(p,as_attachment=True)
+    path = "static/uploads"
+    images = os.listdir(path)
+    return render_template("library.html", images=images)
+
+@app.route("/library")
+def library():
+    path = "static/uploads"
+    images = os.listdir(path)
+    return render_template("library.html", images=images)    
 
 @app.route("/uploadredirect")
 def uploadredirect():

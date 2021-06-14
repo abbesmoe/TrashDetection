@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="eng">
-<head></head>
+<head>
     <title>Taco Project</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +17,7 @@
         <div class="w3-right w3-hide-small">
             <a href="/" class="w3-bar-item w3-button">Home</a> 
             <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
+            <a href="/library" class="w3-bar-item w3-button">Library</a>
             <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
             <a href="/#capabilities" class="w3-bar-item w3-button">Capabilities</a>
             <a href="/#process" class="w3-bar-item w3-button">Process</a>
@@ -84,7 +85,7 @@
                 <input type="submit" value="Search">
             </form>
         </div>
-        <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities"></div>
+        <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities">
             <table class="table">
                 <tr class="table__header">
                 {% for header in headings %}
