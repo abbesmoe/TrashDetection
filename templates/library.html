@@ -1,56 +1,32 @@
-<!DOCTYPE html>
-<html lang="eng">
-<head>
-    <title>Uploaded Images</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="/static/table.css" />
-</head>
+{% extends "base.html" %}
+{% block title %}Library Page{% endblock %}
+{% block links %}<link rel="stylesheet" href="/static/table.css" />{% endblock %}
 
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-        <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
-        <!-- Float links to the right. Hide them on small screens -->
-        <div class="w3-right w3-hide-small">
-            <a href="/" class="w3-bar-item w3-button">Home</a> 
-            <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
-            <a href="/library" class="w3-bar-item w3-button">Library</a>
-            <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
-            <a href="/#capabilities" class="w3-bar-item w3-button">Capabilities</a>
-            <a href="/#process" class="w3-bar-item w3-button">Process</a>
-            <a href="/#about" class="w3-bar-item w3-button">About</a>
-        </div>
+{% block content %}
+<div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
+    <div class="w3-container w3-padding-8 w3-margin-top" id="upload">
+        <form name="form1" id="form1" method="GET" action="/download">
+            <table class="table"> 
+                <tr class="table__header">
+                    <th class="table__header">
+                        Images
+                    </th>
+                    <th class="table__header">
+                        Download
+                    </th>
+                </tr>
+                {% for image in images %}
+                <tr class="table__row">
+                    <td class="table__cell">
+                        {{ image }}
+                    </td>
+                    <td class="table__cell">
+                        <a href="{{url_for('download_file', img=image)}}">Download</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
     </div>
 </div>
-
-<div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
-
-    <div class="w3-container w3-padding-8 w3-margin-top" id="upload">
-
-<form name="form1" id="form1" method="GET" action="/download">
-    <table class="table"> 
-        <tr class="table__header">
-            <th class="table__header">
-                Images
-            </th>
-            <th class="table__header">
-                Download
-            </th>
-        </tr>
-        {% for image in images %}
-        <tr class="table__row">
-            <td class="table__cell">
-                {{ image }}
-            </td>
-            <td class="table__cell">
-                <a href="{{url_for('download_file', img=image)}}">Download</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</form>
-</div>
-</div>
-</html>
+{% endblock %}
