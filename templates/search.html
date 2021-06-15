@@ -82,11 +82,11 @@
                 </select>
                 <input type="text" placeholder="Quantity">
                 <br><br>
-                <input type="submit" value="Search">
+                <input type="submit" value="Search" id="Search" name="Search">
             </form>
         </div>
         <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities">
-            <table class="table">
+            <table class="table" style="display: {{ style }}">
                 <tr class="table__header">
                 {% for header in headings %}
                     <th class="table__cell">{{ header }}</th>

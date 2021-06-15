@@ -87,20 +87,22 @@ def searchredirect():
 def search():
     global selected_trash_list
     global trash_list
-    result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data)
+    result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
     if request.method == "POST":
         if "+" in request.form:
             if "trash" in request.form:
                 trash = request.form["trash"]
                 trash_list.remove(trash)
                 selected_trash_list.append(trash)
-                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data)
+                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
         elif "-" in request.form:
             if "selectedtrash" in request.form:
                 selectedtrash = request.form["selectedtrash"]
                 selected_trash_list.remove(selectedtrash)
                 trash_list.append(selectedtrash)
-                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data)
+                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
+        elif "Search" in request.form:
+            result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline")
     return result
 
 if __name__ == "__main__":
