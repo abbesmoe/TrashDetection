@@ -17,6 +17,9 @@
                     <th class="table__header">
                         Remove
                     </th>
+                    <th class="table__header">
+                        Preview
+                    </th>
                 </tr>
                 {% for image in images %}
                 <tr class="table__row">
@@ -28,6 +31,9 @@
                     </td>
                     <td class="table__cell">
                         <a href="{{url_for('remove_file', img=image)}}">Remove</a>
+                    </td>
+                    <td class="table__cell">
+                        <img src="{{ url_for('display_image', filename=image) }}" alt="library_img" width="75" height="75">
                     </td>
                 </tr>
                 {% endfor %}

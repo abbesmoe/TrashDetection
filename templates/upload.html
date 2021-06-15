@@ -25,7 +25,7 @@
             </p>
             {% if filename %}
                 <div>
-                    <img src="{{ url_for('display_image', filename=filename) }}">
+                    <img src="{{ url_for('display_image', filename=filename) }}" alt="library_img">
                 </div>
             {% endif %}
             <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
