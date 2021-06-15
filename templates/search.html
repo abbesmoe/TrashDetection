@@ -9,15 +9,15 @@
         <div class="w3-container w3-padding-8 w3-margin-top" id="Menu">
             <form name="form1" id="form1" method="POST" action="/search">
                 Types:
-                <select name="types" id="types">
+                <select name="type" id="type" value="type">
                     <option value="" selected="selected"></option>
-                    <option value="">Recyclable</option>
-                    <option value="">Non-Recyclable</option>
+                    <option value="Recyclable">Recyclable</option>
+                    <option value="Non-Recyclable">Non-Recyclable</option>
                 </select>
                 <br><br>Trash:
                 <select name="trash" id="trash">
                     {% for n in trash_list %}
-                        {% if n == "Plastic" %} 
+                        {% if n == "Plastic" %}
                             <option value="Plastic">Plastic</option>
                         {% endif %}
                         {% if n == "Aluminium" %} 
@@ -45,12 +45,12 @@
                 </select>
                 <input type="submit" name="-" id="-" value="-">
                 <br><br>Quantity:
-                <select name="quantity" id="quantity">
+                <select name="quantityType" id="quantityType" value="quantityType">
                     <option value="" selected="selected"></option>
                     <option value="">Greater than</option>
                     <option value="">Less than</option>
                 </select>
-                <input type="text" placeholder="Quantity">
+                <input type="text" name="quantity" id="quantity" value="quantity" placeholder="Quantity">
                 <br><br>
                 <input type="submit" value="Search" id="Search" name="Search">
             </form>

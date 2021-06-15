@@ -9,13 +9,13 @@ trash_list = ["Plastic","Cardboard","Aluminium"]
 selected_trash_list = []
 uploads_list = []
 
-headings = ("Images","Quantity","Recyclables")
-data = (
-    ("img100.jpg","5","Plastic Bottles"),
-    ("img101.jpg","7","Aluminium foil, Paper"),
-    ("img102.jpg","11","Cardboard"),
-    ("img102.jpg","11","Cardboard")
-)
+headings = ["Images","Quantity","Recyclables"]
+data = [
+    ["img100.jpg","5","Plastic Bottles"],
+    ["img101.jpg","7","Aluminium foil, Paper"],
+    ["img102.jpg","11","Cardboard"],
+    ["img102.jpg","11","Cardboard"]
+]
 
 UPLOAD_FOLDER = 'static/uploads/'
  
@@ -96,6 +96,7 @@ def searchredirect():
 def search():
     global selected_trash_list
     global trash_list
+    global headings
     result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
     if request.method == "POST":
         if "+" in request.form:
@@ -111,40 +112,24 @@ def search():
                 trash_list.append(selectedtrash)
                 result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
         elif "Search" in request.form:
+            headings = ["Images","Quantity","Recyclables"]
+            quantity = ""
+            quantityType = ""
+            if "type" in request.form:
+                type = request.form["type"]
+                if type != "":
+                    headings.append(type)
+            for t in selected_trash_list:
+                headings.append(t)
+            if "quantity" in request.form:
+                quantity = request.form["quantity"]
+            if "quantityType" in request.form:
+                quantityType = request.form["quantityType"]
+            if quantity != "" and quantityType != "":
+                #handle quantity
+                print("")
             result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline")
     return result
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/<usr>")
-# def user(usr):
-#     return f"<h1>{usr}</h1>"
-
-# @app.route("/<name>")
-# def user(name):
-#     return f"hello {name}!"
-
-# @app.route("/admin")
-# def admin():
-#     return redirect(url_for("user", name="Admin!"))
-
-
-
-# @app.route("/login", methods=["POST", "GET"])
-# def login():
-    # if request.method == "POST":
-    #     user = request.form["nm"]
-    #     return redirect(url_for("user", usr=user))
-#     else:
-#         return render_template("login.html")
