@@ -41,6 +41,15 @@ def download_file():
     images = os.listdir(path)
     return render_template("library.html", images=images)
 
+@app.route('/remove', methods=['GET'])
+def remove_file():
+    if request.method=="GET":
+        filename = "static/uploads/"+request.args.get("img")
+        os.remove(filename)
+    path = "static/uploads"
+    images = os.listdir(path)
+    return render_template("library.html", images=images)
+
 @app.route("/library")
 def library():
     path = "static/uploads"
