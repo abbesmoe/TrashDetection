@@ -17,21 +17,24 @@
                 {% if messages %}
                     <ul>
                     {% for message in messages %}
-                    <li>{{ message }}</li>
+                        <li>{{ message }}</li>
+                        {% if message == 'You can view all your uploaded files in the library page' %}
+                            <p>&nbsp;</p>
+                        {% endif %}
                     {% endfor %}
                     </ul>
                 {% endif %}
                 {% endwith %}
             </p>
-            {% if filename %}
+            <!-- {% if filename %}
                 <div>
                     <img src="{{ url_for('display_image', filename=filename) }}" alt="library_img">
                 </div>
-            {% endif %}
+            {% endif %} -->
             <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
                 <dl>
                     <p>
-                        <input type="file" name="file" class="form-control" autocomplete="off" required>
+                        <input type="file" name="files[]" class="form-control" multiple="true" autocomplete="off" required>
                     </p>
                 </dl>
                 <p>
