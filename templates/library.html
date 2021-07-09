@@ -12,36 +12,51 @@
                 <table class="table"> 
                     <tr class="table__header">
                         <th class="table__header">
+                            Count
+                        </th>
+                        <th class="table__header">
                             Images
                         </th>
                         <th class="table__header">
-                            Download
+                            Download Image
+                        </th>
+                        <th class="table__header">
+                            Download Annotated Image
                         </th>
                         <th class="table__header">
                             Remove
                         </th>
                         <th class="table__header">
-                            Preview
+                            img_Preview
+                        </th>
+                        <th class="table__header">
+                            ann_Preview
                         </th>
                     </tr>
-                    {% for image in images %}
-                                <tr class="table__row">
-                                    <td class="table__cell">
-                                        {{ loop.index + (page - 1) * per_page }}
-                                    </td>
-                                    <td class="table__cell">
-                                        {{ image }}
-                                    </td>
-                                    <td class="table__cell">
-                                        <a href="{{url_for('download_file', img=image)}}">Download</a>
-                                    </td>
-                                    <td class="table__cell">
-                                        <a href="{{url_for('remove_file', img=image)}}">Remove</a>
-                                    </td>
-                                    <td class="table__cell">
-                                        <img src="{{ url_for('display_image', filename=image) }}" alt="library_img" width="75" height="75">
-                                    </td>
-                                </tr>
+                    {% for i in range(list_len) %}
+                        <tr class="table__row">
+                            <td class="table__cell">
+                                {{ loop.index + (page - 1) * per_page }}
+                            </td>
+                            <td class="table__cell">
+                                {{ images[i] }}
+                            </td>
+                            <td class="table__cell">
+                                <a href="{{url_for('download_file', img=images[i])}}">Download</a>
+                            </td>
+                            <td class="table__cell">
+                                <a href="{{url_for('download_file', img=ann_images[i])}}">Download</a>
+                            </td>
+                            <td class="table__cell">
+                                <a href="{{url_for('remove_file', img=images[i])}}">Remove</a>
+                            </td>
+                            <td class="table__cell">
+                                <img src="{{ url_for('display_image', filename=images[i]) }}" alt="library_img" width="75" height="75">
+                            </td>
+                            <td class="table__cell">
+                                <img src="{{ url_for('display_image', filename=ann_images[i]) }}" alt="library_img" width="100" height="100">
+                            </td>
+                        </tr>
                     {% endfor %}
                 </table>
             </form>

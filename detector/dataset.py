@@ -8,7 +8,7 @@ import os
 import json
 import numpy as np
 import copy
-import utils
+import detector.utils as utils
 
 from PIL import Image, ExifTags
 

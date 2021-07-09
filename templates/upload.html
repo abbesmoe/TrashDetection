@@ -26,17 +26,22 @@
                 {% endif %}
                 {% endwith %}
             </p>
-            <!-- {% if filename %}
+            {% if filename %}
                 <div>
                     <img src="{{ url_for('display_image', filename=filename) }}" alt="library_img">
                 </div>
-            {% endif %} -->
+            {% endif %}
+            {% if ann_image %}
+                <div>
+                    <img src="{{ url_for('display_image', filename=ann_image) }}" alt="library_img">
+                </div>
+            {% endif %}
             <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
                 <p>
                     <input type="file" name="files[]" class="form-control" multiple="true" autocomplete="off" required>
                 </p>
                 <p>
-                    <input type="submit" value="Submit" class="btn btn-info">
+                    <input type="submit" value="Detect and Upload" class="btn btn-info">
                 </p>
             </form>
         </div>

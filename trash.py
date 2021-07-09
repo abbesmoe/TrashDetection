@@ -15,7 +15,76 @@ selected_trash_list = []
 def get_images(images, offset=0, per_page=10):
     return images[offset: offset + per_page]
 
-def detector(images):
+def detection(img):
+    ## Load Dataset
+    import csv
+    import detector.dataset as dataset
+
+    # Load class map - these tables map the original TACO classes to your desired class system
+    # and allow you to discard classes that you don't want to include.
+    class_map = {}
+    with open("detector/taco_config/map_10.csv") as csvfile:
+        reader = csv.reader(csvfile)
+        class_map = {row[0]:row[1] for row in reader}
+
+    # Load full dataset or a subset
+    TACO_DIR = "data"
+    round = None # Split number: If None, loads full dataset else if int > 0 selects split no 
+    subset = "train" # Used only when round !=None, Options: ('train','val','test') to select respective subset
+    dataset = dataset.Taco()
+    taco = dataset.load_taco(TACO_DIR, round, subset, class_map=class_map, return_taco=True)
+
+    # Must call before using the dataset
+    dataset.prepare()
+
+    print("Class Count: {}".format(dataset.num_classes))
+    for i, info in enumerate(dataset.class_info):
+        print("{:3}. {:50}".format(i, info['name']))
+
+    from detector.config import Config
+    class TacoTestConfig(Config):
+        NAME = "taco"
+        GPU_COUNT = 1
+        IMAGES_PER_GPU = 1
+        DETECTION_MIN_CONFIDENCE = 0.3
+        NUM_CLASSES = dataset.num_classes
+    #     IMAGE_MAX_DIM = 1024
+    #     IMAGE_MIN_DIM = 1024
+    #     IMAGE_RESIZE_MODE = "square"
+    config = TacoTestConfig()
+    config.display()
+
+    import detector.model as modellib
+    # Create model objects in inference mode.
+    # inference mode means we are taking live data points to calculate an output #
+    # model dir is where the trained model is saved #
+    # config: exposes a config class, using those settings #
+    model = modellib.MaskRCNN(mode="inference", model_dir='mask_rcnn_coco.hy', config=config)
+
+    # Load weights trained on MS-COCO
+    # The trained objects that are used for accuracy #
+    # by_name: weights are loaded into layers only if the share the same name #, exclude=["mrcnn_bbox_fc","mrcnn_class_logits","mrcnn_mask"]
+    model.load_weights('mask_rcnn_taco_0100.h5', by_name=True, weights_out_path=None)
+
+    import skimage.io
+    # load an image #
+    #skimage helps with image processing on a computer #
+    img_path = "static/uploads/" + img
+    image = skimage.io.imread(img_path)
+
+    # Remove alpha channel, if it has one
+    if image.shape[-1] == 4:
+        image = image[..., :3]
+
+    class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
+
+    r = model.detect([image], verbose=0)[0]
+
+    print(r['scores'])
+
+    import detector.visualize as visualize
+    visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+
     return
 
 headings = ["Images","Quantity","Recyclables"]
@@ -44,7 +113,7 @@ def home():
 @app.route('/download', methods=['GET'])
 def download_file():
     if request.method=="GET":
-        p = "static/uploads/"+request.args.get("img")
+        p = "annotated_images/"+request.args.get("img")
         return send_file(p,as_attachment=True)
     path = "static/uploads"
     images = os.listdir(path)
@@ -63,17 +132,24 @@ def remove_file():
 def library():
     path = "static/uploads"
     images = os.listdir(path)
+
+    path2 = "annotated_images"
+    ann_images = os.listdir(path2)
+
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     total = len(images)
     pagination_images = get_images(images, offset=offset, per_page=per_page)
+    pagination_ann_images = get_images(ann_images, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='bootstrap4')
     return render_template("library.html", 
                            images=pagination_images,
+                           ann_images=pagination_ann_images,
+                           list_len=len(images),
                            page=page,
                            per_page=per_page,
-                           pagination=pagination)    
+                           pagination=pagination)
 
 @app.route("/uploadredirect")
 def uploadredirect():
@@ -104,7 +180,11 @@ def upload_image():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             #print('upload_image filename: ' + filename)
             flash(filename + ' has been successfully uploaded')
-    return render_template('upload.html', filename=filename)
+
+            detection(filename)
+    ann_image= "output_" + filename
+
+    return render_template('upload.html', filename=filename, ann_image=ann_image)
  
 @app.route('/display/<filename>')
 def display_image(filename):
@@ -155,4 +235,4 @@ def search():
     return result
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(debug=True)
