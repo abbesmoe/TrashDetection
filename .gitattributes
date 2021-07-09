@@ -1,1 +1,2 @@
+mask_rcnn_taco_0100.h5 filter=lfs diff=lfs merge=lfs -text
 *.h5 filter=lfs diff=lfs merge=lfs -text
