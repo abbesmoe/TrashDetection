@@ -3,6 +3,8 @@ import urllib.request
 import os
 from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_args
+import tensorflow as tf
+import keras
 
 app = Flask(__name__)
 
@@ -13,9 +15,8 @@ selected_trash_list = []
 def get_images(images, offset=0, per_page=10):
     return images[offset: offset + per_page]
 
-def get_images(images, offset=0, per_page=10):
-    return images[offset: offset + per_page]
-
+def detector(images):
+    return
 
 headings = ["Images","Quantity","Recyclables"]
 data = [
