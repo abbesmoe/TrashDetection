@@ -32,11 +32,9 @@
                 </div>
             {% endif %} -->
             <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
-                <dl>
-                    <p>
-                        <input type="file" name="files[]" class="form-control" multiple="true" autocomplete="off" required>
-                    </p>
-                </dl>
+                <p>
+                    <input type="file" name="files[]" class="form-control" multiple="true" autocomplete="off" required>
+                </p>
                 <p>
                     <input type="submit" value="Submit" class="btn btn-info">
                 </p>

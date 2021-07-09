@@ -2,12 +2,20 @@ from flask import Flask, redirect, url_for, render_template, request, flash, sen
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
+from flask_paginate import Pagination, get_page_args
 
 app = Flask(__name__)
 
 trash_list = ["Plastic","Cardboard","Aluminium"]
 selected_trash_list = []
-uploads_list = []
+
+
+def get_images(images, offset=0, per_page=10):
+    return images[offset: offset + per_page]
+
+def get_images(images, offset=0, per_page=10):
+    return images[offset: offset + per_page]
+
 
 headings = ["Images","Quantity","Recyclables"]
 data = [
@@ -54,7 +62,17 @@ def remove_file():
 def library():
     path = "static/uploads"
     images = os.listdir(path)
-    return render_template("library.html", images=images)    
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    total = len(images)
+    pagination_images = get_images(images, offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+    return render_template("library.html", 
+                           images=pagination_images,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination)    
 
 @app.route("/uploadredirect")
 def uploadredirect():
@@ -63,6 +81,7 @@ def uploadredirect():
 @app.route("/upload")
 def upload():
     return render_template("upload.html")
+
 
 @app.route('/upload', methods=['POST'])
 def upload_image():
@@ -89,7 +108,7 @@ def upload_image():
 @app.route('/display/<filename>')
 def display_image(filename):
     #print('display_image filename: ' + filename)
-    return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    return redirect(url_for('static', filename='uploads/' + filename))
 
 @app.route("/searchredirect")
 def searchredirect():
@@ -135,4 +154,4 @@ def search():
     return result
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
