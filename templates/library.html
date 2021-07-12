@@ -42,10 +42,10 @@
                                 {{ images[i] }}
                             </td>
                             <td class="table__cell">
-                                <a href="{{url_for('download_file', img=images[i])}}">Download</a>
+                                <a href="{{url_for('download_file', img=images[i], is_ann=False)}}">Download</a>
                             </td>
                             <td class="table__cell">
-                                <a href="{{url_for('download_file', img=ann_images[i])}}">Download</a>
+                                <a href="{{url_for('download_file', img=ann_images[i], is_ann=True)}}">Download</a>
                             </td>
                             <td class="table__cell">
                                 <a href="{{url_for('remove_file', img=images[i])}}">Remove</a>

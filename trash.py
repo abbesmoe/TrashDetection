@@ -118,12 +118,13 @@ def home():
 
 @app.route('/download', methods=['GET'])
 def download_file():
-    if request.method=="GET":
-        p = "annotated_images/"+request.args.get("img")
-        return send_file(p,as_attachment=True)
-    path = "static/uploads"
-    images = os.listdir(path)
-    return render_template("library.html", images=images)
+    is_ann = request.args.get("is_ann")
+    if is_ann == "True":
+        image = "static/annotated_images/"+request.args.get("img")
+        return send_file(image,as_attachment=True)
+    else:
+        image = "static/uploads/"+request.args.get("img")
+        return send_file(image,as_attachment=True)
 
 @app.route('/remove', methods=['GET'])
 def remove_file():
