@@ -139,7 +139,7 @@ def library():
     path = "static/uploads"
     images = os.listdir(path)
 
-    path2 = "annotated_images"
+    path2 = "static/annotated_images"
     ann_images = os.listdir(path2)
 
     page, per_page, offset = get_page_args(page_parameter='page',
@@ -193,9 +193,13 @@ def upload_image():
     return render_template('upload.html', filename=filename, ann_image=ann_image)
  
 @app.route('/display/<filename>')
-def display_image(filename):
-    #print('display_image filename: ' + filename)
-    return redirect(url_for('static', filename='uploads/' + filename))
+def display_image(filename, is_ann=False):
+    is_ann = request.args.get("is_ann")
+    print(is_ann)
+    if is_ann:
+        return redirect(url_for('static', filename='annotated_images/' + filename))
+    else:
+        return redirect(url_for('static', filename='uploads/' + filename))
 
 @app.route("/searchredirect")
 def searchredirect():

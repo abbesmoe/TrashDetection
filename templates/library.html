@@ -51,10 +51,10 @@
                                 <a href="{{url_for('remove_file', img=images[i])}}">Remove</a>
                             </td>
                             <td class="table__cell">
-                                <img src="{{ url_for('display_image', filename=images[i]) }}" alt="library_img" width="75" height="75">
+                                <img src="{{ url_for('display_image', filename=images[i], is_ann=False) }}" alt="library_img" width="75" height="75">
                             </td>
                             <td class="table__cell">
-                                <img src="{{ url_for('display_image', filename=ann_images[i]) }}" alt="library_img" width="100" height="100">
+                                <img src="{{ url_for('display_image', filename=ann_images[i], is_ann=True) }}" alt="library_img" width="75" height="75">
                             </td>
                         </tr>
                     {% endfor %}
