@@ -195,8 +195,7 @@ def upload_image():
 @app.route('/display/<filename>')
 def display_image(filename, is_ann=False):
     is_ann = request.args.get("is_ann")
-    print(is_ann)
-    if is_ann:
+    if is_ann == "True":
         return redirect(url_for('static', filename='annotated_images/' + filename))
     else:
         return redirect(url_for('static', filename='uploads/' + filename))
