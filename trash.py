@@ -128,12 +128,12 @@ def download_file():
 
 @app.route('/remove', methods=['GET'])
 def remove_file():
-    if request.method=="GET":
-        filename = "static/uploads/"+request.args.get("img")
-        os.remove(filename)
-    path = "static/uploads"
-    images = os.listdir(path)
-    return render_template("library.html", images=images)
+    img = request.args.get("img")
+    uploaded_img = "static/uploads/"+img
+    ann_img = "static/annotated_images/output_"+img
+    os.remove(uploaded_img)
+    os.remove(ann_img)
+    return redirect(url_for("library"))
 
 @app.route("/library")
 def library():
