@@ -15,7 +15,7 @@ selected_trash_list = []
 def get_images(images, offset=0, per_page=10):
     return images[offset: offset + per_page]
 
-def detection(img):
+def load_model():
     ## Load Dataset
     import csv
     import detector.dataset as dataset
@@ -65,7 +65,13 @@ def detection(img):
     # The trained objects that are used for accuracy #
     # by_name: weights are loaded into layers only if the share the same name #, exclude=["mrcnn_bbox_fc","mrcnn_class_logits","mrcnn_mask"]
     model.load_weights('mask_rcnn_taco_0100.h5', by_name=True, weights_out_path=None)
+    model.keras_model._make_predict_function()
+    return model
 
+model = load_model()
+
+def detection(img):
+    global model
     import skimage.io
     # load an image #
     #skimage helps with image processing on a computer #
@@ -101,7 +107,7 @@ app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
  
-ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','tif','tiff','bmp','gif','eps','raw','mp4','mov','wmv','flv','avi'])
+ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','gif','mp4'])
  
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
