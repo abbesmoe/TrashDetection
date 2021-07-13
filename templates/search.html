@@ -17,30 +17,84 @@
                 <br><br>Trash:
                 <select name="trash" id="trash">
                     {% for n in trash_list %}
-                        {% if n == "Plastic" %}
-                            <option value="Plastic">Plastic</option>
+                        {% if n == "BG" %}
+                            <option value="BG">BG</option>
                         {% endif %}
-                        {% if n == "Aluminium" %} 
-                            <option value="Aluminium">Aluminium</option>
+                        {% if n == "Bottle" %} 
+                            <option value="Bottle">Bottle</option>
                         {% endif %}
-                        {% if n == "Cardboard" %} 
-                            <option value="Cardboard">Cardboard</option>
+                        {% if n == "Pop tab" %} 
+                            <option value="Pop tab">Pop tab</option>
                         {% endif %}
+                        {% if n == "Can" %} 
+                            <option value="Can">Can</option>
+                        {% endif %}
+                        {% if n == "Bottle cap" %} 
+                            <option value="Bottle cap">Bottle cap</option>
+                        {% endif %}
+                        {% if n == "Cigarette" %} 
+                            <option value="Cigarette">Cigarette</option>
+                        {% endif %} 
+                        {% if n == "Cup" %} 
+                            <option value="Cup">Cup</option>
+                        {% endif %} 
+                        {% if n == "Lid" %} 
+                            <option value="Lid">Lid</option>
+                        {% endif %} 
+                        {% if n == "Other" %} 
+                            <option value="Other">Other</option>
+                        {% endif %} 
+                        {% if n == "Plastic bag" %} 
+                            <option value="Plastic bag">Plastic bag</option>
+                        {% endif %} 
+                        {% if n == "Wrapper" %} 
+                            <option value="Wrapper">Wrapper</option>
+                        {% endif %} 
+                        {% if n == "Straw" %} 
+                            <option value="Straw">Straw</option>
+                        {% endif %} 
                     {% endfor %}
                 </select>
                 <input type="submit" name="+" id="+"  value="+">
                 <br><br>Selected Trash:
                 <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple">  
                     {% for n in selected_trash_list %}
-                        {% if n == "Plastic" %} 
-                            <option value="Plastic">Plastic</option>
+                        {% if n == "BG" %}
+                            <option value="BG">BG</option>
                         {% endif %}
-                        {% if n == "Aluminium" %} 
-                            <option value="Aluminium">Aluminium</option>
+                        {% if n == "Bottle" %} 
+                            <option value="Bottle">Bottle</option>
                         {% endif %}
-                        {% if n == "Cardboard" %} 
-                            <option value="Cardboard">Cardboard</option>
+                        {% if n == "Pop tab" %} 
+                            <option value="Pop tab">Pop tab</option>
                         {% endif %}
+                        {% if n == "Can" %} 
+                            <option value="Can">Can</option>
+                        {% endif %}
+                        {% if n == "Bottle cap" %} 
+                            <option value="Bottle cap">Bottle cap</option>
+                        {% endif %}
+                        {% if n == "Cigarette" %} 
+                            <option value="Cigarette">Cigarette</option>
+                        {% endif %} 
+                        {% if n == "Cup" %} 
+                            <option value="Cup">Cup</option>
+                        {% endif %} 
+                        {% if n == "Lid" %} 
+                            <option value="Lid">Lid</option>
+                        {% endif %} 
+                        {% if n == "Other" %} 
+                            <option value="Other">Other</option>
+                        {% endif %} 
+                        {% if n == "Plastic bag" %} 
+                            <option value="Plastic bag">Plastic bag</option>
+                        {% endif %} 
+                        {% if n == "Wrapper" %} 
+                            <option value="Wrapper">Wrapper</option>
+                        {% endif %} 
+                        {% if n == "Straw" %} 
+                            <option value="Straw">Straw</option>
+                        {% endif %} 
                     {% endfor %}
                 </select>
                 <input type="submit" name="-" id="-" value="-">

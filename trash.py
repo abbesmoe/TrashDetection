@@ -10,7 +10,7 @@ import threading
 app = Flask(__name__)
 
 # Setting global variables
-trash_list = ["Plastic","Cardboard","Aluminium"]
+trash_list = ["BG","Bottle", "Pop tab", "Can", "Bottle cap", "Cigarette", "Cup", "Lid", "Other", "Plastic bag", "Wrapper", "Straw"]
 selected_trash_list = []
 images_data = {"Images":[]}
 headings = ["Images","Quantity","Recyclables"]
