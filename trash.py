@@ -4,6 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_args
 import json
+import threading
 
 # Starts the web app
 app = Flask(__name__)
@@ -221,7 +222,7 @@ def upload_image():
             #print('upload_image filename: ' + filename)
             flash(filename + ' has been successfully uploaded')
 
-            detection(filename)
+            threading.Thread(target=detection(filename)).start()
     ann_image= "output_" + filename
 
     return render_template('upload.html', filename=filename, ann_image=ann_image)
