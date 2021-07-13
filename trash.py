@@ -1,19 +1,35 @@
+# Imports
 from flask import Flask, redirect, url_for, render_template, request, flash, send_file
 import os
 from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_args
 import json
 
+# Starts the web app
 app = Flask(__name__)
 
+# Setting global variables
 trash_list = ["Plastic","Cardboard","Aluminium"]
 selected_trash_list = []
 images_data = {"Images":[]}
+headings = ["Images","Quantity","Recyclables"]
+data = [
+    ["img100.jpg","5","Plastic Bottles"],
+    ["img101.jpg","7","Aluminium foil, Paper"],
+    ["img102.jpg","11","Cardboard"],
+    ["img102.jpg","11","Cardboard"]
+]
+UPLOAD_FOLDER = 'static/uploads/'
+app.secret_key = "secret key"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','gif','mp4'])
 
-
+# Used to grab a set amount of the images for pagination in library page
 def get_images(images, offset=0, per_page=10):
     return images[offset: offset + per_page]
 
+# Loads the model
 def load_model():
     ## Load Dataset
     import csv
@@ -67,8 +83,10 @@ def load_model():
     model.keras_model._make_predict_function()
     return model
 
+# Loads the model
 model = load_model()
 
+# Run detection on an image
 def detection(img):
     global model
     import skimage.io
@@ -94,6 +112,7 @@ def detection(img):
 
     return
 
+# Add image information to a json file after running through detection
 def add_to_json(r,class_names,imageName):
     global images_data
 
@@ -116,29 +135,16 @@ def add_to_json(r,class_names,imageName):
 
     write_json(images_data)
 
-headings = ["Images","Quantity","Recyclables"]
-data = [
-    ["img100.jpg","5","Plastic Bottles"],
-    ["img101.jpg","7","Aluminium foil, Paper"],
-    ["img102.jpg","11","Cardboard"],
-    ["img102.jpg","11","Cardboard"]
-]
-
-UPLOAD_FOLDER = 'static/uploads/'
- 
-app.secret_key = "secret key"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
- 
-ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','gif','mp4'])
- 
+# Checks if the uploaded images have supported extensions
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
+# Download an Image from the library page
 @app.route('/download', methods=['GET'])
 def download_file():
     is_ann = request.args.get("is_ann")
@@ -149,6 +155,7 @@ def download_file():
         image = "static/uploads/"+request.args.get("img")
         return send_file(image,as_attachment=True)
 
+# Removes an Image from the library page
 @app.route('/remove', methods=['GET'])
 def remove_file():
     img = request.args.get("img")
@@ -158,6 +165,7 @@ def remove_file():
     os.remove(ann_img)
     return redirect(url_for("library"))
 
+# Library Page
 @app.route("/library")
 def library():
     path = "static/uploads"
@@ -181,15 +189,17 @@ def library():
                            per_page=per_page,
                            pagination=pagination)
 
+# Redirects to the upload page
 @app.route("/uploadredirect")
 def uploadredirect():
     return redirect(url_for("upload"))
 
+# Upload Page
 @app.route("/upload")
 def upload():
     return render_template("upload.html")
 
-
+# Upload Page when a post method is envoked
 @app.route('/upload', methods=['POST'])
 def upload_image():
     if 'files[]' not in request.files:
@@ -215,7 +225,8 @@ def upload_image():
     ann_image= "output_" + filename
 
     return render_template('upload.html', filename=filename, ann_image=ann_image)
- 
+
+# Displays an Image
 @app.route('/display/<filename>')
 def display_image(filename, is_ann=False):
     is_ann = request.args.get("is_ann")
@@ -224,10 +235,12 @@ def display_image(filename, is_ann=False):
     else:
         return redirect(url_for('static', filename='uploads/' + filename))
 
+# Redirects to the search page
 @app.route("/searchredirect")
 def searchredirect():
     return redirect(url_for("search"))
 
+# Search Page
 @app.route("/search", methods=["POST", "GET"])
 def search():
     global selected_trash_list
@@ -267,5 +280,6 @@ def search():
             result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline")
     return result
 
+# Runs the web app
 if __name__ == "__main__":
     app.run(debug=True)
