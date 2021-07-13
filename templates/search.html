@@ -59,9 +59,6 @@
                 <br><br>Selected Trash:
                 <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple">  
                     {% for n in selected_trash_list %}
-                        {% if n == "BG" %}
-                            <option value="BG">BG</option>
-                        {% endif %}
                         {% if n == "Bottle" %} 
                             <option value="Bottle">Bottle</option>
                         {% endif %}
@@ -98,6 +95,9 @@
                     {% endfor %}
                 </select>
                 <input type="submit" name="-" id="-" value="-">
+                <br>
+                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection">
+                <label for="Intersection">Intersection of all trash</label>
                 <br><br>Quantity:
                 <select name="quantityType" id="quantityType" value="quantityType">
                     <option value="" selected="selected"></option>
@@ -105,7 +105,7 @@
                     <option value="">Less than</option>
                     <option value="">Equal to</option>
                 </select>
-                <input type="text" name="quantity" id="quantity" value="0" placeholder="Quantity">
+                <input type="text" name="quantity" id="quantity" placeholder="Quantity">
                 <br><br>
                 <input type="submit" value="Search" id="Search" name="Search">
             </form>
