@@ -1,15 +1,14 @@
 from flask import Flask, redirect, url_for, render_template, request, flash, send_file
-import urllib.request
 import os
 from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_args
-import tensorflow as tf
-import keras
+import json
 
 app = Flask(__name__)
 
 trash_list = ["Plastic","Cardboard","Aluminium"]
 selected_trash_list = []
+images_data = {"Images":[]}
 
 
 def get_images(images, offset=0, per_page=10):
@@ -91,7 +90,31 @@ def detection(img):
     import detector.visualize as visualize
     visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
+    add_to_json(r,class_names,img)
+
     return
+
+def add_to_json(r,class_names,imageName):
+    global images_data
+
+    classNameList = []
+    for i in range(len(r['class_ids'])):
+        obj_name = class_names[r['class_ids'][i]]
+        classNameList.append(obj_name)
+
+    def write_json(data, filename="data.json"):
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=4)
+
+
+    img_data = {}
+    img_data["Name"] = "annotated_{}".format(imageName)
+    img_data["Quantity"] = len(classNameList)
+    img_data['Classes'] = classNameList
+
+    images_data['Images'].append(img_data)
+
+    write_json(images_data)
 
 headings = ["Images","Quantity","Recyclables"]
 data = [
