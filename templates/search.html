@@ -10,16 +10,25 @@
             <form name="form1" id="form1" method="POST" action="/search">
                 Types:
                 <select name="type" id="type" value="type">
-                    <option value="" selected="selected"></option>
-                    <option value="Recyclable">Recyclable</option>
-                    <option value="Non-Recyclable">Non-Recyclable</option>
+                    {% if type == "" %}
+                        <option value="" selected="selected"></option>
+                        <option value="Recyclable">Recyclable</option>
+                        <option value="Non-Recyclable">Non-Recyclable</option>
+                    {% endif %}
+                    {% if type == "Recyclable" %}
+                        <option value=""></option>
+                        <option value="Recyclable" selected="selected">Recyclable</option>
+                        <option value="Non-Recyclable">Non-Recyclable</option>
+                    {% endif %}
+                    {% if type == "Non-Recyclable" %}
+                        <option value=""></option>
+                        <option value="Recyclable">Recyclable</option>
+                        <option value="Non-Recyclable" selected="selected">Non-Recyclable</option>
+                    {% endif %}
                 </select>
                 <br><br>Trash:
                 <select name="trash" id="trash">
                     {% for n in trash_list %}
-                        {% if n == "BG" %}
-                            <option value="BG">BG</option>
-                        {% endif %}
                         {% if n == "Bottle" %} 
                             <option value="Bottle">Bottle</option>
                         {% endif %}
@@ -44,11 +53,8 @@
                         {% if n == "Other" %} 
                             <option value="Other">Other</option>
                         {% endif %} 
-                        {% if n == "Plastic bag" %} 
-                            <option value="Plastic bag">Plastic bag</option>
-                        {% endif %} 
-                        {% if n == "Wrapper" %} 
-                            <option value="Wrapper">Wrapper</option>
+                        {% if n == "Plastic bag + wrapper" %} 
+                            <option value="Plastic bag + wrapper">Plastic bag + wrapper</option>
                         {% endif %} 
                         {% if n == "Straw" %} 
                             <option value="Straw">Straw</option>
@@ -83,11 +89,8 @@
                         {% if n == "Other" %} 
                             <option value="Other">Other</option>
                         {% endif %} 
-                        {% if n == "Plastic bag" %} 
-                            <option value="Plastic bag">Plastic bag</option>
-                        {% endif %} 
-                        {% if n == "Wrapper" %} 
-                            <option value="Wrapper">Wrapper</option>
+                        {% if n == "Plastic bag + wrapper" %} 
+                            <option value="Plastic bag + wrapper">Plastic bag + wrapper</option>
                         {% endif %} 
                         {% if n == "Straw" %} 
                             <option value="Straw">Straw</option>
@@ -96,16 +99,46 @@
                 </select>
                 <input type="submit" name="-" id="-" value="-">
                 <br>
-                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection">
+                {% if intersection == "False" %}
+                    <input type="checkbox" id="Intersection" name="Intersection" value="Intersection">
+                {% endif %}
+                {% if intersection == "True" %}
+                    <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" checked>
+                {% endif %}
                 <label for="Intersection">Intersection of all trash</label>
                 <br><br>Quantity:
                 <select name="quantityType" id="quantityType" value="quantityType">
-                    <option value="" selected="selected"></option>
-                    <option value="">Greater than</option>
-                    <option value="">Less than</option>
-                    <option value="">Equal to</option>
+                    {% if quantityType == "" %}
+                        <option value="" selected="selected"></option>
+                        <option value="Greater than">Greater than</option>
+                        <option value="Less than">Less than</option>
+                        <option value="Equal to">Equal to</option>
+                    {% endif %}
+                    {% if quantityType == "Greater than" %}
+                        <option value=""></option>
+                        <option value="Greater than" selected="selected">Greater than</option>
+                        <option value="Less than">Less than</option>
+                        <option value="Equal to">Equal to</option>
+                    {% endif %}
+                    {% if quantityType == "Less than" %}
+                        <option value=""></option>
+                        <option value="Greater than">Greater than</option>
+                        <option value="Less than" selected="selected">Less than</option>
+                        <option value="Equal to">Equal to</option>
+                    {% endif %}
+                    {% if quantityType == "Equal to" %}
+                        <option value=""></option>
+                        <option value="Greater than">Greater than</option>
+                        <option value="Less than">Less than</option>
+                        <option value="Equal to" selected="selected">Equal to</option>
+                    {% endif %}
                 </select>
-                <input type="text" name="quantity" id="quantity" placeholder="Quantity">
+                {% if quantity == ""%}
+                    <input type="text" name="quantity" id="quantity" placeholder="Quantity">
+                {% endif %}
+                {% if quantity != ""%}
+                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}>
+                {% endif %}
                 <br><br>
                 <input type="submit" value="Search" id="Search" name="Search">
             </form>

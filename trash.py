@@ -10,21 +10,21 @@ import threading
 app = Flask(__name__)
 
 # Setting global variables
-trash_list = ["Bottle", "Pop tab", "Can", "Bottle cap", "Cigarette", "Cup", "Lid", "Other", "Plastic bag", "Wrapper", "Straw"]
+trash_list = ["Bottle", "Pop tab", "Can", "Bottle cap", "Cigarette", "Cup", "Lid", "Other", "Plastic bag + wrapper", "Straw"]
 selected_trash_list = []
 images_data = {"Images":[]}
-headings = ["Images","Quantity","Recyclables"]
-data = [
-    ["img100.jpg","5","Plastic Bottles"],
-    ["img101.jpg","7","Aluminium foil, Paper"],
-    ["img102.jpg","11","Cardboard"],
-    ["img102.jpg","11","Cardboard"]
-]
+headings = ["Images","Quantity"]
+data = []
 UPLOAD_FOLDER = 'static/uploads/'
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','gif','mp4'])
+
+type = ""
+quantity = ""
+quantityType = ""
+intersection = "False"
 
 # Used to grab a set amount of the images for pagination in library page
 def get_images(images, offset=0, per_page=10):
@@ -241,44 +241,131 @@ def display_image(filename, is_ann=False):
 def searchredirect():
     return redirect(url_for("search"))
 
+def checkQuantity(quantityType, quantity):
+    quantitySet = set()
+
+    quantity = int(quantity)
+    with open("data.json",'r') as json_data:
+        data = json.load(json_data)
+
+        for i in range(len(data["Images"])):
+            if quantityType == 'Greater than':
+                if data['Images'][i]['Quantity'] > quantity:
+                    quantitySet.add(data['Images'][i]['Name'])
+
+            elif quantityType == 'Less than':
+                if data['Images'][i]['Quantity'] < quantity:
+                    quantitySet.add(data['Images'][i]['Name'])
+
+            elif quantityType == 'Equal to':
+                if data['Images'][i]['Quantity'] == quantity:
+                    quantitySet.add(data['Images'][i]['Name'])
+
+    return quantitySet
+
+def checkClasses(selected_trash, intersection):
+    # REPLACE with get method from search page
+    classSet = set()
+
+    with open("data.json",'r') as json_data:
+        data = json.load(json_data)
+        if intersection == "":
+            for i in selected_trash:
+                for j in range(len(data["Images"])):
+                    if i in data['Images'][j]['Classes']:
+                        classSet.add(data['Images'][j]['Name'])
+        else:
+            for i in range(len(data["Images"])):
+                if set(selected_trash) <= set(data['Images'][i]['Classes']):
+                    classSet.add(data['Images'][i]['Name'])
+
+    return classSet
+
 # Search Page
 @app.route("/search", methods=["POST", "GET"])
 def search():
     global selected_trash_list
     global trash_list
     global headings
-    result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
+    global data
+    global type
+    global quantity
+    global quantityType
+    global intersection
+    result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
     if request.method == "POST":
         if "+" in request.form:
             if "trash" in request.form:
                 trash = request.form["trash"]
                 trash_list.remove(trash)
                 selected_trash_list.append(trash)
-                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
+                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
         elif "-" in request.form:
             if "selectedtrash" in request.form:
                 selectedtrash = request.form["selectedtrash"]
                 selected_trash_list.remove(selectedtrash)
                 trash_list.append(selectedtrash)
-                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none")
+                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
         elif "Search" in request.form:
-            headings = ["Images","Quantity","Recyclables"]
-            quantity = ""
-            quantityType = ""
-            if "type" in request.form:
-                type = request.form["type"]
-                if type != "":
-                    headings.append(type)
-            for t in selected_trash_list:
-                headings.append(t)
-            if "quantity" in request.form:
-                quantity = request.form["quantity"]
-            if "quantityType" in request.form:
-                quantityType = request.form["quantityType"]
-            if quantity != "" and quantityType != "":
+            data = []
+            headings = ["Images", "Quantity"]
+            with open("data.json",'r') as json_data:
+                imgs_data = json.load(json_data)
+                # recyclables or nonrecyclables
+                if "type" in request.form:
+                    type = request.form["type"]
+                    if type != "":
+                        headings.append(type)
+                # adds selected trash to the headings
+                for t in selected_trash_list:
+                    headings.append(t)
+
+                if "quantity" in request.form:
+                    quantity = request.form["quantity"]
+                if "quantityType" in request.form:
+                    quantityType = request.form["quantityType"]
                 #handle quantity
-                print("")
-            result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline")
+                quantitySet = set()
+                if quantity != "" and quantityType != "":
+                    quantitySet = checkQuantity(quantityType, quantity)
+                
+                intersect = ""
+                if "Intersection" in request.form:
+                    intersect = request.form["Intersection"]
+                    intersection = "True"
+                else:
+                    intersection = "False"
+
+                classSet = checkClasses(selected_trash_list, intersect)
+
+                finalSet = set()
+                if len(quantitySet) == 0 and len(classSet) == 0 and (quantity != "" or quantityType != "" or len(selected_trash_list) != 0):
+                    #print error
+                    #print nothing
+                    finalSet = set()
+                elif len(quantitySet) == 0 and len(classSet) == 0:
+                    for image in imgs_data["Images"]:
+                        finalSet.add(image["Name"])
+                elif len(quantitySet) == 0 and len(classSet) != 0:
+                    finalSet = classSet
+                elif len(quantitySet) != 0 and len(classSet) == 0:
+                    finalSet = quantitySet
+                else:
+                    finalSet = quantitySet.intersection(classSet)
+
+                for image in imgs_data["Images"]:
+                    img_data = []
+
+                    # img_data.append(image["Name"])
+                    # img_data.append(image["Quantity"])
+
+                    for n in finalSet:
+                        if image["Name"] == n:
+                            img_data.append(image["Name"])
+                            img_data.append(image["Quantity"])
+
+                    data.append(img_data)
+            result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
     return result
 
 # Runs the web app
