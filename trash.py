@@ -20,6 +20,8 @@ app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','gif','mp4'])
+recyclables = ["Bottle", "Bottle cap", "Can", "Plastic bag + wrapper", "Pop tab"]
+non_recyclables = ["Cigarette","Cup", "Lid","Other","Straw"]
 
 type = ""
 quantity = ""
@@ -293,7 +295,6 @@ def get_classes_info():
     
     return class_info
 
-
 # Search Page
 @app.route("/search", methods=["POST", "GET"])
 def search():
@@ -382,6 +383,18 @@ def search():
                         if image["Name"] == n:
                             img_data.append(image["Name"])
                             img_data.append(image["Quantity"])
+                            count = 0
+                            if type == "Recyclable":
+                                for c,c_count in classes_info[n].items():
+                                    if c in recyclables:
+                                        count+=c_count
+                                img_data.append(count)
+                            elif type == "Non-Recyclable":
+                                for c,c_count in classes_info[n].items():
+                                    if c in non_recyclables:
+                                        count+=c_count
+                                img_data.append(count)
+
                             for t in selected_trash_list:
                                 if t in classes_info[n]:
                                     img_data.append(classes_info[n][t])

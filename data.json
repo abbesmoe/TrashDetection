@@ -1,17 +1,16 @@
 {
     "Images": [
         {
-            "Name": "annotated_000001.jpg",
             "Classes": [
                 "Bottle",
                 "Bottle cap",
                 "Other",
                 "Other"
             ],
+            "Name": "annotated_000001.jpg",
             "Quantity": 4
         },
         {
-            "Name": "annotated_1.jpg",
             "Classes": [
                 "Plastic bag + wrapper",
                 "Bottle",
@@ -109,10 +108,10 @@
                 "Straw",
                 "Plastic bag + wrapper"
             ],
+            "Name": "annotated_1.jpg",
             "Quantity": 95
         },
         {
-            "Name": "annotated_000014.jpg",
             "Classes": [
                 "Plastic bag + wrapper",
                 "Other",
@@ -126,6 +125,7 @@
                 "Other",
                 "Other"
             ],
+            "Name": "annotated_000014.jpg",
             "Quantity": 11
         }
     ]
