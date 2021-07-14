@@ -281,6 +281,19 @@ def checkClasses(selected_trash, intersection):
 
     return classSet
 
+def get_classes_info():
+    from collections import Counter
+
+    class_info = dict()
+    with open("data.json",'r') as json_data:
+        data = json.load(json_data)
+        for img in data["Images"]:
+            c = Counter(img["Classes"])
+            class_info[img["Name"]] = dict(c)
+    
+    return class_info
+
+
 # Search Page
 @app.route("/search", methods=["POST", "GET"])
 def search():
@@ -329,6 +342,7 @@ def search():
                 if quantity != "" and quantityType != "":
                     quantitySet = checkQuantity(quantityType, quantity)
                 
+                # check if intersection checkbox is checked
                 intersect = ""
                 if "Intersection" in request.form:
                     intersect = request.form["Intersection"]
@@ -363,12 +377,19 @@ def search():
                     # img_data.append(image["Name"])
                     # img_data.append(image["Quantity"])
 
+                    classes_info = get_classes_info()
                     for n in finalSet:
                         if image["Name"] == n:
                             img_data.append(image["Name"])
                             img_data.append(image["Quantity"])
+                            for t in selected_trash_list:
+                                if t in classes_info[n]:
+                                    img_data.append(classes_info[n][t])
+                                else:
+                                    img_data.append(0)
 
                     data.append(img_data)
+
             result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
     return result
 
