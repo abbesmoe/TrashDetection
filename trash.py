@@ -346,8 +346,12 @@ def search():
                 elif len(quantitySet) == 0 and len(classSet) == 0:
                     for image in imgs_data["Images"]:
                         finalSet.add(image["Name"])
+                elif len(quantitySet) == 0 and len(classSet) != 0 and (quantity != "" or quantityType != ""):
+                    finalSet = set()
                 elif len(quantitySet) == 0 and len(classSet) != 0:
                     finalSet = classSet
+                elif len(quantitySet) != 0 and len(classSet) == 0 and len(selected_trash_list) != 0:
+                    finalSet = set()
                 elif len(quantitySet) != 0 and len(classSet) == 0:
                     finalSet = quantitySet
                 else:
