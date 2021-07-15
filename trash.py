@@ -1,10 +1,12 @@
 # Imports
 from flask import Flask, redirect, url_for, render_template, request, flash, send_file
 import os
+import numpy as np
 from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_args
 import json
 import threading
+import zipfile
 
 # Starts the web app
 app = Flask(__name__)
@@ -97,6 +99,7 @@ def detection(img):
     #skimage helps with image processing on a computer #
     img_path = "static/uploads/" + img
     image = skimage.io.imread(img_path)
+    image = np.asarray(image)
 
     # Remove alpha channel, if it has one
     if image.shape[-1] == 4:
@@ -158,6 +161,22 @@ def download_file():
         image = "static/uploads/"+request.args.get("img")
         return send_file(image,as_attachment=True)
 
+# Download an Image from the library page
+@app.route('/downloadall', methods=['GET'])
+def download_files():
+    zipf = zipfile.ZipFile('Images.zip','w', zipfile.ZIP_DEFLATED)
+    is_ann = request.args.get("is_ann")
+    images = request.args.getlist("images")
+    print(is_ann)
+    for image in images:
+        if is_ann == "True":
+            image_path = "static/annotated_images/"+image
+        else:
+            image_path = "static/uploads/"+image
+        zipf.write(image_path)
+    zipf.close()
+    return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
+
 # Removes an Image from the library page
 @app.route('/remove', methods=['GET'])
 def remove_file():
@@ -166,6 +185,17 @@ def remove_file():
     ann_img = "static/annotated_images/output_"+img
     os.remove(uploaded_img)
     os.remove(ann_img)
+    return redirect(url_for("library"))
+
+# Removes an Image from the library page
+@app.route('/removeall', methods=['GET'])
+def remove_files():
+    images = request.args.getlist("images")
+    for image in images:
+        uploaded_img = "static/uploads/"+image
+        ann_img = "static/annotated_images/output_"+image
+        os.remove(uploaded_img)
+        os.remove(ann_img)
     return redirect(url_for("library"))
 
 # Library Page
@@ -408,4 +438,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='127.0.0.2', port=5000)

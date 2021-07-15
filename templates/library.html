@@ -9,6 +9,12 @@
         <div class="w3-container w3-padding-8 w3-margin-top" id="upload">
             {{ pagination.links }}
             <form name="form1" id="form1" method="GET" action="/download">
+                <a href="{{url_for('download_files', images=images, is_ann='False')}}">Download All Images</a>
+                <br>
+                <a href="{{url_for('download_files', images=ann_images, is_ann='True')}}">Download All Annotated Images</a>
+                <br>
+                <a href="{{url_for('remove_files', images=images)}}">Remove All Images</a>
+                <br>
                 <table class="table"> 
                     <tr class="table__header">
                         <th class="table__header">
