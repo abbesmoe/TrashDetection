@@ -1,5 +1,5 @@
 # Imports
-from flask import Flask, redirect, url_for, render_template, request, flash, send_file
+from flask import Flask, redirect, url_for, render_template, request, flash, send_file, jsonify, make_response
 import os
 import numpy as np
 from werkzeug.utils import secure_filename
@@ -227,37 +227,32 @@ def library():
 def uploadredirect():
     return redirect(url_for("upload"))
 
-# Upload Page
-@app.route("/upload")
-def upload():
-    return render_template("upload.html")
-
 # Upload Page when a post method is envoked
-@app.route('/upload', methods=['POST'])
-def upload_image():
-    if 'files[]' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
-    files = request.files.getlist('files[]')
-    if files[0].filename == '':
-            flash('No image selected for uploading')
+@app.route('/upload', methods=['POST','GET'])
+def upload():
+    if request.method == "POST":
+        if 'files[]' not in request.files:
+            flash('No file part')
             return redirect(request.url)
-    for file in files:
-        if not (file and allowed_file(file.filename)):
-            flash('Allowed image types are - png, jpg, jpeg, gif, img, tif, tiff, bmp, eps, raw, mp4, mov, wmv, flv, avi')
-            return redirect(request.url)
-    flash('You can view all your uploaded files in the library page')
-    for file in files:
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            #print('upload_image filename: ' + filename)
-            flash(filename + ' has been successfully uploaded')
+        files = request.files.getlist('files[]')
+        if files[0].filename == '':
+                flash('No image selected for uploading')
+                return redirect(request.url)
+        for file in files:
+            if not (file and allowed_file(file.filename)):
+                flash('Allowed image types are - png, jpg, jpeg, gif, img, tif, tiff, bmp, eps, raw, mp4, mov, wmv, flv, avi')
+                return redirect(request.url)
+        flash('You can view all your uploaded files in the library page')
+        for file in files:
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                #print('upload_image filename: ' + filename)
+                flash(filename + ' has been successfully uploaded')
 
-            threading.Thread(target=detection(filename)).start()
-    ann_image= "output_" + filename
+                threading.Thread(target=detection(filename)).start()
 
-    return render_template('upload.html', filename=filename, ann_image=ann_image)
+    return render_template('upload.html')
 
 # Displays an Image
 @app.route('/display/<filename>')
