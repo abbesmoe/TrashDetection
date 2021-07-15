@@ -243,6 +243,7 @@ def upload():
                 flash('Allowed image types are - png, jpg, jpeg, gif, img, tif, tiff, bmp, eps, raw, mp4, mov, wmv, flv, avi')
                 return redirect(request.url)
         flash('You can view all your uploaded files in the library page')
+        thread = ""
         for file in files:
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
@@ -250,7 +251,10 @@ def upload():
                 #print('upload_image filename: ' + filename)
                 flash(filename + ' has been successfully uploaded')
 
-                threading.Thread(target=detection(filename)).start()
+                thread = threading.Thread(target=detection,args=[filename])
+                thread.start()
+        if thread != "":
+            thread.join()
 
     return render_template('upload.html')
 

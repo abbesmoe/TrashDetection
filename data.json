@@ -2,6 +2,16 @@
     "Images": [
         {
             "Classes": [
+                "Bottle",
+                "Bottle cap",
+                "Other",
+                "Other"
+            ],
+            "Quantity": 4,
+            "Name": "annotated_000001.jpg"
+        },
+        {
+            "Classes": [
                 "Plastic bag + wrapper",
                 "Other",
                 "Can",
@@ -16,16 +26,6 @@
             ],
             "Quantity": 11,
             "Name": "annotated_000014.jpg"
-        },
-        {
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
         },
         {
             "Classes": [
@@ -130,6 +130,16 @@
         },
         {
             "Classes": [
+                "Bottle",
+                "Bottle cap",
+                "Other",
+                "Other"
+            ],
+            "Quantity": 4,
+            "Name": "annotated_000001.jpg"
+        },
+        {
+            "Classes": [
                 "Plastic bag + wrapper",
                 "Other",
                 "Can",
@@ -144,43 +154,6 @@
             ],
             "Quantity": 11,
             "Name": "annotated_000014.jpg"
-        },
-        {
-            "Classes": [
-                "Plastic bag + wrapper",
-                "Other",
-                "Can",
-                "Other",
-                "Straw",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 11,
-            "Name": "annotated_000014.jpg"
-        },
-        {
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
-        },
-        {
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
         },
         {
             "Classes": [
@@ -285,6 +258,16 @@
         },
         {
             "Classes": [
+                "Bottle",
+                "Bottle cap",
+                "Other",
+                "Other"
+            ],
+            "Quantity": 4,
+            "Name": "annotated_000001.jpg"
+        },
+        {
+            "Classes": [
                 "Plastic bag + wrapper",
                 "Other",
                 "Can",
@@ -299,16 +282,6 @@
             ],
             "Quantity": 11,
             "Name": "annotated_000014.jpg"
-        },
-        {
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
         },
         {
             "Classes": [
