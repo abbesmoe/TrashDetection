@@ -1,33 +1,18 @@
 {
     "Images": [
         {
+            "Quantity": 4,
+            "Name": "annotated_000001.jpg",
             "Classes": [
                 "Bottle",
                 "Bottle cap",
                 "Other",
                 "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
+            ]
         },
         {
-            "Classes": [
-                "Plastic bag + wrapper",
-                "Other",
-                "Can",
-                "Other",
-                "Straw",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 11,
-            "Name": "annotated_000014.jpg"
-        },
-        {
+            "Quantity": 95,
+            "Name": "annotated_1.jpg",
             "Classes": [
                 "Plastic bag + wrapper",
                 "Bottle",
@@ -124,21 +109,11 @@
                 "Can",
                 "Straw",
                 "Plastic bag + wrapper"
-            ],
-            "Quantity": 95,
-            "Name": "annotated_1.jpg"
+            ]
         },
         {
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
-        },
-        {
+            "Quantity": 11,
+            "Name": "annotated_000014.jpg",
             "Classes": [
                 "Plastic bag + wrapper",
                 "Other",
@@ -151,11 +126,21 @@
                 "Plastic bag + wrapper",
                 "Other",
                 "Other"
-            ],
-            "Quantity": 11,
-            "Name": "annotated_000014.jpg"
+            ]
         },
         {
+            "Quantity": 4,
+            "Name": "annotated_000001.jpg",
+            "Classes": [
+                "Bottle",
+                "Bottle cap",
+                "Other",
+                "Other"
+            ]
+        },
+        {
+            "Quantity": 95,
+            "Name": "annotated_1.jpg",
             "Classes": [
                 "Plastic bag + wrapper",
                 "Bottle",
@@ -252,139 +237,11 @@
                 "Can",
                 "Straw",
                 "Plastic bag + wrapper"
-            ],
-            "Quantity": 95,
-            "Name": "annotated_1.jpg"
+            ]
         },
         {
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Other",
-                "Other"
-            ],
-            "Quantity": 4,
-            "Name": "annotated_000001.jpg"
-        },
-        {
-            "Classes": [
-                "Plastic bag + wrapper",
-                "Other",
-                "Can",
-                "Other",
-                "Straw",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other"
-            ],
             "Quantity": 11,
-            "Name": "annotated_000014.jpg"
-        },
-        {
-            "Classes": [
-                "Plastic bag + wrapper",
-                "Bottle",
-                "Bottle",
-                "Bottle",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Can",
-                "Bottle cap",
-                "Can",
-                "Other",
-                "Other",
-                "Bottle",
-                "Bottle",
-                "Cup",
-                "Other",
-                "Bottle",
-                "Plastic bag + wrapper",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Plastic bag + wrapper",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Bottle",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Cup",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Plastic bag + wrapper",
-                "Can",
-                "Other",
-                "Straw",
-                "Bottle",
-                "Bottle",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Cigarette",
-                "Other",
-                "Can",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Other",
-                "Cigarette",
-                "Plastic bag + wrapper",
-                "Other",
-                "Cigarette",
-                "Plastic bag + wrapper",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Cigarette",
-                "Bottle",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Other",
-                "Plastic bag + wrapper",
-                "Can",
-                "Straw",
-                "Plastic bag + wrapper"
-            ],
-            "Quantity": 95,
-            "Name": "annotated_1.jpg"
-        },
-        {
+            "Name": "annotated_000014.jpg",
             "Classes": [
                 "Plastic bag + wrapper",
                 "Other",
@@ -397,9 +254,7 @@
                 "Plastic bag + wrapper",
                 "Other",
                 "Other"
-            ],
-            "Quantity": 11,
-            "Name": "annotated_000014.jpg"
+            ]
         }
     ]
 }

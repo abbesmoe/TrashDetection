@@ -92,29 +92,31 @@ def load_model():
 model = load_model()
 
 # Run detection on an image
-def detection(img):
+def detection(images):
     global model
     import skimage.io
     # load an image #
     #skimage helps with image processing on a computer #
-    img_path = "static/uploads/" + img
-    image = skimage.io.imread(img_path)
-    image = np.asarray(image)
+    for img in images:
+        print(img)
+        img_path = "static/uploads/" + img
+        image = skimage.io.imread(img_path)
+        #image = np.asarray(image)
 
-    # Remove alpha channel, if it has one
-    if image.shape[-1] == 4:
-        image = image[..., :3]
+        # Remove alpha channel, if it has one
+        # if image.shape[-1] == 4:
+        #     image = image[..., :3]
 
-    class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
+        class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
 
-    r = model.detect([image], verbose=0)[0]
+        r = model.detect([image], verbose=0)[0]
 
-    print(r['scores'])
+        print(r['scores'])
 
-    import detector.visualize as visualize
-    visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+        import detector.visualize as visualize
+        visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
 
-    add_to_json(r,class_names,img)
+        add_to_json(r,class_names,img)
 
     return
 
@@ -243,18 +245,25 @@ def upload():
                 flash('Allowed image types are - png, jpg, jpeg, gif, img, tif, tiff, bmp, eps, raw, mp4, mov, wmv, flv, avi')
                 return redirect(request.url)
         flash('You can view all your uploaded files in the library page')
-        thread = ""
+        # thread = ""
+        images= []
         for file in files:
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 #print('upload_image filename: ' + filename)
                 flash(filename + ' has been successfully uploaded')
+                
+                images.append(filename)
+                # detection(filename)
 
-                thread = threading.Thread(target=detection,args=[filename])
-                thread.start()
-        if thread != "":
-            thread.join()
+                # thread = threading.Thread(target=detection,args=[filename])
+                # thread.start()
+        thread = threading.Thread(target=detection,args=[images])
+        thread.start()
+        thread.join()
+        # if thread != "":
+        #     thread.join()
 
     return render_template('upload.html')
 
