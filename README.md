@@ -50,6 +50,10 @@ If you use this dataset and API in a publication, please cite us using: &nbsp;
 * tensorflow 2.5
 * keras 2.5
 
+### How to setup
+1. Open Google CoLab and create a new notebook
+2. clone the repository ``` !git clone https://github.com/abbesmoe/TrashDetection ```
+3. 
 ### Download
 
 To download the dataset images simply issue
