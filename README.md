@@ -2,7 +2,10 @@
 <img src="https://raw.githubusercontent.com/wiki/pedropro/TACO/images/logonav.png" width="25%"/>
 </p>
 
-This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3, Keras, and TensorFlow. The model generates an instance segmentation with masks, bounding boxes, and accuracy scores on an image.
+This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3, Keras, and TensorFlow. The model generates an instance segmentation with masks, bounding boxes, and accuracy scores on an image. <br><br>
+
+Taco dataset: https://github.com/pedropro/TACO
+Mask-RCNN: https://github.com/matterport/Mask_RCNN
 
 
 <div align="center">
@@ -20,24 +23,6 @@ For convenience, annotations are provided in COCO format. Check the metadata her
 http://cocodataset.org/#format-data
 
 TACO is still relatively small, but it is growing. Stay tuned!
-
-# Publications
-
-For more details check our paper: https://arxiv.org/abs/2003.06975
-
-If you use this dataset and API in a publication, please cite us using: &nbsp;
-```
-@article{taco2020,
-    title={TACO: Trash Annotations in Context for Litter Detection},
-    author={Pedro F Proença and Pedro Simões},
-    journal={arXiv preprint arXiv:2003.06975},
-    year={2020}
-}
-```
-
-# News
-**December 20, 2019** - Added more 785 images and 2642 litter segmentations. <br/>
-**November 20, 2019** - TACO is officially open for new annotations: http://tacodataset.org/annotate
 
 # Getting started
 
@@ -212,9 +197,9 @@ print(df)
 ```
 ### Download
 
-To download the dataset images simply issue
+To download the taco dataset images simply issue
 ```
-python3 download.py
+!python3 download.py
 ```
 Alternatively, download from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3587843.svg)](https://doi.org/10.5281/zenodo.3587843)
 
