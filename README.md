@@ -52,8 +52,124 @@ If you use this dataset and API in a publication, please cite us using: &nbsp;
 
 ### How to setup
 1. Open Google CoLab and create a new notebook
-2. clone the repository ``` !git clone https://github.com/abbesmoe/TrashDetection ```
-3. 
+2. Clone the repository 
+``` !git clone https://github.com/abbesmoe/TrashDetection ```
+3. Install the requred packages
+``` 
+!pip install keras==2.5.0rc0
+!pip install tensorflow==2.5
+!pip install 'h5py==2.10.0'
+```
+4. Change the directory 
+``` %cd TrashDetection/ ```
+5. Import the necessary libraries
+``` 
+%matplotlib inline
+import csv
+import json
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import skimage.io
+from detector import dataset
+from detector import model as modellib
+from detector import visualize
+from detector.config import Config
+from os import path
+from PIL import Image
+```
+6. Check the number of images used and print the classes
+```
+class_map = {}
+with open("detector/taco_config/map_10.csv") as csvfile:
+    reader = csv.reader(csvfile)
+    class_map = {row[0]:row[1] for row in reader}
+
+TACO_DIR = "data/"
+round = None 
+subset = "train"
+dataset = dataset.Taco()
+taco = dataset.load_taco(TACO_DIR, round, subset,
+                         class_map=class_map, return_taco=True)
+
+dataset.prepare()
+
+print("Class Count: {}".format(dataset.num_classes))
+for i, info in enumerate(dataset.class_info):
+    print("{:3}. {:50}".format(i, info['name']))
+```
+7. Create confgi class and override hyperparamters
+```
+class TacoTestConfig(Config):
+  NAME = "taco"
+  GPU_COUNT = 1
+  IMAGES_PER_GPU = 1
+  NUM_CLASSES = dataset.num_classes
+
+config = TacoTestConfig()
+config.display()
+```
+8. Create the model and load pretrained weights
+ ```
+ model = modellib.MaskRCNN(mode="inference", model_dir='mask_rcnn_taco.hy',
+                          config=config)
+
+ model.load_weights('mask_rcnn_taco_0100.h5', by_name=True,
+                   weights_out_path=None)
+```
+Note: if you recieve the following the error: "OSError: Unable to open file (file signature not found)", delete the h5 file and redownload it. You can download the h5 file from the following link, https://github.com/pedropro/TACO/releases/tag/1.0. Scroll to the bottom of the page and download "taco_10_3.zip".
+
+9. Create list of class names
+```
+class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup",
+               "Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
+```
+10. Upload your own images into the static/uploads folder. Open image, and convert images to .jpg.
+```
+imagePath = "static/uploads/"
+imageName = "Your image.jpg"
+img = Image.open(os.path.join(imagePath, imageName))
+
+fileName = os.path.splitext(imageName)[0]
+fileExtension = os.path.splitext(imageName)[1]
+
+if fileExtension != '.jpg':
+  img.convert('RGB').save("{}{}.jpg".format(imagePath, fileName))
+  imageName = "{}.jpg".format(fileName)
+
+image = skimage.io.imread(os.path.join(imagePath, imageName))
+```
+11. Run the detection
+```
+r = model.detect([image], verbose=0)[0]
+```
+12. define the minimum accuracy displayed after detection.
+```
+def min_accuracy(r,a):
+  result = {'rois': [], 'masks': [], 'class_ids': [], 'scores': []}
+  indecies = []
+  for i,ele in enumerate(r['scores']):
+    if ele >= a:
+      result['rois'].append(r['rois'][i])
+      result['class_ids'].append(r['class_ids'][i])
+      result['scores'].append(r['scores'][i])
+      indecies.append(i)
+
+  result['masks'] = r['masks'][:,:,indecies]
+
+  result['rois'] = np.asarray(result['rois'])
+  result['masks'] = np.asarray(result['masks'])
+  result['class_ids'] = np.asarray(result['class_ids'])
+  result['scores'] = np.asarray(result['scores'])
+  return result
+
+r = min_accuracy(r,0.8)
+```
+13. Display original image and the masked image.
+```
+
+
 ### Download
 
 To download the dataset images simply issue
