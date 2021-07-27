@@ -2,11 +2,7 @@
 <img src="https://raw.githubusercontent.com/wiki/pedropro/TACO/images/logonav.png" width="25%"/>
 </p>
 
-TACO is a growing image dataset of waste in the wild. It contains images of litter taken under
-diverse environments: woods, roads and beaches. These images are manually labeled and segmented
-according to a hierarchical taxonomy to train and evaluate object detection algorithms. Currently,
-images are hosted on Flickr and we have a server that is collecting more images and
-annotations @ [tacodataset.org](http://tacodataset.org)
+This is an web app implementation of the TACO dataset and Mask R-CNN on Python 3, Keras, and TensorFlow. The model generates an instance segmentation with masks, bounding boxes, and accuracy scores on an image.
 
 
 <div align="center">
