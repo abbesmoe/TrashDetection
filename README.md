@@ -24,6 +24,10 @@ http://cocodataset.org/#format-data
 
 TACO is still relatively small, but it is growing. Stay tuned!
 
+# Improvements
+* Updated tensorflow and keras to the newest versions
+* Added more images to the dataset and re-trained the model for better accuracy
+
 # Getting started
 
 ### Requirements
@@ -201,13 +205,11 @@ print(df)
 ```
 ### Download
 
-To download the taco dataset images simply issue
+To download the original 1500 taco dataset images we started with, simply issue
 ```
+%cd TrashDetection/
 !python3 download.py
 ```
-Alternatively, download from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3587843.svg)](https://doi.org/10.5281/zenodo.3587843)
-
-Our API contains a jupyter notebook ``demo.pynb`` to inspect the dataset and visualize annotations.
 
 **Unlabeled data**
 
