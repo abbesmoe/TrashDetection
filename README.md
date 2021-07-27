@@ -34,17 +34,21 @@ TACO is still relatively small, but it is growing. Stay tuned!
 ### How to setup
 1. Open Google CoLab and create a new notebook
 2. Clone the repository 
-``` !git clone https://github.com/abbesmoe/TrashDetection ```
+```
+!git clone https://github.com/abbesmoe/TrashDetection
+```
 3. Install the requred packages
-``` 
+```
 !pip install keras==2.5.0rc0
 !pip install tensorflow==2.5
 !pip install 'h5py==2.10.0'
 ```
 4. Change the directory 
-``` %cd TrashDetection/ ```
+```
+%cd TrashDetection/
+```
 5. Import the necessary libraries
-``` 
+```
 %matplotlib inline
 import csv
 import json
