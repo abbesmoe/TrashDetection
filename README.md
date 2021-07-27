@@ -128,7 +128,7 @@ class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup",
 10. Upload your own images into the static/uploads folder. Open image, and convert images to .jpg.
 ```
 imagePath = "static/uploads/"
-imageName = "Your image.jpg"
+imageName = "Your_image.jpg"
 img = Image.open(os.path.join(imagePath, imageName))
 
 fileName = os.path.splitext(imageName)[0]
@@ -168,8 +168,52 @@ r = min_accuracy(r,0.8)
 ```
 13. Display original image and the masked image.
 ```
+plt.figure(figsize=(12,10))
+skimage.io.imshow(image)
+
+visualize.display_instances(image, imageName, r['rois'], r['masks'],
+                            r['class_ids'], class_names, r['scores'])
+```
+14. Write an empty json file
+```
+# run only once, unless you want to empty data.json
+with open('data.json', 'w') as f:
+  data = {"Images":[]}
+```
+15. Add data from detected image to data.json.
+```
+size = len(r['class_ids'])
+i = 0
+classNameList = []
+while i < size:
+  obj_name = class_names[r['class_ids'][i]]
+  classNameList.append(obj_name)
+  i = i + 1
+
+def write_json(data, filename="data.json"):
+  with open(filename, "w") as f:
+    json.dump(data, f, indent=4)
 
 
+img_data = {}
+imgdata["Name"] = "annotated{}".format(imageName)
+img_data["Quantity"] = len(classNameList)
+img_data['Classes'] = classNameList
+
+data['Images'].append(img_data)
+
+write_json(data)
+```
+16. Display a dataframe from data.json.
+```
+pd.set_option("display.max_rows", None, "display.max_columns", None)
+
+with open('data.json') as json_data:
+    data = json.load(json_data)
+
+df = pd.DataFrame(data['Images'])
+print(df)
+```
 ### Download
 
 To download the dataset images simply issue
