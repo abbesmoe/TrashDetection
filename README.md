@@ -99,7 +99,7 @@ print("Class Count: {}".format(dataset.num_classes))
 for i, info in enumerate(dataset.class_info):
     print("{:3}. {:50}".format(i, info['name']))
 ```
-7. Create confgi class and override hyperparamters
+7. Create config class and override hyperparamters
 ```
 class TacoTestConfig(Config):
   NAME = "taco"
@@ -144,7 +144,7 @@ image = skimage.io.imread(os.path.join(imagePath, imageName))
 ```
 r = model.detect([image], verbose=0)[0]
 ```
-12. define the minimum accuracy displayed after detection.
+12. Define the minimum accuracy displayed after detection.
 ```
 def min_accuracy(r,a):
   result = {'rois': [], 'masks': [], 'class_ids': [], 'scores': []}
