@@ -45,16 +45,10 @@ If you use this dataset and API in a publication, please cite us using: &nbsp;
 
 # Getting started
 
-### Requirements 
-
-To install the required python packages simply type
-```
-pip3 install -r requirements.txt
-```
-Additionaly, to use ``demo.pynb``, you will also need [coco python api](https://github.com/cocodataset/cocoapi). You can get this using
-```
-pip3 install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
-```
+### Requirements
+* python 3.7
+* tensorflow 2.5
+* keras 2.5
 
 ### Download
 
