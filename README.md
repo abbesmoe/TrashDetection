@@ -129,8 +129,20 @@ if fileExtension != '.jpg':
 
 image = skimage.io.imread(os.path.join(imagePath, imageName))
 ```
-11. Run the detection
+11. Run the detection on an image, skimage helps with image processing on a computer.
 ```
+def detection(images):
+    global model
+    
+    import skimage.io
+    # load an image #
+    #skimage helps with image processing on a computer #
+    
+    for img in images:
+        print(img)
+        img_path = "static/uploads/" + img
+        image = skimage.io.imread(img_path)
+
 r = model.detect([image], verbose=0)[0]
 ```
 12. Define the minimum accuracy displayed after detection.
