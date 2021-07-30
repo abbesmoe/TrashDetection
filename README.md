@@ -235,8 +235,7 @@ def checkQuantity():
 
       else:
         print(data['Images'][i]['Name'])
-
-checkQuantity()
+      checkQuantity()
 
 ### Download
 
