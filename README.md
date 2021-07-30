@@ -133,11 +133,8 @@ image = skimage.io.imread(os.path.join(imagePath, imageName))
 ```
 def detection(images):
     global model
-    
     import skimage.io
-    # load an image #
-    #skimage helps with image processing on a computer #
-    
+   
     for img in images:
         print(img)
         img_path = "static/uploads/" + img
