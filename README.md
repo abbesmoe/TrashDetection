@@ -164,7 +164,7 @@ def min_accuracy(r,a):
 
 r = min_accuracy(r,0.8)
 ```
-13. Display original image and the masked image.
+13. Display original image while also displaying the masked image.
 ```
 plt.figure(figsize=(12,10))
 skimage.io.imshow(image)
