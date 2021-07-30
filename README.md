@@ -213,29 +213,31 @@ df = pd.DataFrame(data['Images'])
 print(df)
 ```
 17. Checks for selected quantity of specific trash types in an image and loops through them to verify the conditions and output an image.
-def checkQuantity():
-  inp = int(input("Select a quantity: "))
-  userSign = "Greater than"
 
-  with open("../../data.json",'r') as json_data:
-    data = json.load(json_data)
 
-    for i in range(len(data["Images"])):
-      if userSign == 'Greater than':
+  
+        def checkQuantity():
+        inp = int(input("Select a quantity: "))
+        userSign = "Greater than"
+
+        with open("../../data.json",'r') as json_data:
+        data = json.load(json_data)
+        for i in range(len(data["Images"])):
+        if userSign == 'Greater than':
         if data['Images'][i]['Quantity'] >= inp:
           print(data['Images'][i]['Name'])
 
-      elif userSign == 'Less than':
+        elif userSign == 'Less than':
         if data['Images'][i]['Quantity'] <= inp:
           print(data['Images'][i]['Name'])
 
-      elif userSign == 'Equal to':
+        elif userSign == 'Equal to':
         if data['Images'][i]['Quantity'] == inp:
           print(data['Images'][i]['Name'])
 
-      else:
+        else:
         print(data['Images'][i]['Name'])
-      checkQuantity()
+         checkQuantity()
 
 ### Download
 
