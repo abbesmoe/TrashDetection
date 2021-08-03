@@ -267,7 +267,7 @@ Once access keys are entered, the s3 bucket should be visible with this command:
 aws s3 ls
 ```
 
-To transfer data between our local computer and the instance, we opted for the AWS s3 bucket. [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data from our s3 bucket to the instance and from the instance back to our s3 bucket.
+[This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data to and from the instance.
 
 
 
