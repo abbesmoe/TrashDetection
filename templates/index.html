@@ -2,16 +2,36 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <!-----Add this for interactive images-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
 <!-- Header -->
-<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-    <img class="w3-image" src="https://d2qgx4jylglh9c.cloudfront.net/en/wp-content/uploads/2017/09/Plastic-Eating-Bird.jpg" alt="Architecture" width="1500" height="800">
-    <div class="w3-display-middle w3-margin-top w3-center">
-      <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Taco Project</b></span>
-      <h1 class="w3-xlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Summer 2021</b></span>
-    </div>
-</header>
+
 
 <body>
+    <!--
+    <header id="header">
+        <img src="/static/taco.png" id="taco" style="width:75px;height:75px;">
+        <a href="#" class="logo">Taco</a>
+        <ul>
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/#capabilities">Our Story</a></li>
+            <li><a href="/#about">About Us</a></li>
+            <li><a href="/uploadredirect">Upload</a></li>
+            <li><a href="/library">Library</a></li>
+            <li><a href="/searchredirect">Search</a></li>
+            <li><a href="/#process">Process</a></li>
+        </ul>
+    </header>
+    -->
+    <section>
+        <img src="/static/sun1.png" id="sun"> <!---lowest layer-->
+        <h2 id="text"><span>Help save our</span><br>Planet</h2>
+        <img src="/static/water1.png" id="water">
+    </section>
     <!-- Page content -->
     <div class="w3-content w3-padding" style="max-width:1564px">
 
@@ -64,14 +84,55 @@
             <p class="w3-opacity">Intern</p>
             <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
             </div>
+
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/HVZ9jdV/carterw.jpg" alt="Carter" style="width:100%">
+            <h3>Carter Welke</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at University of California-Santa Cruz studying Computer Science.</p>
+            </div>
+
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="Zaher" style="width:100%">
+            <h3>Carter Welke</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
+            </div>
+
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/cXc817g/abel.jpg" alt="Abel" style="width:100%">
+            <h3>Abel Varughese</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at Rutgers University-New Brunswick studying Information Technology.</p>
+            </div>
+
+            <div class="w3-col l3 m6 w3-margin-bottom">
+            <img src="https://i.ibb.co/jGvWcxL/ryanr1.jpg" alt="RyanR" style="width:100%">
+            <h3>Ryan Romano</h3>
+            <p class="w3-opacity">Intern</p>
+            <p>Rising Senior at Northern Kentucky University studying Computer Science.</p>
+            </div>
         </div>
 
     <!-- End page content -->
+    <!---Add this for the interactive images-->
+    <div id='container'></div>
     </div>
 </body>
+<script>
+    let sun = document.getElementById("sun");
+    let water = document.getElementById("water");
+    let text = document.getElementById("text");
 
+    water.style.top = water.style.top + 50 + 'px';
 
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-</footer>
+    window.addEventListener('scroll', () => {
+        var value = window.scrollY;
+        sun.style.top = value * 0.5 + 'px';
+        water.style.top = water.style.top * -0.5 + 'px';
+        text.style.top = value * 0.5 + 'px';
+    });
+</script>
+<!--<script src="/script.js"></script>  import the javascript script-->
+
 {% endblock %}
