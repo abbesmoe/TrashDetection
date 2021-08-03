@@ -254,7 +254,24 @@ We used an AWS ec2 instance to train our model. We struggled with utilitizing th
 * p3.16xlarge was eight times the price but was not training eight times faster, training one epoch in roughly 14 minutes.
 Thus we stuck with the p3.2xlarge instance.
 
+**How to Link s3 bucket to ec2 instance**
+
+From the ec2 instance command line, run:
+```
+aws configure
+```
+For the required information: use the access keys from account that has the S3 bucket. You can find them under Account Security Credentials.
+
+For more information, [click here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+
+To list accessible s3 buckets, run:
+```
+aws s3 ls
+```
+
 To transfer data between our local computer and the instance, we opted for the AWS s3 bucket. [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data from our s3 bucket to the instance and from the instance back to our s3 bucket.
+
+
 
 ### Trash Detection
 
