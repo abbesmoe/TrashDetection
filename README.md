@@ -260,11 +260,9 @@ From the ec2 instance command line, run:
 ```
 aws configure
 ```
-For the required information: use the access keys from account that has the S3 bucket. You can find them under Account Security Credentials.
+For the required information: use the access keys from account that has the S3 bucket. You can find them under Account Security Credentials. For more information, [click here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
 
-For more information, [click here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
-
-To list accessible s3 buckets, run:
+Once access keys are entered, the s3 bucket should be visible with this command:
 ```
 aws s3 ls
 ```
