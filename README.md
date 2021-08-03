@@ -1,12 +1,6 @@
-<p align="center">
-<img src="https://raw.githubusercontent.com/wiki/pedropro/TACO/images/logonav.png" width="25%"/>
-</p>
+<h1 align="center">Trash Detection</h1>
 
-This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3, Keras, and TensorFlow. The model generates an instance segmentation with masks, bounding boxes, and accuracy scores on an image. <br>
-
-Taco dataset: https://github.com/pedropro/TACO <br>
-Mask-RCNN: https://github.com/matterport/Mask_RCNN
-
+This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3, Keras, and TensorFlow. The model generates an instance segmentation with masks, bounding boxes, class names, and accuracy scores on an image. <br>
 
 <div align="center">
   <div class="column">
@@ -19,10 +13,16 @@ Mask-RCNN: https://github.com/matterport/Mask_RCNN
 </div>
 </br>
 
-For convenience, annotations are provided in COCO format. Check the metadata here:
-http://cocodataset.org/#format-data
+# This Repository Includes:
+* Annotated image data in ```/data```
+* Implementation of Mask-RCNN in ```/detector```
+* Colab notebooks to train and test the model in ```/samples```
+* Uploaded and annotated images in ```/static```
+* Website html code in ```/templates```
 
-TACO is still relatively small, but it is growing. Stay tuned!
+**Implemented Repositories:**
+* Taco dataset: https://github.com/pedropro/TACO
+* Mask-RCNN: https://github.com/matterport/Mask_RCNN
 
 # Improvements
 * Updated tensorflow and keras to the newest versions
