@@ -255,6 +255,7 @@ We used an AWS ec2 instance to train our model. We struggled with utilitizing th
 Thus we stuck with the p3.2xlarge instance.
 
 To transfer data between our local computer and the instance, we opted for the AWS s3 bucket.
+
 [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data from our s3 bucket to the instance.
 
 **Unlabeled data**
