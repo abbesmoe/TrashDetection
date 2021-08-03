@@ -249,7 +249,7 @@ To download the original 1500 taco dataset images we started with, simply issue
 
 ### The Use of AWS
 
-We used an AWS ec2 instance to train our model. We struggled with utilitizing the GPU on the instances and found out our initial AMI did not come with graphics card drivers (NVIDIA drivers). We mainly tried to different instances:
+We used an AWS ec2 instance to train our model. We struggled with utilitizing the GPU on the instances and found out our initial AMI did not come with graphics card drivers (NVIDIA drivers). We mainly tried two different instances:
 * p3.2xlarge is cheaper and trained one epoch in roughly 16 minutes.
 * p3.16xlarge was eight times the price but was not training eight times faster, training one epoch in roughly 14 minutes.
 Thus we stuck with the p3.2xlarge instance.
