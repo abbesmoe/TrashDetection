@@ -1,37 +1,38 @@
-{% extends "base.html" %}
-{% block title %}Home Page{% endblock %}
-
 {% block content %}
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <!-----Add this for interactive images-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Home Page</title>
 </head>
-<!-- Header -->
-
 
 <body>
-    <!--
-    <header id="header">
-        <img src="/static/taco.png" id="taco" style="width:75px;height:75px;">
-        <a href="#" class="logo">Taco</a>
-        <ul>
-            <li><a href="/" class="active">Home</a></li>
-            <li><a href="/#capabilities">Our Story</a></li>
-            <li><a href="/#about">About Us</a></li>
-            <li><a href="/uploadredirect">Upload</a></li>
-            <li><a href="/library">Library</a></li>
-            <li><a href="/searchredirect">Search</a></li>
-            <li><a href="/#process">Process</a></li>
-        </ul>
-    </header>
-    -->
-    <section>
-        <img src="/static/sun1.png" id="sun"> <!---lowest layer-->
-        <h2 id="text"><span>Help save our</span><br>Planet</h2>
-        <img src="/static/water1.png" id="water">
-    </section>
+    <div class="w3-top navbar-fixed-top">
+        <div class="w3-bar w3-wide w3-padding w3-card">
+            <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
+            <!-- Float links to the right. Hide them on small screens -->
+            <div class="w3-right w3-hide-small">
+                <a href="/" class="w3-bar-item w3-button">Home</a> 
+                <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
+                <a href="/library" class="w3-bar-item w3-button">Library</a>
+                <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
+                <a href="/#capabilities" class="w3-bar-item w3-button">Capabilities</a>
+                <a href="/#process" class="w3-bar-item w3-button">Process</a>
+                <a href="/#about" class="w3-bar-item w3-button">About</a>
+            </div>
+        </div>
+    </div>
+    <div class="parallex">
+        <section>
+            <img src="/static/sun1.png" id="sun"> 
+            <h2 id="text"><span>Help save our</span><br>Planet</h2>
+            <img src="/static/water1.png" id="water">
+        </section>
+    </div>
+
+
+
     <!-- Page content -->
     <div class="w3-content w3-padding" style="max-width:1564px">
 
@@ -58,59 +59,61 @@
         <div class="w3-container w3-row-padding w3-padding-8" id="about">
             <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><u><b>About</b></u></h3>
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/M8sGNY4/unknown-adobespark.png" alt="Ryan" style="width:100%">
-            <h3>Ryan Lubin</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at Emory University studying Information Systems and Operations Management.</p>
+                <img src="https://i.ibb.co/M8sGNY4/unknown-adobespark.png" alt="Ryan" style="width:100%">
+                <h3>Ryan Lubin</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at Emory University studying Information Systems and Operations Management.</p>
             </div>
 
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/41pK6Vf/image0-adobespark.jpg" alt="Henry" style="width:100%">
-            <h3>Henry Lewis</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at the University of Cincinnati studying Business Analytics and Information Systems.</p>
+                <img src="https://i.ibb.co/41pK6Vf/image0-adobespark.jpg" alt="Henry" style="width:100%">
+                <h3>Henry Lewis</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at the University of Cincinnati studying Business Analytics and Information Systems.</p>
             </div>
             
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/hysD2TM/1-adobespark.jpg" alt="Moez" style="width:100%">
-            <h3>Moez Abbes</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at Michigan State University studying Computer Science.</p>
+                <img src="https://i.ibb.co/hysD2TM/1-adobespark.jpg" alt="Moez" style="width:100%">
+                <h3>Moez Abbes</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at Michigan State University studying Computer Science.</p>
+                <p style="visibility: hidden;">lorem ipsum doler make this invisible</p>
             </div>
 
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/3FQWY4w/Hafeez.jpg" alt="Hafeez" style="width:100%">
-            <h3>Hafeez Oyeneyin</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
+                <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="Zaher" style="width:100%">
+                <h3>Zaher Hage</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
+                <p style="visibility: hidden;">lorem ipsum doler make this invisible</p>
             </div>
 
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/HVZ9jdV/carterw.jpg" alt="Carter" style="width:100%">
-            <h3>Carter Welke</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at University of California-Santa Cruz studying Computer Science.</p>
+                <img src="https://i.ibb.co/HVZ9jdV/carterw.jpg" alt="Carter" style="width:100%">
+                <h3>Carter Welke</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at University of California-Santa Cruz studying Computer Science.</p>
             </div>
 
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="Zaher" style="width:100%">
-            <h3>Carter Welke</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
+                <img src="https://i.ibb.co/3FQWY4w/Hafeez.jpg" alt="Hafeez" style="width:100%">
+                <h3>Hafeez Oyeneyin</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
             </div>
 
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/cXc817g/abel.jpg" alt="Abel" style="width:100%">
-            <h3>Abel Varughese</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at Rutgers University-New Brunswick studying Information Technology.</p>
+                <img src="https://i.ibb.co/cXc817g/abel.jpg" alt="Abel" style="width:100%">
+                <h3>Abel Varughese</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at Rutgers University-New Brunswick studying Information Technology.</p>
             </div>
 
             <div class="w3-col l3 m6 w3-margin-bottom">
-            <img src="https://i.ibb.co/jGvWcxL/ryanr1.jpg" alt="RyanR" style="width:100%">
-            <h3>Ryan Romano</h3>
-            <p class="w3-opacity">Intern</p>
-            <p>Rising Senior at Northern Kentucky University studying Computer Science.</p>
+                <img src="https://i.ibb.co/jGvWcxL/ryanr1.jpg" alt="RyanR" style="width:100%">
+                <h3>Ryan Romano</h3>
+                <p class="w3-opacity">Intern</p>
+                <p>Rising Senior at Northern Kentucky University studying Computer Science.</p>
             </div>
         </div>
 
@@ -120,6 +123,13 @@
     </div>
 </body>
 <script>
+    $(function () {
+        $(document).scroll(function () {
+        var $nav = $(".navbar-fixed-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height()*10);
+        });
+    });
+
     let sun = document.getElementById("sun");
     let water = document.getElementById("water");
     let text = document.getElementById("text");
@@ -133,6 +143,5 @@
         text.style.top = value * 0.5 + 'px';
     });
 </script>
-<!--<script src="/script.js"></script>  import the javascript script-->
 
 {% endblock %}
