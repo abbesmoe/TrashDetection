@@ -241,7 +241,7 @@ print(df)
 
 ### Download
 
-To download the original 1500 taco dataset images we started with, simply issue
+To download the original 1500 taco dataset images we started with, simply issue:
 ```
 %cd TrashDetection/
 !python3 download.py
