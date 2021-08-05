@@ -4,8 +4,31 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <!-----Add this for interactive images-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
     <title>Home Page</title>
 </head>
+
+<style>
+    .owl-dots{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.owl-dot{
+  height: 13px;
+  width: 13px;
+  outline: none! important;
+  border-radius: 50%;
+  border: 2px solid white!important;
+}
+
+.owl-dot.active{
+    width: 35px;
+    border-radius: 14px;
+}
+</style>
 
 <body>
     <div class="w3-top navbar-fixed-top">
@@ -55,67 +78,79 @@
             <p>Program displays labeled images or provides results in SQL format</p>
         </div>
 
-        <!-- About Section -->
-        <div class="w3-container w3-row-padding w3-padding-8" id="about">
+        <!-- About section-->
+        <div class="w3-container w3-padding-8" id="About">
             <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><u><b>About</b></u></h3>
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/M8sGNY4/unknown-adobespark.png" alt="Ryan" style="width:100%">
-                <h3>Ryan Lubin</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at Emory University studying Information Systems and Operations Management.</p>
-            </div>
-
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/41pK6Vf/image0-adobespark.jpg" alt="Henry" style="width:100%">
-                <h3>Henry Lewis</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at the University of Cincinnati studying Business Analytics and Information Systems.</p>
-            </div>
-            
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/hysD2TM/1-adobespark.jpg" alt="Moez" style="width:100%">
-                <h3>Moez Abbes</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at Michigan State University studying Computer Science.</p>
-                <p style="visibility: hidden;">lorem ipsum doler make this invisible</p>
-            </div>
-
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="Zaher" style="width:100%">
-                <h3>Zaher Hage</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
-                <p style="visibility: hidden;">lorem ipsum doler make this invisible</p>
-            </div>
-
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/HVZ9jdV/carterw.jpg" alt="Carter" style="width:100%">
-                <h3>Carter Welke</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at University of California-Santa Cruz studying Computer Science.</p>
-            </div>
-
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/3FQWY4w/Hafeez.jpg" alt="Hafeez" style="width:100%">
-                <h3>Hafeez Oyeneyin</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
-            </div>
-
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/cXc817g/abel.jpg" alt="Abel" style="width:100%">
-                <h3>Abel Varughese</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at Rutgers University-New Brunswick studying Information Technology.</p>
-            </div>
-
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <img src="https://i.ibb.co/jGvWcxL/ryanr1.jpg" alt="RyanR" style="width:100%">
-                <h3>Ryan Romano</h3>
-                <p class="w3-opacity">Intern</p>
-                <p>Rising Senior at Northern Kentucky University studying Computer Science.</p>
+            <div class="max-width">
+                <div class="carousel owl-carousel">
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/M8sGNY4/unknown-adobespark.png" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Ryan Lubin</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at Emory University studying Information Systems and Operations Management.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/41pK6Vf/image0-adobespark.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Henry Lewis</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at the University of Cincinnati studying Business Analytics and Information Systems.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/hysD2TM/1-adobespark.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Moez Abbes</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at Michigan State University studying Computer Science.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/3FQWY4w/Hafeez.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Hafeez Oyeneyin</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/jGvWcxL/ryanr1.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Ryan Romano</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at Northern Kentucky University studying Computer Science.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/cXc817g/abel.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Abel Varughese</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at Rutgers University-New Brunswick studying Information Technology.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Zaher Hage</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
+                        <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <img src="https://i.ibb.co/HVZ9jdV/carterw.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Carter Welke</div>
+                            <p class="w3-opacity">Intern</p>
+                            <p>Rising Senior at University of California-Santa Cruz studying Computer Science.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        
 
     <!-- End page content -->
     <!---Add this for the interactive images-->
@@ -141,6 +176,29 @@
         sun.style.top = value * 0.5 + 'px';
         water.style.top = water.style.top * -0.5 + 'px';
         text.style.top = value * 0.5 + 'px';
+    });
+
+    // owl carousel script
+    $('.carousel').owlCarousel({
+        margin: 20,
+        loop: true,
+        autoplayTimeOut: 2000,
+        autoplayHoverPause: true,
+        responsive: {
+            0:{
+                items: 1,
+                nav: false
+            },
+            600:{
+                items: 2,
+                nav: false
+            },
+            1000:{
+                items: 4,
+                nav: false
+            }
+        }
+
     });
 </script>
 
