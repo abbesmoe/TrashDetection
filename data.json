@@ -1,14 +1,3 @@
 {
-    "Images": [
-        {
-            "Name": "annotated_trash3.jpg",
-            "Quantity": 4,
-            "Classes": [
-                "Bottle",
-                "Bottle cap",
-                "Bottle cap",
-                "Lid"
-            ]
-        }
-    ]
+    "Images": []
 }

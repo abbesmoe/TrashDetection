@@ -120,6 +120,10 @@ def detection(images):
 
     return
 
+def write_json(data, filename="data.json"):
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=4)
+
 # Add image information to a json file after running through detection
 def add_to_json(r,class_names,imageName):
     global images_data
@@ -128,11 +132,6 @@ def add_to_json(r,class_names,imageName):
     for i in range(len(r['class_ids'])):
         obj_name = class_names[r['class_ids'][i]]
         classNameList.append(obj_name)
-
-    def write_json(data, filename="data.json"):
-        with open(filename, "w") as f:
-            json.dump(data, f, indent=4)
-
 
     img_data = {}
     img_data["Name"] = "annotated_{}".format(imageName)
@@ -182,17 +181,30 @@ def download_files():
 # Removes an Image from the library page
 @app.route('/remove', methods=['GET'])
 def remove_file():
+    global images_data
     img = request.args.get("img")
     uploaded_img = "static/uploads/"+img
     ann_img = "static/annotated_images/output_"+img
     os.remove(uploaded_img)
     os.remove(ann_img)
+
+    ann_name = 'annotated_' + img
+
+    for i, img in enumerate(images_data['Images']):
+        if img['Name'] == ann_name:
+            images_data['Images'].pop(i)
+    
+    write_json(images_data)
+    
     return redirect(url_for("library"))
 
 # Removes an Image from the library page
 @app.route('/removeall', methods=['GET'])
 def remove_files():
+    global images_data
     images = request.args.getlist("images")
+    images_data = {"Images":[]}
+    write_json(images_data)
     for image in images:
         uploaded_img = "static/uploads/"+image
         ann_img = "static/annotated_images/output_"+image
@@ -409,6 +421,8 @@ def search():
                     finalSet = quantitySet
                 else:
                     finalSet = quantitySet.intersection(classSet)
+                
+                print(finalSet)
 
                 for image in imgs_data["Images"]:
                     img_data = []
@@ -446,4 +460,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.2', port=5000)
+    app.run(debug=True, host='127.0.0.3', port=5000)
