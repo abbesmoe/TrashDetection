@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block title %}Search Page{% endblock %} {% block links %}
-<link rel="stylesheet" href="/static/table.css" />{% endblock %} {% block content %}
+<link rel="stylesheet" href="/static/table.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> {% endblock %} {% block content %}
 
 <body style="background-color:white;">
     <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
@@ -7,7 +8,7 @@
         <div class="w3-container w3-padding-8 w3-margin-top" id="Menu">
             <form name="form1" id="form1" method="POST" action="/search">
                 Type of Trash:
-                <select name="type" id="type" value="type">
+                <select name="type" id="type" value="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     {% if type == "" %}
                         <option value="" selected="selected"></option>
                         <option value="Recyclable">Recyclable</option>
@@ -23,9 +24,9 @@
                         <option value="Recyclable">Recyclable</option>
                         <option value="Non-Recyclable" selected="selected">Non-Recyclable</option>
                     {% endif %}
-                </select>
-                <br><br>Object:
-                <select name="trash" id="trash">
+                </select> Object:
+                <div>
+                    <select name="trash" id="trash" size="3" class="form-select" multiple aria-label="multiple select example">
                     {% for n in trash_list %}
                         {% if n == "Bottle" %} 
                             <option value="Bottle">Bottle</option>
@@ -58,10 +59,10 @@
                             <option value="Straw">Straw</option>
                         {% endif %} 
                     {% endfor %}
-                </select>
-                <input type="submit" name="+" id="+" value="+">
-                <br><br>Selected Trash:
-                <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple">  
+                    </select><input type="submit" name="+" id="+" value="+" class="a">
+                </div>
+                Selected Trash:
+                <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple" class="form-select" multiple aria-label="multiple select example">  
                     {% for n in selected_trash_list %}
                         {% if n == "Bottle" %} 
                             <option value="Bottle">Bottle</option>
@@ -95,12 +96,12 @@
                         {% endif %} 
                     {% endfor %}
                 </select>
-                <input type="submit" name="-" id="-" value="-">
-                <br> {% if intersection == "False" %}
-                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection"> {% endif %} {% if intersection == "True" %}
-                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" checked> {% endif %}
+                <input type="submit" name="-" id="-" value="-" class="a">
+                <br><br> {% if intersection == "False" %}
+                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input"> {% endif %} {% if intersection == "True" %}
+                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input" checked> {% endif %}
                 <label for="Intersection">Intersection of All Selected Objects</label>
-                <br><br>Quantity:
+                <br><br>Quantity:<br>
                 <select name="quantityType" id="quantityType" value="quantityType">
                     {% if quantityType == "" %}
                         <option value="" selected="selected"></option>
@@ -129,23 +130,22 @@
                 </select> {% if quantity == ""%}
                 <input type="text" name="quantity" id="quantity" placeholder="Quantity"> {% endif %} {% if quantity != ""%}
                 <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}> {% endif %}
-                <br><br>
-                <input type="submit" value="Search" id="Search" name="Search">
+                <br><input type="submit" value="Search" id="Search" name="Search" class="b">
             </form>
         </div>
 
         <!-- Table Section -->
         <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities">
-            <table class="table" style="display: {{ style }} ">
-                <tr class="table__header">
+            <table class="table table-hover" style="display: {{ style }} ">
+                <tr class="table-primary">
                     {% for header in headings %}
-                    <th class="table__cell">{{ header }}</th>
+                    <th scope="col">{{ header }}</th>
                     {% endfor %}
                 </tr>
                 {% for row in data %}
-                <tr class="table__row">
+                <tr class="table-light">
                     {% for cell in row %}
-                    <td class="table__cell">{{ cell }}</td>
+                    <td class="table-light">{{ cell }}</td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
