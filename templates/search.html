@@ -142,24 +142,22 @@
                 </div>
             </form>
         </div>
-
+        <br>
         <!-- Table Section -->
-        <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities">
-            <table class="table table-hover" style="display: {{ style }} ">
-                <tr class="table-primary">
-                    {% for header in headings %}
-                    <th scope="col">{{ header }}</th>
-                    {% endfor %}
-                </tr>
-                {% for row in data %}
-                <tr class="table-light">
-                    {% for cell in row %}
-                    <td class="table-light">{{ cell }}</td>
-                    {% endfor %}
-                </tr>
+        <table class="table table-hover" style="display: {{ style }} ">
+            <tr class="table-primary">
+                {% for header in headings %}
+                <th scope="col">{{ header }}</th>
                 {% endfor %}
-            </table>
-        </div>
+            </tr>
+            {% for row in data %}
+            <tr class="table-light">
+                {% for cell in row %}
+                <td class="table-light">{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 </body>
 {% endblock %}
