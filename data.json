@@ -1,19 +1,85 @@
 {
     "Images": [
         {
-            "Name": "annotated_000000.JPG",
-            "Quantity": 9,
+            "Name": "000000.JPG",
+            "Quantity": 3,
             "Classes": [
                 "Bottle",
                 "Bottle cap",
-                "Other",
-                "Cigarette",
-                "Cigarette",
-                "Bottle cap",
-                "Can",
-                "Other",
-                "Bottle cap"
+                "Other"
             ]
+        },
+        {
+            "Name": "000001.JPG",
+            "Quantity": 2,
+            "Classes": [
+                "Bottle",
+                "Cigarette"
+            ]
+        },
+        {
+            "Name": "000003.JPG",
+            "Quantity": 0,
+            "Classes": []
+        },
+        {
+            "Name": "000005.JPG",
+            "Quantity": 4,
+            "Classes": [
+                "Plastic bag + wrapper",
+                "Plastic bag + wrapper",
+                "Other",
+                "Other"
+            ]
+        },
+        {
+            "Name": "000006.JPG",
+            "Quantity": 1,
+            "Classes": [
+                "Other"
+            ]
+        },
+        {
+            "Name": "000008.JPG",
+            "Quantity": 1,
+            "Classes": [
+                "Other"
+            ]
+        },
+        {
+            "Name": "000009.JPG",
+            "Quantity": 2,
+            "Classes": [
+                "Lid",
+                "Straw"
+            ]
+        },
+        {
+            "Name": "000010.JPG",
+            "Quantity": 1,
+            "Classes": [
+                "Bottle"
+            ]
+        },
+        {
+            "Name": "000012.JPG",
+            "Quantity": 2,
+            "Classes": [
+                "Other",
+                "Other"
+            ]
+        },
+        {
+            "Name": "000013.JPG",
+            "Quantity": 1,
+            "Classes": [
+                "Plastic bag + wrapper"
+            ]
+        },
+        {
+            "Name": "000020.JPG",
+            "Quantity": 0,
+            "Classes": []
         }
     ]
 }

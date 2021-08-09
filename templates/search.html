@@ -1,8 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Search Page{% endblock %}
-{% block links %}<link rel="stylesheet" href="/static/table.css" />{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Search Page{% endblock %} {% block links %}
+<link rel="stylesheet" href="/static/table.css" />{% endblock %} {% block content %}
 
 <body style="background-color:white;">
     <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
@@ -62,7 +59,7 @@
                         {% endif %} 
                     {% endfor %}
                 </select>
-                <input type="submit" name="+" id="+"  value="+">
+                <input type="submit" name="+" id="+" value="+">
                 <br><br>Selected Trash:
                 <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple">  
                     {% for n in selected_trash_list %}
@@ -99,13 +96,9 @@
                     {% endfor %}
                 </select>
                 <input type="submit" name="-" id="-" value="-">
-                <br>
-                {% if intersection == "False" %}
-                    <input type="checkbox" id="Intersection" name="Intersection" value="Intersection">
-                {% endif %}
-                {% if intersection == "True" %}
-                    <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" checked>
-                {% endif %}
+                <br> {% if intersection == "False" %}
+                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection"> {% endif %} {% if intersection == "True" %}
+                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" checked> {% endif %}
                 <label for="Intersection">Intersection of All Selected Objects</label>
                 <br><br>Quantity:
                 <select name="quantityType" id="quantityType" value="quantityType">
@@ -133,13 +126,9 @@
                         <option value="Less than">Less than</option>
                         <option value="Equal to" selected="selected">Equal to</option>
                     {% endif %}
-                </select>
-                {% if quantity == ""%}
-                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" >
-                {% endif %}
-                {% if quantity != ""%}
-                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}>
-                {% endif %}
+                </select> {% if quantity == ""%}
+                <input type="text" name="quantity" id="quantity" placeholder="Quantity"> {% endif %} {% if quantity != ""%}
+                <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}> {% endif %}
                 <br><br>
                 <input type="submit" value="Search" id="Search" name="Search">
             </form>
@@ -147,11 +136,11 @@
 
         <!-- Table Section -->
         <div class="w3-container w3-padding-8 w3-margin-top" id="capabilities">
-            <table class="table" style="display: style ">
+            <table class="table" style="display: {{ style }} ">
                 <tr class="table__header">
-                {% for header in headings %}
+                    {% for header in headings %}
                     <th class="table__cell">{{ header }}</th>
-                {% endfor %}
+                    {% endfor %}
                 </tr>
                 {% for row in data %}
                 <tr class="table__row">
