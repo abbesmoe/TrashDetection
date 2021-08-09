@@ -1,8 +1,9 @@
 {% block content %}
+
+<!--Importing style.css and javascript for implementing features-->
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <!-----Add this for interactive images-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -10,31 +11,11 @@
     <title>Home Page</title>
 </head>
 
-<style>
-    .owl-dots{
-  text-align: center;
-  margin-top: 20px;
-}
-
-.owl-dot{
-  height: 13px;
-  width: 13px;
-  outline: none! important;
-  border-radius: 50%;
-  border: 2px solid white!important;
-}
-
-.owl-dot.active{
-    width: 35px;
-    border-radius: 14px;
-}
-</style>
-
 <body>
+    <!--Navbar, usually in base.html but here so i can update the css specifically for the home page-->
     <div class="w3-top navbar-fixed-top">
         <div class="w3-bar w3-wide w3-padding w3-card">
             <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
-            <!-- Float links to the right. Hide them on small screens -->
             <div class="w3-right w3-hide-small">
                 <a href="/" class="w3-bar-item w3-button">Home</a> 
                 <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
@@ -46,6 +27,7 @@
             </div>
         </div>
     </div>
+    <!--Parallex images-->
     <div class="parallex">
         <section>
             <img src="/static/sun1.png" id="sun"> 
@@ -109,10 +91,10 @@
                     </div>
                     <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
                         <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <img src="https://i.ibb.co/3FQWY4w/Hafeez.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
-                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Hafeez Oyeneyin</div>
+                            <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Zaher Hage</div>
                             <p class="w3-opacity">Intern</p>
-                            <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
+                            <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
                         </div>
                     </div>
                     <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
@@ -133,10 +115,10 @@
                     </div>
                     <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
                         <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <img src="https://i.ibb.co/HdQfnJR/zaher1.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
-                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Zaher Hage</div>
+                            <img src="https://i.ibb.co/3FQWY4w/Hafeez.jpg" alt="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 5px solid white;">
+                            <div class="text" style="color: white; font-size: 25px; font-weight: 500; margin: 10px 0 7px 0;">Hafeez Oyeneyin</div>
                             <p class="w3-opacity">Intern</p>
-                            <p>Rising Senior at University of Michigan-Ann Arbor studying Computer Science.</p>
+                            <p>Senior at University of Michigan-Dearborn studying Computer Engineering.</p>
                         </div>
                     </div>
                     <div class="card" style="border-radius: 6px; padding: 25px 35px; text-align: center;">
@@ -150,14 +132,12 @@
                 </div>
             </div>
         </div>
-        
-
     <!-- End page content -->
-    <!---Add this for the interactive images-->
-    <div id='container'></div>
     </div>
 </body>
+<!--Javascript, couldnt get js file to work-->
 <script>
+    //function that changes the color of the nav bar as you scroll
     $(function () {
         $(document).scroll(function () {
         var $nav = $(".navbar-fixed-top");
@@ -165,12 +145,11 @@
         });
     });
 
+    //Implementing parallex, what allows the images to move as you scroll
     let sun = document.getElementById("sun");
     let water = document.getElementById("water");
     let text = document.getElementById("text");
-
     water.style.top = water.style.top + 50 + 'px';
-
     window.addEventListener('scroll', () => {
         var value = window.scrollY;
         sun.style.top = value * 0.5 + 'px';
@@ -178,7 +157,7 @@
         text.style.top = value * 0.5 + 'px';
     });
 
-    // owl carousel script
+    // owl carousel script, for the about section
     $('.carousel').owlCarousel({
         margin: 20,
         loop: true,
@@ -198,7 +177,6 @@
                 nav: false
             }
         }
-
     });
 </script>
 
