@@ -8,15 +8,38 @@ import json
 import threading
 import zipfile
 
+import csv
+import detector.dataset as datasets
+import detector.model as modellib
+import skimage.io
+import detector.visualize as visualize
+
 # Starts the web app
 app = Flask(__name__)
 
 # Setting global variables
+# Lists to store trash categories for the search page to display
 trash_list = ["Bottle", "Pop tab", "Can", "Bottle cap", "Cigarette", "Cup", "Lid", "Other", "Plastic bag + wrapper", "Straw"]
 selected_trash_list = []
-images_data = {"Images":[]}
+
+# Lists identifying which trash categories are recyclable and which are not
+recyclables = ["Bottle", "Bottle cap", "Can", "Plastic bag + wrapper", "Pop tab"]
+non_recyclables = ["Cigarette","Cup", "Lid","Other","Straw"]
+
+# Lists to store the search page table headers and rows
 headings = ["Images","Quantity"]
 data = []
+
+# Additional variables for the search page
+type = ""                   # Recyclables or Nonrecyclables
+quantity = ""               # Quantity value provided in search page
+quantityType = ""   # Quantity filter type (>,<,=)
+intersection = "False"      # Intersection filter
+
+# Dictionary for the json file to store image data
+images_data = {"Images":[]}
+
+# For files upload in upload page
 UPLOAD_FOLDER = 'static/uploads/'
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -25,11 +48,6 @@ ALLOWED_EXTENSIONS = set(['jpg','png','jpeg','img','gif','mp4'])
 recyclables = ["Bottle", "Bottle cap", "Can", "Plastic bag + wrapper", "Pop tab"]
 non_recyclables = ["Cigarette","Cup", "Lid","Other","Straw"]
 
-type = ""
-quantity = ""
-quantityType = ""
-intersection = "False"
-
 # Used to grab a set amount of the images for pagination in library page
 def get_images(images, offset=0, per_page=10):
     return images[offset: offset + per_page]
@@ -37,9 +55,6 @@ def get_images(images, offset=0, per_page=10):
 # Loads the model
 def load_model():
     ## Load Dataset
-    import csv
-    import detector.dataset as dataset
-
     # Load class map - these tables map the original TACO classes to your desired class system
     # and allow you to discard classes that you don't want to include.
     class_map = {}
@@ -51,16 +66,18 @@ def load_model():
     TACO_DIR = "data"
     round = None # Split number: If None, loads full dataset else if int > 0 selects split no 
     subset = "train" # Used only when round !=None, Options: ('train','val','test') to select respective subset
-    dataset = dataset.Taco()
+    dataset = datasets.Taco()
     taco = dataset.load_taco(TACO_DIR, round, subset, class_map=class_map, return_taco=True)
 
     # Must call before using the dataset
     dataset.prepare()
 
+    # Print the classes
     print("Class Count: {}".format(dataset.num_classes))
     for i, info in enumerate(dataset.class_info):
         print("{:3}. {:50}".format(i, info['name']))
 
+    # Set the config
     from detector.config import Config
     class TacoTestConfig(Config):
         NAME = "taco"
@@ -68,13 +85,9 @@ def load_model():
         IMAGES_PER_GPU = 1
         DETECTION_MIN_CONFIDENCE = 0.3
         NUM_CLASSES = dataset.num_classes
-    #     IMAGE_MAX_DIM = 1024
-    #     IMAGE_MIN_DIM = 1024
-    #     IMAGE_RESIZE_MODE = "square"
     config = TacoTestConfig()
     config.display()
 
-    import detector.model as modellib
     # Create model objects in inference mode.
     # inference mode means we are taking live data points to calculate an output #
     # model dir is where the trained model is saved #
@@ -91,60 +104,58 @@ def load_model():
 # Loads the model
 model = load_model()
 
+# Filter detection results to a passed min accuracy
+def min_accuracy(r,a):
+  result = {'rois': [], 'masks': [], 'class_ids': [], 'scores': []}
+  indecies = []
+  for i,ele in enumerate(r['scores']):
+    if ele >= a:
+      result['rois'].append(r['rois'][i])
+      result['class_ids'].append(r['class_ids'][i])
+      result['scores'].append(r['scores'][i])
+      indecies.append(i)
+  result['masks'] = r['masks'][:,:,indecies]
+  result['rois'] = np.asarray(result['rois'])
+  result['masks'] = np.asarray(result['masks'])
+  result['class_ids'] = np.asarray(result['class_ids'])
+  result['scores'] = np.asarray(result['scores'])
+  return result
+
 # Run detection on an image
 def detection(images):
     global model
-    import skimage.io
     # load an image #
-    #skimage helps with image processing on a computer #
+    # skimage helps with image processing on a computer #
     for img in images:
         print(img)
         img_path = "static/uploads/" + img
         image = skimage.io.imread(img_path)
-        #image = np.asarray(image)
-
-        # Remove alpha channel, if it has one
-        # if image.shape[-1] == 4:
-        #     image = image[..., :3]
-
         class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
-
         r = model.detect([image], verbose=0)[0]
-
+        r = min_accuracy(r,0.9)
         print(r['scores'])
-
-        import detector.visualize as visualize
         visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
-
         add_to_json(r,class_names,img)
-
     return
-
-def write_json(data, filename="data.json"):
-        with open(filename, "w") as f:
-            json.dump(data, f, indent=4)
 
 # Add image information to a json file after running through detection
 def add_to_json(r,class_names,imageName):
     global images_data
-
     classNameList = []
     for i in range(len(r['class_ids'])):
         obj_name = class_names[r['class_ids'][i]]
         classNameList.append(obj_name)
-
     img_data = {}
-    img_data["Name"] = "annotated_{}".format(imageName)
+    img_data["Name"] = imageName
     img_data["Quantity"] = len(classNameList)
     img_data['Classes'] = classNameList
-
     images_data['Images'].append(img_data)
-
     write_json(images_data)
 
-# Checks if the uploaded images have supported extensions
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# Writes the json file
+def write_json(data, filename="data.json"):
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
 
 # Home page
 @app.route("/")
@@ -188,7 +199,7 @@ def remove_file():
     os.remove(uploaded_img)
     os.remove(ann_img)
 
-    ann_name = 'annotated_' + img
+    ann_name = img
 
     for i, img in enumerate(images_data['Images']):
         if img['Name'] == ann_name:
@@ -231,7 +242,6 @@ def library():
     return render_template("library.html", 
                            images=pagination_images,
                            ann_images=pagination_ann_images,
-                           list_len=len(images),
                            page=page,
                            per_page=per_page,
                            pagination=pagination)
@@ -240,6 +250,10 @@ def library():
 @app.route("/uploadredirect")
 def uploadredirect():
     return redirect(url_for("upload"))
+
+# Checks if the uploaded images have supported extensions
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Upload Page when a post method is envoked
 @app.route('/upload', methods=['POST','GET'])
@@ -267,15 +281,9 @@ def upload():
                 flash(filename + ' has been successfully uploaded')
                 
                 images.append(filename)
-                # detection(filename)
-
-                # thread = threading.Thread(target=detection,args=[filename])
-                # thread.start()
         thread = threading.Thread(target=detection,args=[images])
         thread.start()
         thread.join()
-        # if thread != "":
-        #     thread.join()
 
     return render_template('upload.html')
 
@@ -426,10 +434,6 @@ def search():
 
                 for image in imgs_data["Images"]:
                     img_data = []
-
-                    # img_data.append(image["Name"])
-                    # img_data.append(image["Quantity"])
-
                     classes_info = get_classes_info()
                     for n in finalSet:
                         if image["Name"] == n:
