@@ -1,3 +1,19 @@
 {
-    "Images": []
+    "Images": [
+        {
+            "Name": "annotated_000000.JPG",
+            "Quantity": 9,
+            "Classes": [
+                "Bottle",
+                "Bottle cap",
+                "Other",
+                "Cigarette",
+                "Cigarette",
+                "Bottle cap",
+                "Can",
+                "Other",
+                "Bottle cap"
+            ]
+        }
+    ]
 }
