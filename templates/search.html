@@ -6,131 +6,140 @@
     <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
         <!-- Search Menu Section -->
         <div class="w3-container w3-padding-8 w3-margin-top" id="Menu">
+
             <form name="form1" id="form1" method="POST" action="/search">
-                Type of Trash:
-                <select name="type" id="type" value="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    {% if type == "" %}
-                        <option value="" selected="selected"></option>
-                        <option value="Recyclable">Recyclable</option>
-                        <option value="Non-Recyclable">Non-Recyclable</option>
-                    {% endif %}
-                    {% if type == "Recyclable" %}
-                        <option value=""></option>
-                        <option value="Recyclable" selected="selected">Recyclable</option>
-                        <option value="Non-Recyclable">Non-Recyclable</option>
-                    {% endif %}
-                    {% if type == "Non-Recyclable" %}
-                        <option value=""></option>
-                        <option value="Recyclable">Recyclable</option>
-                        <option value="Non-Recyclable" selected="selected">Non-Recyclable</option>
-                    {% endif %}
-                </select> Object:
-                <div>
-                    <select name="trash" id="trash" size="3" class="form-select" multiple aria-label="multiple select example">
-                    {% for n in trash_list %}
-                        {% if n == "Bottle" %} 
-                            <option value="Bottle">Bottle</option>
-                        {% endif %}
-                        {% if n == "Pop tab" %} 
-                            <option value="Pop tab">Pop tab</option>
-                        {% endif %}
-                        {% if n == "Can" %} 
-                            <option value="Can">Can</option>
-                        {% endif %}
-                        {% if n == "Bottle cap" %} 
-                            <option value="Bottle cap">Bottle cap</option>
-                        {% endif %}
-                        {% if n == "Cigarette" %} 
-                            <option value="Cigarette">Cigarette</option>
-                        {% endif %} 
-                        {% if n == "Cup" %} 
-                            <option value="Cup">Cup</option>
-                        {% endif %} 
-                        {% if n == "Lid" %} 
-                            <option value="Lid">Lid</option>
-                        {% endif %} 
-                        {% if n == "Other" %} 
-                            <option value="Other">Other</option>
-                        {% endif %} 
-                        {% if n == "Plastic bag + wrapper" %} 
-                            <option value="Plastic bag + wrapper">Plastic bag + wrapper</option>
-                        {% endif %} 
-                        {% if n == "Straw" %} 
-                            <option value="Straw">Straw</option>
-                        {% endif %} 
-                    {% endfor %}
-                    </select><input type="submit" name="+" id="+" value="+" class="a">
+                <div class='container'>
+                    <div class="c">
+                        Type of Trash:
+                        <select name="type" id="type" value="type" class="form-select form-select-md" aria-label=".form-select-md example">
+                                {% if type == "" %}
+                                    <option value="" selected="selected"></option>
+                                    <option value="Recyclable">Recyclable</option>
+                                    <option value="Non-Recyclable">Non-Recyclable</option>
+                                {% endif %}
+                                {% if type == "Recyclable" %}
+                                    <option value=""></option>
+                                    <option value="Recyclable" selected="selected">Recyclable</option>
+                                    <option value="Non-Recyclable">Non-Recyclable</option>
+                                {% endif %}
+                                {% if type == "Non-Recyclable" %}
+                                    <option value=""></option>
+                                    <option value="Recyclable">Recyclable</option>
+                                    <option value="Non-Recyclable" selected="selected">Non-Recyclable</option>
+                                {% endif %}
+                            </select>
+                    </div>
+                    <div class="c">
+                        Object:
+                        <select name="trash" id="trash" size="3" class="form-select" multiple aria-label="multiple select example">
+                            {% for n in trash_list %}
+                                {% if n == "Bottle" %} 
+                                    <option value="Bottle">Bottle</option>
+                                {% endif %}
+                                {% if n == "Pop tab" %} 
+                                    <option value="Pop tab">Pop tab</option>
+                                {% endif %}
+                                {% if n == "Can" %} 
+                                    <option value="Can">Can</option>
+                                {% endif %}
+                                {% if n == "Bottle cap" %} 
+                                    <option value="Bottle cap">Bottle cap</option>
+                                {% endif %}
+                                {% if n == "Cigarette" %} 
+                                    <option value="Cigarette">Cigarette</option>
+                                {% endif %} 
+                                {% if n == "Cup" %} 
+                                    <option value="Cup">Cup</option>
+                                {% endif %} 
+                                {% if n == "Lid" %} 
+                                    <option value="Lid">Lid</option>
+                                {% endif %} 
+                                {% if n == "Other" %} 
+                                    <option value="Other">Other</option>
+                                {% endif %} 
+                                {% if n == "Plastic bag + wrapper" %} 
+                                    <option value="Plastic bag + wrapper">Plastic bag + wrapper</option>
+                                {% endif %} 
+                                {% if n == "Straw" %} 
+                                    <option value="Straw">Straw</option>
+                                {% endif %} 
+                            {% endfor %}
+                            </select><input type="submit" name="+" id="+" value="+" class="a">
+                    </div>
+                    <div class="c">
+                        Selected Trash:
+                        <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple" class="form-select" multiple aria-label="multiple select example">  
+                                {% for n in selected_trash_list %}
+                                    {% if n == "Bottle" %} 
+                                        <option value="Bottle">Bottle</option>
+                                    {% endif %}
+                                    {% if n == "Pop tab" %} 
+                                        <option value="Pop tab">Pop tab</option>
+                                    {% endif %}
+                                    {% if n == "Can" %} 
+                                        <option value="Can">Can</option>
+                                    {% endif %}
+                                    {% if n == "Bottle cap" %} 
+                                        <option value="Bottle cap">Bottle cap</option>
+                                    {% endif %}
+                                    {% if n == "Cigarette" %} 
+                                        <option value="Cigarette">Cigarette</option>
+                                    {% endif %} 
+                                    {% if n == "Cup" %} 
+                                        <option value="Cup">Cup</option>
+                                    {% endif %} 
+                                    {% if n == "Lid" %} 
+                                        <option value="Lid">Lid</option>
+                                    {% endif %} 
+                                    {% if n == "Other" %} 
+                                        <option value="Other">Other</option>
+                                    {% endif %} 
+                                    {% if n == "Plastic bag + wrapper" %} 
+                                        <option value="Plastic bag + wrapper">Plastic bag + wrapper</option>
+                                    {% endif %} 
+                                    {% if n == "Straw" %} 
+                                        <option value="Straw">Straw</option>
+                                    {% endif %} 
+                                {% endfor %}
+                            </select>
+                        <input type="submit" name="-" id="-" value="-" class="a">
+                    </div>
+                    <div class="c">
+                        Quantity:<br>
+                        <select name="quantityType" id="quantityType" value="quantityType">
+                            {% if quantityType == "" %}
+                                <option value="" selected="selected"></option>
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                                <option value="Equal to">Equal to</option>
+                            {% endif %}
+                            {% if quantityType == "Greater than" %}
+                                <option value=""></option>
+                                <option value="Greater than" selected="selected">Greater than</option>
+                                <option value="Less than">Less than</option>
+                                <option value="Equal to">Equal to</option>
+                            {% endif %}
+                            {% if quantityType == "Less than" %}
+                                <option value=""></option>
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than" selected="selected">Less than</option>
+                                <option value="Equal to">Equal to</option>
+                            {% endif %}
+                            {% if quantityType == "Equal to" %}
+                                <option value=""></option>
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                                <option value="Equal to" selected="selected">Equal to</option>
+                            {% endif %}
+                        </select> {% if quantity == ""%}
+                        <input type="text" name="quantity" id="quantity" placeholder="Quantity"> {% endif %} {% if quantity != ""%}
+                        <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}> {% endif %} {% if intersection == "False" %}
+                        <br><input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input"> {% endif %} {% if intersection == "True" %}
+                        <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input" checked> {% endif %}
+                        <label for="Intersection">Intersection of All Selected Objects</label>
+                        <br><input type="submit" value="Search" id="Search" name="Search" class="b">
+                    </div>
                 </div>
-                Selected Trash:
-                <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple" class="form-select" multiple aria-label="multiple select example">  
-                    {% for n in selected_trash_list %}
-                        {% if n == "Bottle" %} 
-                            <option value="Bottle">Bottle</option>
-                        {% endif %}
-                        {% if n == "Pop tab" %} 
-                            <option value="Pop tab">Pop tab</option>
-                        {% endif %}
-                        {% if n == "Can" %} 
-                            <option value="Can">Can</option>
-                        {% endif %}
-                        {% if n == "Bottle cap" %} 
-                            <option value="Bottle cap">Bottle cap</option>
-                        {% endif %}
-                        {% if n == "Cigarette" %} 
-                            <option value="Cigarette">Cigarette</option>
-                        {% endif %} 
-                        {% if n == "Cup" %} 
-                            <option value="Cup">Cup</option>
-                        {% endif %} 
-                        {% if n == "Lid" %} 
-                            <option value="Lid">Lid</option>
-                        {% endif %} 
-                        {% if n == "Other" %} 
-                            <option value="Other">Other</option>
-                        {% endif %} 
-                        {% if n == "Plastic bag + wrapper" %} 
-                            <option value="Plastic bag + wrapper">Plastic bag + wrapper</option>
-                        {% endif %} 
-                        {% if n == "Straw" %} 
-                            <option value="Straw">Straw</option>
-                        {% endif %} 
-                    {% endfor %}
-                </select>
-                <input type="submit" name="-" id="-" value="-" class="a">
-                <br><br> {% if intersection == "False" %}
-                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input"> {% endif %} {% if intersection == "True" %}
-                <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input" checked> {% endif %}
-                <label for="Intersection">Intersection of All Selected Objects</label>
-                <br><br>Quantity:<br>
-                <select name="quantityType" id="quantityType" value="quantityType">
-                    {% if quantityType == "" %}
-                        <option value="" selected="selected"></option>
-                        <option value="Greater than">Greater than</option>
-                        <option value="Less than">Less than</option>
-                        <option value="Equal to">Equal to</option>
-                    {% endif %}
-                    {% if quantityType == "Greater than" %}
-                        <option value=""></option>
-                        <option value="Greater than" selected="selected">Greater than</option>
-                        <option value="Less than">Less than</option>
-                        <option value="Equal to">Equal to</option>
-                    {% endif %}
-                    {% if quantityType == "Less than" %}
-                        <option value=""></option>
-                        <option value="Greater than">Greater than</option>
-                        <option value="Less than" selected="selected">Less than</option>
-                        <option value="Equal to">Equal to</option>
-                    {% endif %}
-                    {% if quantityType == "Equal to" %}
-                        <option value=""></option>
-                        <option value="Greater than">Greater than</option>
-                        <option value="Less than">Less than</option>
-                        <option value="Equal to" selected="selected">Equal to</option>
-                    {% endif %}
-                </select> {% if quantity == ""%}
-                <input type="text" name="quantity" id="quantity" placeholder="Quantity"> {% endif %} {% if quantity != ""%}
-                <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}> {% endif %}
-                <br><input type="submit" value="Search" id="Search" name="Search" class="b">
             </form>
         </div>
 
