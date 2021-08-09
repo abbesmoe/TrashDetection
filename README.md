@@ -28,6 +28,13 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 * Updated tensorflow and keras to the newest versions
 * Added more images to the dataset and re-trained the model for better accuracy
 
+# Suggested Improvements
+* Train over the dataset more
+* Research how hyperparameter tuning can help increase the accuracy of the model
+* Add more images to the dataset
+* Optimize the model for better runtime
+* Add a location feature
+
 # Getting started
 
 ### Requirements
@@ -268,21 +275,3 @@ aws s3 ls
 ```
 
 [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data to and from the instance.
-
-
-
-### Trash Detection
-
-The implementation of [Mask R-CNN by Matterport](https://github.com/matterport/Mask_RCNN)  is included in ``/detector``
-with a few modifications. Requirements are the same. Before using this, the dataset needs to be split. You can either donwload our [weights and splits](https://github.com/pedropro/TACO/releases/tag/1.0) or generate these from scratch using the `split_dataset.py` script to generate 
-N random train, val, test subsets. For example, run this inside the directory `detector`:
-```
-python3 split_dataset.py --dataset_dir ../data
-```
-
-For further usage instructions, check ``detector/detector.py``.
-
-As you can see [here](http://tacodataset.org/stats), most of the original classes of TACO have very few annotations, therefore these must be either left out or merged together. Depending on the problem, ``detector/taco_config`` contains several class maps to target classes, which maintain the most dominant classes, e.g., Can, Bottles and Plastic bags. Feel free to make your own classes.
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/wiki/pedropro/TACO/images/teaser.gif" width="75%"/></p>
