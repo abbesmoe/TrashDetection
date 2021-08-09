@@ -27,7 +27,7 @@ non_recyclables = ["Cigarette","Cup", "Lid","Other","Straw"]
 
 type = ""
 quantity = ""
-quantityType = ""
+quantityType = "Equal To"
 intersection = "False"
 
 # Used to grab a set amount of the images for pagination in library page
