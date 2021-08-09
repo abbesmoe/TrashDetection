@@ -275,3 +275,8 @@ aws s3 ls
 ```
 
 [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data to and from the instance.
+
+
+# How to annotate images
+* https://www.youtube.com/watch?v=OMJRcjnMMok
+
