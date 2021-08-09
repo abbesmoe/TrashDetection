@@ -126,7 +126,7 @@
                     {% endif %}
                 </select>
                 {% if quantity == ""%}
-                    <input type="text" name="quantity" id="quantity" placeholder="Quantity">
+                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" default=0>
                 {% endif %}
                 {% if quantity != ""%}
                     <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}>
