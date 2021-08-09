@@ -8,6 +8,7 @@
     <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
         <div class="w3-container w3-padding-8 w3-margin-top" id="upload">
             {{ pagination.links }}
+            <!--These 3 lines allow user to download and delete images using in line python code-->
             <form name="form1" id="form1" method="GET" action="/download">
                 <a href="{{url_for('download_files', images=images, is_ann='False')}}">Download All Images</a>
                 <br>
@@ -15,6 +16,7 @@
                 <br>
                 <a href="{{url_for('remove_files', images=images)}}">Remove All Images</a>
                 <br>
+                <!--Table is each column-->
                 <table class="table"> 
                     <tr class="table__header">
                         <th class="table__header">
@@ -39,6 +41,7 @@
                             ann_Preview
                         </th>
                     </tr>
+                    <!--Creates pages, allows a max of 10 per page-->
                     {% for i in range(list_len) %}
                         <tr class="table__row">
                             <td class="table__cell">
