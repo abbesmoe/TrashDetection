@@ -3,12 +3,13 @@
 {% block links %}<link rel="stylesheet" href="/static/table.css" />{% endblock %}
 
 {% block content %}
+
 <body style="background-color:white;">
     <div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
         <!-- Search Menu Section -->
         <div class="w3-container w3-padding-8 w3-margin-top" id="Menu">
             <form name="form1" id="form1" method="POST" action="/search">
-                Types:
+                Type of Trash:
                 <select name="type" id="type" value="type">
                     {% if type == "" %}
                         <option value="" selected="selected"></option>
@@ -26,7 +27,7 @@
                         <option value="Non-Recyclable" selected="selected">Non-Recyclable</option>
                     {% endif %}
                 </select>
-                <br><br>Trash:
+                <br><br>Object:
                 <select name="trash" id="trash">
                     {% for n in trash_list %}
                         {% if n == "Bottle" %} 
@@ -63,7 +64,7 @@
                 </select>
                 <input type="submit" name="+" id="+"  value="+">
                 <br><br>Selected Trash:
-                <select name="selectedtrash" id="selectedtrash" size="1" multiple="multiple">  
+                <select name="selectedtrash" id="selectedtrash" size="3" multiple="multiple">  
                     {% for n in selected_trash_list %}
                         {% if n == "Bottle" %} 
                             <option value="Bottle">Bottle</option>
@@ -105,29 +106,20 @@
                 {% if intersection == "True" %}
                     <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" checked>
                 {% endif %}
-                <label for="Intersection">Intersection of all trash</label>
+                <label for="Intersection">Intersection of All Selected Objects</label>
                 <br><br>Quantity:
                 <select name="quantityType" id="quantityType" value="quantityType">
-                    {% if quantityType == "" %}
-                        <option value="" selected="selected"></option>
-                        <option value="Greater than">Greater than</option>
-                        <option value="Less than">Less than</option>
-                        <option value="Equal to">Equal to</option>
-                    {% endif %}
                     {% if quantityType == "Greater than" %}
-                        <option value=""></option>
                         <option value="Greater than" selected="selected">Greater than</option>
                         <option value="Less than">Less than</option>
                         <option value="Equal to">Equal to</option>
                     {% endif %}
                     {% if quantityType == "Less than" %}
-                        <option value=""></option>
                         <option value="Greater than">Greater than</option>
                         <option value="Less than" selected="selected">Less than</option>
                         <option value="Equal to">Equal to</option>
                     {% endif %}
                     {% if quantityType == "Equal to" %}
-                        <option value=""></option>
                         <option value="Greater than">Greater than</option>
                         <option value="Less than">Less than</option>
                         <option value="Equal to" selected="selected">Equal to</option>
