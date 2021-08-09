@@ -109,24 +109,33 @@
                 <label for="Intersection">Intersection of All Selected Objects</label>
                 <br><br>Quantity:
                 <select name="quantityType" id="quantityType" value="quantityType">
+                    {% if quantityType == "" %}
+                        <option value="" selected="selected"></option>
+                        <option value="Greater than">Greater than</option>
+                        <option value="Less than">Less than</option>
+                        <option value="Equal to">Equal to</option>
+                    {% endif %}
                     {% if quantityType == "Greater than" %}
+                        <option value=""></option>
                         <option value="Greater than" selected="selected">Greater than</option>
                         <option value="Less than">Less than</option>
                         <option value="Equal to">Equal to</option>
                     {% endif %}
                     {% if quantityType == "Less than" %}
+                        <option value=""></option>
                         <option value="Greater than">Greater than</option>
                         <option value="Less than" selected="selected">Less than</option>
                         <option value="Equal to">Equal to</option>
                     {% endif %}
                     {% if quantityType == "Equal to" %}
+                        <option value=""></option>
                         <option value="Greater than">Greater than</option>
                         <option value="Less than">Less than</option>
                         <option value="Equal to" selected="selected">Equal to</option>
                     {% endif %}
                 </select>
                 {% if quantity == ""%}
-                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" default=0>
+                    <input type="text" name="quantity" id="quantity" placeholder="Quantity" >
                 {% endif %}
                 {% if quantity != ""%}
                     <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}>
