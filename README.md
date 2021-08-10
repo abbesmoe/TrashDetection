@@ -281,35 +281,35 @@ aws s3 ls
 ```
 sudo yum update
 ```
+Clone TACO github
 ```
-(clone TACO github)
 sudo yum install git
 git clone https://github.com/pedropro/TACO.git
 ```
+Copy dataset from s3 bucket
 ```
-(copy dataset from s3 bucket)
 aws configure
 aws s3 sync s3://<S3 bucket with dataset> <TACO/data>
 ```
+Install miniconda
 ```
-(install miniconda)
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
 bash miniconda.sh
 ```
-```
-(disconnect and reconnect to instance)
+Disconnect and reconnect to instance
 
-(create conda environment)
+Create conda environment
+```
 conda create -n env python=3.7
 conda activate env
 ```
+Install requirements for pycocotools
 ```
-(install requirements for pycocotools)
 sudo yum install gcc
 sudo yum install python3-devel
 ```
+Install other required packages with pip
 ```
-(install other required packages with pip)
 python3 -m pip install --upgrade pip
 pip install -r TACO/requirements.txt
 pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
@@ -318,14 +318,14 @@ pip install keras==2.1.6
 pip install imgaug
 pip install opencv-python-headless
 ```
+Format dataset and begin training
 ```
-(format dataset and begin training)
 cd TACO/detector
 python3 split_dataset.py --dataset_dir ../data
 python3 -W ignore detector.py train --model=<MODEL> --dataset=../data --class_map=./taco_config/<MAP>.csv
 ```
+If you need to stop training, press ctrl-z or ctrl-c to cancel
 ```
-(if you need to stop training, press ctrl-z or ctrl-c to cancel)
 ps -aux
 kill -9 <process PID> (find PID of first ec2-user process that has a python3 -W -ignore... under COMMAND. Killing the first process kills the rest)
 ```
