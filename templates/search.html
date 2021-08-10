@@ -10,24 +10,14 @@
             <form name="form1" id="form1" method="POST" action="/search">
                 <div class='container'>
                     <div class="c">
-                        Type of Trash:
-                        <select name="type" id="type" value="type" class="form-select form-select-md" aria-label=".form-select-md example">
-                                {% if type == "" %}
-                                    <option value="" selected="selected"></option>
-                                    <option value="Recyclable">Recyclable</option>
-                                    <option value="Non-Recyclable">Non-Recyclable</option>
-                                {% endif %}
-                                {% if type == "Recyclable" %}
-                                    <option value=""></option>
-                                    <option value="Recyclable" selected="selected">Recyclable</option>
-                                    <option value="Non-Recyclable">Non-Recyclable</option>
-                                {% endif %}
-                                {% if type == "Non-Recyclable" %}
-                                    <option value=""></option>
-                                    <option value="Recyclable">Recyclable</option>
-                                    <option value="Non-Recyclable" selected="selected">Non-Recyclable</option>
-                                {% endif %}
-                            </select>
+                        Recyclables/Non-recyclables:
+                        <br>{% if recyclable == "False" %}
+                        <input type="checkbox" id="Recyclables" name="Recyclables" value="Recyclables" class="form-check-input"> {% endif %} {% if recyclable == "True" %}
+                        <input type="checkbox" id="Recyclables" name="Recyclables" value="Recyclables" class="form-check-input" checked> {% endif %}
+                        <label for="Recyclables">Recyclables</label><br>{% if non_recyclable == "False" %}
+                        <input type="checkbox" id="Non_recyclables" name="Non_recyclables" value="Non_recyclables" class="form-check-input"> {% endif %} {% if non_recyclable == "True" %}
+                        <input type="checkbox" id="Non_recyclables" name="Non_recyclables" value="Non_recyclables" class="form-check-input" checked> {% endif %}
+                        <label for="Non_recyclables">Non-recyclables</label>
                     </div>
                     <div class="c">
                         Object:

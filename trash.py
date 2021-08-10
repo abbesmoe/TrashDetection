@@ -31,10 +31,11 @@ headings = ["Images","Quantity"]
 data = []
 
 # Additional variables for the search page
-type = ""                   # Recyclables or Nonrecyclables
 quantity = ""               # Quantity value provided in search page
-quantityType = ""   # Quantity filter type (>,<,=)
+quantityType = ""           # Quantity filter type (>,<,=)
 intersection = "False"      # Intersection filter
+recyclable = "False"
+non_recyclable = "False"
 
 # Dictionary for the json file to store image data
 images_data = {"Images":[]}
@@ -360,34 +361,45 @@ def search():
     global trash_list
     global headings
     global data
-    global type
     global quantity
     global quantityType
     global intersection
-    result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
+    global recyclable
+    global non_recyclable
+    result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", recyclable=recyclable, non_recyclable=non_recyclable, quantity=quantity, quantityType=quantityType, intersection = intersection)
     if request.method == "POST":
         if "+" in request.form:
             if "trash" in request.form:
                 trash = request.form["trash"]
                 trash_list.remove(trash)
                 selected_trash_list.append(trash)
-                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
+                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", recyclable=recyclable, non_recyclable=non_recyclable, quantity=quantity, quantityType=quantityType, intersection = intersection)
         elif "-" in request.form:
             if "selectedtrash" in request.form:
                 selectedtrash = request.form["selectedtrash"]
                 selected_trash_list.remove(selectedtrash)
                 trash_list.append(selectedtrash)
-                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
+                result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="none", recyclable=recyclable, non_recyclable=non_recyclable, quantity=quantity, quantityType=quantityType, intersection = intersection)
         elif "Search" in request.form:
             data = []
             headings = ["Images", "Quantity"]
             with open("data.json",'r') as json_data:
                 imgs_data = json.load(json_data)
                 # recyclables or nonrecyclables
-                if "type" in request.form:
-                    type = request.form["type"]
-                    if type != "":
-                        headings.append(type)
+                # check if intersection checkbox is checked
+                if "Recyclables" in request.form:
+                    r = request.form["Recyclables"]
+                    headings.append(r)
+                    recyclable = "True"
+                else:
+                    recyclable = "False"
+                if "Non_recyclables" in request.form:
+                    non_r = request.form["Non_recyclables"]
+                    headings.append(non_r)
+                    non_recyclable = "True"
+                else:
+                    non_recyclable = "False"
+
                 # adds selected trash to the headings
                 for t in selected_trash_list:
                     headings.append(t)
@@ -439,17 +451,18 @@ def search():
                         if image["Name"] == n:
                             img_data.append(image["Name"])
                             img_data.append(image["Quantity"])
-                            count = 0
-                            if type == "Recyclable":
+                            r_count = 0
+                            if recyclable == "True":
                                 for c,c_count in classes_info[n].items():
                                     if c in recyclables:
-                                        count+=c_count
-                                img_data.append(count)
-                            elif type == "Non-Recyclable":
+                                        r_count+=c_count
+                                img_data.append(r_count)
+                            nonr_count = 0
+                            if non_recyclable == "True":
                                 for c,c_count in classes_info[n].items():
                                     if c in non_recyclables:
-                                        count+=c_count
-                                img_data.append(count)
+                                        nonr_count+=c_count
+                                img_data.append(nonr_count)
 
                             for t in selected_trash_list:
                                 if t in classes_info[n]:
@@ -459,7 +472,7 @@ def search():
 
                     data.append(img_data)
                 print(data)
-            result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
+            result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline", recyclable=recyclable, non_recyclable=non_recyclable, quantity=quantity, quantityType=quantityType, intersection = intersection)
     return result
 
 # Runs the web app
