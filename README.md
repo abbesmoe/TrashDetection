@@ -27,13 +27,15 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 # Improvements
 * Updated tensorflow and keras to the newest versions
 * Added more images to the dataset and re-trained the model for better accuracy
+* Completely new website with a more user friendly interface and modern design
+* Improved documentation to help facilitate knowledge transfer
 
 # Suggested Improvements
-* Train over the dataset more
+* Add more images to the dataset and re-train the model
 * Research how hyperparameter tuning can help increase the accuracy of the model
-* Add more images to the dataset
 * Optimize the model for better runtime
 * Add a location feature
+* Create a user friendly app
 
 # Getting started
 
