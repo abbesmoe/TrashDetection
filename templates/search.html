@@ -133,8 +133,9 @@
                             {% endif %}
                         </select> {% if quantity == ""%}
                         <input type="text" name="quantity" id="quantity" placeholder="Quantity"> {% endif %} {% if quantity != ""%}
-                        <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}> {% endif %} {% if intersection == "False" %}
-                        <br><input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input"> {% endif %} {% if intersection == "True" %}
+                        <input type="text" name="quantity" id="quantity" placeholder="Quantity" value={{ quantity }}> {% endif %}
+                        <br> {% if intersection == "False" %}
+                        <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input"> {% endif %} {% if intersection == "True" %}
                         <input type="checkbox" id="Intersection" name="Intersection" value="Intersection" class="form-check-input" checked> {% endif %}
                         <label for="Intersection">Intersection of All Selected Objects</label>
                         <br><input type="submit" value="Search" id="Search" name="Search" class="b">
