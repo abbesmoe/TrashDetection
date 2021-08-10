@@ -458,7 +458,7 @@ def search():
                                     img_data.append(0)
 
                     data.append(img_data)
-
+                print(data)
             result = render_template("search.html", trash_list=trash_list, selected_trash_list=selected_trash_list, headings=headings, data=data, style="inline", type=type, quantity=quantity, quantityType=quantityType, intersection = intersection)
     return result
 
