@@ -160,13 +160,14 @@
             <tr class="table-light">
                 {% for cell in row %}
                 <td class="table-light">{{ cell }}</td>
-                {% endfor %}
+                {% endfor %} {% if row %}
                 <td class="table-light">
                     <a href="{{url_for('download_file', img=" output_{} ".format(row[0]).strip(), is_ann=True)}}">Download</a>
                 </td>
                 <td class="table-light">
                     <img src="{{ url_for('display_image', filename=" output_{} ".format(row[0]).strip(), is_ann=True) }}" alt="library_img" width="75" height="75">
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
