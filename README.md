@@ -275,3 +275,5 @@ aws s3 ls
 ```
 
 [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data to and from the instance.
+
+**Setting up training after connecting to the ec2 instance**
