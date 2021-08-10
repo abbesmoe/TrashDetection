@@ -136,26 +136,26 @@
         <br>
         <!-- Table Section -->
         <table class="table table-hover" style="display: {{ style }} ">
-            <tr class="table-primary">
+            <tr class="table__header">
                 {% for header in headings %}
                 <th scope="col">{{ header }}</th>
                 {% endfor %}
-                <th class="table-primary">
+                <th class="table__header">
                     Download
                 </th>
-                <th class="table-primary">
+                <th class="table__header">
                     Preview
                 </th>
             </tr>
             {% for row in data %}
-            <tr class="table-light">
+            <tr class="table__row">
                 {% for cell in row %}
-                <td class="table-light">{{ cell }}</td>
+                <td class="table__cell">{{ cell }}</td>
                 {% endfor %} {% if row %}
-                <td class="table-light">
+                <td class="table__cell">
                     <a href="{{url_for('download_file', img=" output_{} ".format(row[0]).strip(), is_ann=True)}}">Download</a>
                 </td>
-                <td class="table-light">
+                <td class="table__cell">
                     <img src="{{ url_for('display_image', filename=" output_{} ".format(row[0]).strip(), is_ann=True) }}" alt="library_img" width="75" height="75">
                 </td>
                 {% endif %}

@@ -15,21 +15,23 @@
 .a {
     width: 15%;
     padding: 5px 15px;
-    background: #ccc;
+    background: #5c9dfe;
     border: 0 none;
     cursor: pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    color: white;
 }
 
 .b {
     width: 100px;
     padding: 5px 15px;
-    background: #ccc;
+    background: #5c9dfe;
     border: 0 none;
     cursor: pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    color: white;
 }
 
 .c {
