@@ -277,3 +277,57 @@ aws s3 ls
 [This](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonS3.html) is how we copied data to and from the instance.
 
 **Setting up training after connecting to the ec2 instance**
+
+```
+sudo yum update
+```
+```
+(clone TACO github)
+sudo yum install git
+git clone https://github.com/pedropro/TACO.git
+```
+```
+(copy dataset from s3 bucket)
+aws configure
+aws s3 sync s3://<S3 bucket with dataset> <TACO/data>
+```
+```
+(install miniconda)
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+bash miniconda.sh
+```
+```
+(disconnect and reconnect to instance)
+
+(create conda environment)
+conda create -n env python=3.7
+conda activate env
+```
+```
+(install requirements for pycocotools)
+sudo yum install gcc
+sudo yum install python3-devel
+```
+```
+(install other required packages with pip)
+python3 -m pip install --upgrade pip
+pip install -r TACO/requirements.txt
+pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
+pip install tensorflow-gpu==1.15
+pip install keras==2.1.6
+pip install imgaug
+pip install opencv-python-headless
+```
+```
+(format dataset and begin training)
+cd TACO/detector
+python3 split_dataset.py --dataset_dir ../data
+python3 -W ignore detector.py train --model=<MODEL> --dataset=../data --class_map=./taco_config/<MAP>.csv
+```
+```
+(if you need to stop training, press ctrl-z or ctrl-c to cancel)
+ps -aux
+kill -9 <process PID> (find PID of first ec2-user process that has a python3 -W -ignore... under COMMAND. Killing the first process kills the rest)
+```
+
+
