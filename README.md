@@ -48,7 +48,7 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 ```
 !git clone https://github.com/abbesmoe/TrashDetection
 ```
-3. Install the requred packages
+3. Install the required packages
 ```
 !pip install keras==2.5.0rc0
 !pip install tensorflow==2.5
@@ -330,4 +330,9 @@ ps -aux
 kill -9 <process PID> (find PID of first ec2-user process that has a python3 -W -ignore... under COMMAND. Killing the first process kills the rest)
 ```
 
+### How to run the website
 
+To run the website, we used VSCode.
+
+***Under construction<br>
+Updates coming soon***
