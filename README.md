@@ -376,7 +376,7 @@ Also run this line:
 ```
 pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
 ```
-8. open VSCODE and n the lower left hand-side of the page click this <br> ![image](https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png) <br>and select the environment that was set up as the interpreter.
+8. open VSCODE and in the lower left hand-side of the page click this <br> ![image](https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png) <br>and select the environment that was set up as the interpreter.
 
 ![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
 
