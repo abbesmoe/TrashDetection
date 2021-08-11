@@ -346,7 +346,12 @@ https://discord.com/channels/849271292448342026/856944073926901810/8750652031994
 https://code.visualstudio.com/download
 
 3. Open VSCODE and clone the repository
+
+
 ![unknown](https://user-images.githubusercontent.com/85749429/129075439-103978a1-f888-43be-86cc-0934e2f70f84.png)
+
+
+
 Enter this link: https://github.com/abbesmoe/TrashDetection.git
 
 
@@ -370,6 +375,8 @@ pip install -r requirements.txt
 8. Open VSCODE and run trash.py
 
 9. On the lower left hand-side of the page click this https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png and select the environment that was set up as the interpreter. 
+
+
 Example: ![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
 
 10. Once trash.py is running, click the link at the bottom of the terminal to be taken to the website
