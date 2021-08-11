@@ -360,7 +360,7 @@ Enter this link: https://github.com/abbesmoe/TrashDetection.git
 
 5. Create the enviornment 
 ```
-conda create -n env
+conda create -n env python=3.7
 ```
 6. Change directory to 
 ```
