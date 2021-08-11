@@ -48,9 +48,10 @@
     text-align: right;
 }
 
-.table {
+.mydiv {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 td {

@@ -1,9 +1,9 @@
-pillow
-requests
-jupyter
+flask
 numpy
-pandas
-matplotlib
-seaborn
-graphviz
-Cython
+flask_paginate
+tensorflow
+scipy
+scikit-image
+cython
+opencv-python
+ipython
