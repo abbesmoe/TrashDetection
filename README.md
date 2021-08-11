@@ -336,9 +336,6 @@ kill -9 <process PID> (find PID of first ec2-user process that has a python3 -W 
 
 To run the website, we used VSCode.
 
-***Under construction<br>
-Updates coming soon***
-
 1. Download anaconda
 https://discord.com/channels/849271292448342026/856944073926901810/875065203199467582 (We used anaconda but you can also use miniconda)
 
