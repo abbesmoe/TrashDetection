@@ -336,5 +336,57 @@ kill -9 <process PID> (find PID of first ec2-user process that has a python3 -W 
 
 To run the website, we used VSCode.
 
-***Under construction<br>
-Updates coming soon***
+1. Download anaconda
+https://discord.com/channels/849271292448342026/856944073926901810/875065203199467582 (We used anaconda but you can also use miniconda)
+
+2. Download VSCODE
+https://code.visualstudio.com/download
+
+3. Open VSCODE and clone the repository
+
+
+![unknown](https://user-images.githubusercontent.com/85749429/129075439-103978a1-f888-43be-86cc-0934e2f70f84.png)
+
+
+
+Enter this link: https://github.com/abbesmoe/TrashDetection.git
+
+
+
+4. Open the anaconda command prompt
+
+5. Create the enviornment 
+```
+conda create -n env python=3.7
+```
+6. Change directory to 
+```
+C:\yourpath\TrashDetection
+```
+Example: cd "C:\Users\abbes\vscode\TrashDetection"
+
+7. Pip install the required packages
+```
+pip install -r requirements.txt
+```
+Note: After installing the requirements uninstall Keras nightly
+```
+pip uninstall keras-nightly
+```
+Also run this line:
+```
+pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
+```
+8. Open VSCODE and run trash.py
+
+9. On the lower left hand-side of the page click this https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png and select the environment that was set up as the interpreter. 
+
+
+Example: ![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
+
+10. Once trash.py is running, click the link at the bottom of the terminal to be taken to the website
+![image](https://user-images.githubusercontent.com/85749429/129077643-87f979fe-7b5c-4139-842b-44fe7c9afb4d.png)
+
+
+
+
