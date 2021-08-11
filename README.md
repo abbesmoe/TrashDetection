@@ -369,6 +369,14 @@ Example: cd "C:\Users\abbes\vscode\TrashDetection"
 ```
 pip install -r requirements.txt
 ```
+Note: After installing the requirements uninstall Keras nightly
+```
+pip uninstall keras-nightly
+```
+Also run this line:
+```
+pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
+```
 8. Open VSCODE and run trash.py
 
 9. On the lower left hand-side of the page click this https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png and select the environment that was set up as the interpreter. 
