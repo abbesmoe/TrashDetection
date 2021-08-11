@@ -377,9 +377,9 @@ pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&sub
 ```
 8. On the lower left hand-side of the page click this https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png and select the environment that was set up as the interpreter.
 
-9. Open VSCODE and run trash.py
-
 Example: ![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
+
+9. Open VSCODE and run trash.py
 
 10. Once trash.py is running, click the link at the bottom of the terminal to be taken to the website
 ![image](https://user-images.githubusercontent.com/85749429/129077643-87f979fe-7b5c-4139-842b-44fe7c9afb4d.png)
