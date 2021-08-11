@@ -349,6 +349,8 @@ https://code.visualstudio.com/download
 ![unknown](https://user-images.githubusercontent.com/85749429/129075439-103978a1-f888-43be-86cc-0934e2f70f84.png)
 Enter this link: https://github.com/abbesmoe/TrashDetection.git
 
+
+
 4. Open the anaconda command prompt
 
 5. Create the enviornment 
