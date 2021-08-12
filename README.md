@@ -41,8 +41,8 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 
 ### Requirements
 * python 3.7
-* tensorflow 2.5
-* keras 2.5
+* tensorflow 2.6.0
+* keras 2.6.0
 
 ### How to setup
 1. Open Google CoLab and create a new notebook
@@ -52,8 +52,8 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 ```
 3. Install the required packages
 ```
-!pip install keras==2.5.0rc0
-!pip install tensorflow==2.5
+!pip install keras==2.6.0
+!pip install tensorflow==2.6.0
 !pip install 'h5py==2.10.0'
 ```
 4. Change the directory 
@@ -173,7 +173,7 @@ def min_accuracy(r,a):
 
 r = min_accuracy(r,0.8)
 ```
-13. Display original image while also displaying the masked image.
+13. Display original image and the annotated image.
 ```
 plt.figure(figsize=(12,10))
 skimage.io.imshow(image)
