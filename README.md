@@ -116,7 +116,7 @@ config.display()
  model.load_weights('mask_rcnn_taco_0100.h5', by_name=True,
                    weights_out_path=None)
 ```
-Note: if you recieve the following the error: "OSError: Unable to open file (file signature not found)", delete the h5 file and redownload it. You can download the h5 file from the following link, https://github.com/pedropro/TACO/releases/tag/1.0. Scroll to the bottom of the page and download "taco_10_3.zip".
+Note: if you recieve the following error: "OSError: Unable to open file (file signature not found)", delete the h5 file and redownload it. You can download the h5 file from the following link, https://github.com/pedropro/TACO/releases/tag/1.0. Scroll to the bottom of the page and download "taco_10_3.zip".
 
 9. Create list of class names
 ```
