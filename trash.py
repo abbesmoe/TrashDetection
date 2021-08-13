@@ -496,4 +496,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.3', port=5000)
+    app.run(debug=False, host='127.0.0.3', port=5000)
