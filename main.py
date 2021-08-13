@@ -39,7 +39,7 @@ non_recyclable = "False"
 
 images_data = {"Images":[]}
 # Dictionary for the json file to store image data
-with open("data.json",'r') as json_data:
+with open("json/data.json",'r') as json_data:
     images_data = json.load(json_data)
 
 # For files upload in upload page
@@ -163,7 +163,7 @@ def add_to_json(r,class_names,imageName):
     write_json(images_data)
 
 # Writes the json file
-def write_json(data, filename="data.json"):
+def write_json(data, filename="json/data.json"):
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
 
@@ -325,7 +325,7 @@ def checkQuantity(quantityType, quantity):
     quantitySet = set()
 
     quantity = int(quantity)
-    with open("data.json",'r') as json_data:
+    with open("json/data.json",'r') as json_data:
         data = json.load(json_data)
 
         for i in range(len(data["Images"])):
@@ -347,7 +347,7 @@ def checkClasses(selected_trash, intersection):
     # REPLACE with get method from search page
     classSet = set()
 
-    with open("data.json",'r') as json_data:
+    with open("json/data.json",'r') as json_data:
         data = json.load(json_data)
         if intersection == "":
             for i in selected_trash:
@@ -365,7 +365,7 @@ def get_classes_info():
     from collections import Counter
 
     class_info = dict()
-    with open("data.json",'r') as json_data:
+    with open("json/data.json",'r') as json_data:
         data = json.load(json_data)
         for img in data["Images"]:
             c = Counter(img["Classes"])
@@ -402,7 +402,7 @@ def search():
         elif "Search" in request.form:
             data = []
             headings = ["Images", "Quantity"]
-            with open("data.json",'r') as json_data:
+            with open("json/data.json",'r') as json_data:
                 imgs_data = json.load(json_data)
                 # recyclables or nonrecyclables
                 # check if intersection checkbox is checked
