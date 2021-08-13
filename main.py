@@ -103,7 +103,7 @@ def load_model():
     # Load weights trained on MS-COCO
     # The trained objects that are used for accuracy #
     # by_name: weights are loaded into layers only if the share the same name #, exclude=["mrcnn_bbox_fc","mrcnn_class_logits","mrcnn_mask"]
-    model.load_weights('mask_rcnn_taco_0100.h5', by_name=True, weights_out_path=None)
+    model.load_weights('weights/mask_rcnn_taco_0100.h5', by_name=True, weights_out_path=None)
     model.keras_model.make_predict_function()
     return model
 
