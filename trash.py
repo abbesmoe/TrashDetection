@@ -37,8 +37,10 @@ intersection = "False"      # Intersection filter
 recyclable = "False"
 non_recyclable = "False"
 
-# Dictionary for the json file to store image data
 images_data = {"Images":[]}
+# Dictionary for the json file to store image data
+with open("data.json",'r') as json_data:
+    images_data = json.load(json_data)
 
 # For files upload in upload page
 UPLOAD_FOLDER = 'static/uploads/'
@@ -129,7 +131,11 @@ def detection(images):
     # skimage helps with image processing on a computer #
     for img in images:
         print(img)
-        img_path = "static/uploads/" + img
+        img_path = ''
+        if img == 'sample.JPG':
+            img_path = "images/" + img
+        else:
+            img_path = "static/uploads/" + img
         image = skimage.io.imread(img_path)
         class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
         r = model.detect([image], verbose=0)[0]
@@ -157,6 +163,26 @@ def add_to_json(r,class_names,imageName):
 def write_json(data, filename="data.json"):
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
+
+def remove(img):
+    uploaded_img = "static/uploads/"+img
+    ann_img = "static/annotated_images/output_"+img
+    os.remove(uploaded_img)
+    os.remove(ann_img)
+
+    ann_name = img
+
+    for i, img in enumerate(images_data['Images']):
+        if img['Name'] == ann_name:
+            images_data['Images'].pop(i)
+    
+    write_json(images_data)
+
+detection(['sample.JPG'])
+path = "static/uploads"
+images = os.listdir(path)
+if 'sample.JPG' in images:
+    remove('sample.JPG')
 
 # Home page
 @app.route("/")
@@ -195,18 +221,8 @@ def download_files():
 def remove_file():
     global images_data
     img = request.args.get("img")
-    uploaded_img = "static/uploads/"+img
-    ann_img = "static/annotated_images/output_"+img
-    os.remove(uploaded_img)
-    os.remove(ann_img)
 
-    ann_name = img
-
-    for i, img in enumerate(images_data['Images']):
-        if img['Name'] == ann_name:
-            images_data['Images'].pop(i)
-    
-    write_json(images_data)
+    remove(img)
     
     return redirect(url_for("library"))
 
@@ -477,4 +493,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.3', port=5000)
+    app.run(debug=False, host='127.0.0.3', port=5000)
