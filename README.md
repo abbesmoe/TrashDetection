@@ -41,8 +41,8 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 
 ### Requirements
 * python 3.7
-* tensorflow 2.5
-* keras 2.5
+* tensorflow 2.6.0
+* keras 2.6.0
 
 ### How to setup
 1. Open Google CoLab and create a new notebook
@@ -52,8 +52,8 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 ```
 3. Install the required packages
 ```
-!pip install keras==2.5.0rc0
-!pip install tensorflow==2.5
+!pip install keras==2.6.0
+!pip install tensorflow==2.6.0
 !pip install 'h5py==2.10.0'
 ```
 4. Change the directory 
@@ -116,7 +116,7 @@ config.display()
  model.load_weights('mask_rcnn_taco_0100.h5', by_name=True,
                    weights_out_path=None)
 ```
-Note: if you recieve the following the error: "OSError: Unable to open file (file signature not found)", delete the h5 file and redownload it. You can download the h5 file from the following link, https://github.com/pedropro/TACO/releases/tag/1.0. Scroll to the bottom of the page and download "taco_10_3.zip".
+Note: if you recieve the following error: "OSError: Unable to open file (file signature not found)", delete the h5 file and redownload it. You can download the h5 file from the following link, https://github.com/pedropro/TACO/releases/tag/1.0. Scroll to the bottom of the page and download "taco_10_3.zip".
 
 9. Create list of class names
 ```
@@ -173,7 +173,7 @@ def min_accuracy(r,a):
 
 r = min_accuracy(r,0.8)
 ```
-13. Display original image while also displaying the masked image.
+13. Display original image and the annotated image.
 ```
 plt.figure(figsize=(12,10))
 skimage.io.imshow(image)
@@ -359,12 +359,11 @@ Enter this link: https://github.com/abbesmoe/TrashDetection.git
 ```
 conda create -n env python=3.7
 ```
-6. Change directory to 
+6. Change directory to ```/TrashDetection```<br>
+Example:
 ```
-C:\yourpath\TrashDetection
+cd C:\Users\abbes\vscode\TrashDetection
 ```
-Example: cd "C:\Users\abbes\vscode\TrashDetection"
-
 7. Pip install the required packages
 ```
 pip install -r requirements.txt
@@ -377,12 +376,11 @@ Also run this line:
 ```
 pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
 ```
-8. Open VSCODE and run trash.py
+8. open VSCODE and in the lower left hand-side of the page click this <br> ![image](https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png) <br>and select the environment that was set up as the interpreter.
 
-9. On the lower left hand-side of the page click this https://cdn.discordapp.com/attachments/856944073926901810/875072931145875557/unknown.png and select the environment that was set up as the interpreter. 
+![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
 
-
-Example: ![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
+9. Run trash.py
 
 10. Once trash.py is running, click the link at the bottom of the terminal to be taken to the website
 ![image](https://user-images.githubusercontent.com/85749429/129077643-87f979fe-7b5c-4139-842b-44fe7c9afb4d.png)
