@@ -39,11 +39,11 @@ non_recyclable = "False"
 
 images_data = {"Images":[]}
 # Dictionary for the json file to store image data
-with open("json/data.json",'r') as json_data:
+with open("data/data.json",'r') as json_data:
     images_data = json.load(json_data)
 
 # For files upload in upload page
-UPLOAD_FOLDER = 'static/uploads/'
+UPLOAD_FOLDER = 'website/uploads/'
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -138,7 +138,7 @@ def detection(images):
         if img == 'sample.JPG':
             img_path = "samples/" + img
         else:
-            img_path = "static/uploads/" + img
+            img_path = "website/uploads/" + img
         image = skimage.io.imread(img_path)
         class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
         r = model.detect([image], verbose=0)[0]
@@ -163,13 +163,13 @@ def add_to_json(r,class_names,imageName):
     write_json(images_data)
 
 # Writes the json file
-def write_json(data, filename="json/data.json"):
+def write_json(data, filename="data/data.json"):
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
 
 def remove(img):
-    uploaded_img = "static/uploads/"+img
-    ann_img = "static/annotated_images/output_"+img
+    uploaded_img = "website/uploads/"+img
+    ann_img = "website/annotated_images/output_"+img
     os.remove(uploaded_img)
     os.remove(ann_img)
 
@@ -182,7 +182,7 @@ def remove(img):
     write_json(images_data)
 
 detection(['sample.JPG'])
-path = "static/uploads"
+path = "website/uploads"
 images = os.listdir(path)
 if 'sample.JPG' in images:
     remove('sample.JPG')
@@ -197,10 +197,10 @@ def home():
 def download_file():
     is_ann = request.args.get("is_ann")
     if is_ann == "True":
-        image = "static/annotated_images/"+request.args.get("img")
+        image = "website/annotated_images/"+request.args.get("img")
         return send_file(image,as_attachment=True)
     else:
-        image = "static/uploads/"+request.args.get("img")
+        image = "website/uploads/"+request.args.get("img")
         return send_file(image,as_attachment=True)
 
 # Download an Image from the library page
@@ -212,9 +212,9 @@ def download_files():
     print(is_ann)
     for image in images:
         if is_ann == "True":
-            image_path = "static/annotated_images/"+image
+            image_path = "website/annotated_images/"+image
         else:
-            image_path = "static/uploads/"+image
+            image_path = "website/uploads/"+image
         zipf.write(image_path)
     zipf.close()
     return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
@@ -237,8 +237,8 @@ def remove_files():
     images_data = {"Images":[]}
     write_json(images_data)
     for image in images:
-        uploaded_img = "static/uploads/"+image
-        ann_img = "static/annotated_images/output_"+image
+        uploaded_img = "website/uploads/"+image
+        ann_img = "website/annotated_images/output_"+image
         os.remove(uploaded_img)
         os.remove(ann_img)
     return redirect(url_for("library"))
@@ -246,10 +246,10 @@ def remove_files():
 # Library Page
 @app.route("/library")
 def library():
-    path = "static/uploads"
+    path = "website/uploads"
     images = os.listdir(path)
 
-    path2 = "static/annotated_images"
+    path2 = "website/annotated_images"
     ann_images = os.listdir(path2)
 
     page, per_page, offset = get_page_args(page_parameter='page',
@@ -312,9 +312,9 @@ def upload():
 def display_image(filename, is_ann=False):
     is_ann = request.args.get("is_ann")
     if is_ann == "True":
-        return redirect(url_for('static', filename='annotated_images/' + filename))
+        return redirect(url_for('website', filename='annotated_images/' + filename))
     else:
-        return redirect(url_for('static', filename='uploads/' + filename))
+        return redirect(url_for('website', filename='uploads/' + filename))
 
 # Redirects to the search page
 @app.route("/searchredirect")
@@ -325,7 +325,7 @@ def checkQuantity(quantityType, quantity):
     quantitySet = set()
 
     quantity = int(quantity)
-    with open("json/data.json",'r') as json_data:
+    with open("data/data.json",'r') as json_data:
         data = json.load(json_data)
 
         for i in range(len(data["Images"])):
@@ -347,7 +347,7 @@ def checkClasses(selected_trash, intersection):
     # REPLACE with get method from search page
     classSet = set()
 
-    with open("json/data.json",'r') as json_data:
+    with open("data/data.json",'r') as json_data:
         data = json.load(json_data)
         if intersection == "":
             for i in selected_trash:
@@ -365,7 +365,7 @@ def get_classes_info():
     from collections import Counter
 
     class_info = dict()
-    with open("json/data.json",'r') as json_data:
+    with open("data/data.json",'r') as json_data:
         data = json.load(json_data)
         for img in data["Images"]:
             c = Counter(img["Classes"])
@@ -402,7 +402,7 @@ def search():
         elif "Search" in request.form:
             data = []
             headings = ["Images", "Quantity"]
-            with open("json/data.json",'r') as json_data:
+            with open("data/data.json",'r') as json_data:
                 imgs_data = json.load(json_data)
                 # recyclables or nonrecyclables
                 # check if intersection checkbox is checked
