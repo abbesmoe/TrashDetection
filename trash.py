@@ -68,12 +68,13 @@ def load_model():
     round = None # Split number: If None, loads full dataset else if int > 0 selects split no 
     subset = "train" # Used only when round !=None, Options: ('train','val','test') to select respective subset
     dataset = datasets.Taco()
-    taco = dataset.load_taco(TACO_DIR, round, subset, class_map=class_map, return_taco=True)
+    taco = dataset.load_taco(TACO_DIR, round, subset, class_map=class_map, return_taco=False)
 
     # Must call before using the dataset
     dataset.prepare()
 
     # Print the classes
+    print("\n---------- Classes ----------\n")
     print("Class Count: {}".format(dataset.num_classes))
     for i, info in enumerate(dataset.class_info):
         print("{:3}. {:50}".format(i, info['name']))
@@ -87,6 +88,8 @@ def load_model():
         DETECTION_MIN_CONFIDENCE = 0.3
         NUM_CLASSES = dataset.num_classes
     config = TacoTestConfig()
+    
+    print("\n---------- CONFIG HYPERPARAMETERS ----------")
     config.display()
 
     # Create model objects in inference mode.
@@ -477,4 +480,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.3', port=5000)
+    app.run(debug=False, host='127.0.0.3', port=5000)
