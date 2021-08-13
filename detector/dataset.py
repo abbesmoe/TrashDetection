@@ -67,7 +67,7 @@ class Taco(utils.Dataset):
         if background_id > -1:
             class_ids.remove(background_id)
 
-        print('Number of images used:', len(image_ids))
+        # print('Number of images used:', len(image_ids))
 
         # Add images
         for i in image_ids:
