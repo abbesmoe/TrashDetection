@@ -136,7 +136,7 @@ def detection(images):
         print(img)
         img_path = ''
         if img == 'sample.JPG':
-            img_path = "samples/" + img
+            img_path = "static/assets/" + img
         else:
             img_path = "static/uploads/" + img
         image = skimage.io.imread(img_path)
