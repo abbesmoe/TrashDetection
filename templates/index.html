@@ -4,7 +4,7 @@
 
 <head>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="/website/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -52,9 +52,9 @@
     <!--Parallex images-->
     <div class="parallex">
         <section>
-            <img src="/website/frontend_images/sun1.png" id="sun">
+            <img src="{{ url_for('static', filename='frontend_images/sun1.png') }}" id="sun">
             <h2 id="text"><span>Help save our</span><br>Planet</h2>
-            <img src="/website/frontend_images/water1.png" id="water">
+            <img src="{{ url_for('static', filename='frontend_images/water1.png') }}" id="water">
         </section>
     </div>
 

@@ -1,10 +1,12 @@
 {
     "Images": [
         {
-            "Name": "000042.jpg",
-            "Quantity": 1,
+            "Name": "000015.jpg",
+            "Quantity": 3,
             "Classes": [
-                "Bottle cap"
+                "Bottle cap",
+                "Cigarette",
+                "Other"
             ]
         }
     ]

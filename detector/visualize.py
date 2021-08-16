@@ -163,7 +163,7 @@ def display_instances(image, image_name, boxes, masks, class_ids, class_names,
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
-    plt.savefig('website/annotated_images/output_{}'.format(image_name), bbox_inches='tight', transparent=True, pad_inches=0)#to save file in local directory for n no of input images with date and time 
+    plt.savefig('static/annotated_images/output_{}'.format(image_name), bbox_inches='tight', transparent=True, pad_inches=0)#to save file in local directory for n no of input images with date and time 
     
    # plt.close()
     #import time

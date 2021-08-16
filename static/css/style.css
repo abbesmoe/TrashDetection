@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+#header
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100000;
+}
+#header .nav
+{
+    color: #fff;
+    font-weight: 700;
+    font-size: 2em;
+    text-decoration: none;
+}
+#header .logo
+{
+    color: #094b65;
+    font-weight: 700;
+    font-size: 2em;
+    text-decoration: none;
+    padding-right: 400px;
+}
+#header ul
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#header ul li
+{
+    list-style: none;
+    margin-left: 20px;
+}
+#header ul li a
+{
+    text-decoration: none;
+    padding: 6px 15px;
+    color: #094b65;
+    border-radius: 20px;
+}
+#header ul li a:hover,
+#header ul li a.active
+{
+    background: #094b65;
+    color: #fff;
+}
+
+body {
+  background: #01191d;
+  min-height: 1500px;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to top, #01191d, transparent);
+  z-index: 10000;
+}
+
+section:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  mix-blend-mode: color;
+}
+
+section img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+section #text
+{
+    position: relative;
+    color: #094b65;
+    font-size: 10vw;
+    text-align: center;
+    line-height: 0.55em;
+    font-family: 'Rancho', cursive;
+    transform: translateY(-50%);
+}
+section #text span
+{
+    color: #094b65;
+    font-size: 0.20em;
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+#text {
+  position: relative;
+  color: #ffffff;
+  font-size: 10em;
+  z-index: 1;
+}
+
+#water {
+  z-index: 2;
+}
+
+p, h3{
+  color: white;
+}
+
+.sec 
+{
+    position: relative;
+    padding: 100px;
+}
+.sec h2
+{
+    font-size: 3.5em;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.sec p
+{
+    font-size: 1em;
+    color: #fff;
+}
+
+
+.w3-top{
+  z-index: 9999999;
+}
+.navbar-fixed-top.scrolled {
+  background-color: #fff !important;
+  transition: background-color 200ms linear;
+}

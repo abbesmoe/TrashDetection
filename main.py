@@ -43,7 +43,7 @@ with open("data/data.json",'r') as json_data:
     images_data = json.load(json_data)
 
 # For files upload in upload page
-UPLOAD_FOLDER = 'website/uploads/'
+UPLOAD_FOLDER = 'static/uploads/'
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -138,7 +138,7 @@ def detection(images):
         if img == 'sample.JPG':
             img_path = "samples/" + img
         else:
-            img_path = "website/uploads/" + img
+            img_path = "static/uploads/" + img
         image = skimage.io.imread(img_path)
         class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
         r = model.detect([image], verbose=0)[0]
@@ -168,8 +168,8 @@ def write_json(data, filename="data/data.json"):
         json.dump(data, f, indent=4)
 
 def remove(img):
-    uploaded_img = "website/uploads/"+img
-    ann_img = "website/annotated_images/output_"+img
+    uploaded_img = "static/uploads/"+img
+    ann_img = "static/annotated_images/output_"+img
     print('annotated image: ',ann_img)
     if img == 'sample.JPG':
         os.remove(ann_img)
@@ -186,7 +186,7 @@ def remove(img):
     write_json(images_data)
 
 detection(['sample.JPG'])
-path = "website/annotated_images"
+path = "static/annotated_images"
 ann_images = os.listdir(path)
 if 'output_sample.JPG' in ann_images:
     remove('sample.JPG')
@@ -201,10 +201,10 @@ def home():
 def download_file():
     is_ann = request.args.get("is_ann")
     if is_ann == "True":
-        image = "website/annotated_images/"+request.args.get("img")
+        image = "static/annotated_images/"+request.args.get("img")
         return send_file(image,as_attachment=True)
     else:
-        image = "website/uploads/"+request.args.get("img")
+        image = "static/uploads/"+request.args.get("img")
         return send_file(image,as_attachment=True)
 
 # Download an Image from the library page
@@ -216,9 +216,9 @@ def download_files():
     print(is_ann)
     for image in images:
         if is_ann == "True":
-            image_path = "website/annotated_images/"+image
+            image_path = "static/annotated_images/"+image
         else:
-            image_path = "website/uploads/"+image
+            image_path = "static/uploads/"+image
         zipf.write(image_path)
     zipf.close()
     return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
@@ -241,8 +241,8 @@ def remove_files():
     images_data = {"Images":[]}
     write_json(images_data)
     for image in images:
-        uploaded_img = "website/uploads/"+image
-        ann_img = "website/annotated_images/output_"+image
+        uploaded_img = "static/uploads/"+image
+        ann_img = "static/annotated_images/output_"+image
         os.remove(uploaded_img)
         os.remove(ann_img)
     return redirect(url_for("library"))
@@ -250,10 +250,10 @@ def remove_files():
 # Library Page
 @app.route("/library")
 def library():
-    path = "website/uploads"
+    path = "static/uploads"
     images = os.listdir(path)
 
-    path2 = "website/annotated_images"
+    path2 = "static/annotated_images"
     ann_images = os.listdir(path2)
 
     page, per_page, offset = get_page_args(page_parameter='page',
@@ -316,9 +316,9 @@ def upload():
 def display_image(filename, is_ann=False):
     is_ann = request.args.get("is_ann")
     if is_ann == "True":
-        return redirect(url_for('website', filename='annotated_images/' + filename))
+        return redirect(url_for('static', filename='annotated_images/' + filename))
     else:
-        return redirect(url_for('website', filename='uploads/' + filename))
+        return redirect(url_for('static', filename='uploads/' + filename))
 
 # Redirects to the search page
 @app.route("/searchredirect")
@@ -500,4 +500,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=False, host='127.0.0.3', port=5000)
+    app.run(debug=True, host='127.0.0.3', port=5000)
