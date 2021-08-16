@@ -1,2 +1,3 @@
+# These are the files github ignores when you push and pull.
 /env/pyvenv.cfg
 /detector/__pycache__
