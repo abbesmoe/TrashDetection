@@ -1,11 +1,33 @@
 {
     "Images": [
         {
-            "Name": "000015.jpg",
-            "Quantity": 3,
+            "Name": "000013.jpg",
+            "Quantity": 2,
             "Classes": [
-                "Bottle cap",
-                "Cigarette",
+                "Bottle",
+                "Bottle cap"
+            ]
+        },
+        {
+            "Name": "000014.jpg",
+            "Quantity": 1,
+            "Classes": [
+                "Bottle cap"
+            ]
+        },
+        {
+            "Name": "000079.jpg",
+            "Quantity": 2,
+            "Classes": [
+                "Bottle",
+                "Bottle cap"
+            ]
+        },
+        {
+            "Name": "000002.jpg",
+            "Quantity": 2,
+            "Classes": [
+                "Cup",
                 "Other"
             ]
         }
