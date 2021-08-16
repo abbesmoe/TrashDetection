@@ -170,8 +170,12 @@ def write_json(data, filename="data/data.json"):
 def remove(img):
     uploaded_img = "website/uploads/"+img
     ann_img = "website/annotated_images/output_"+img
-    os.remove(uploaded_img)
-    os.remove(ann_img)
+    print('annotated image: ',ann_img)
+    if img == 'sample.JPG':
+        os.remove(ann_img)
+    else:
+        os.remove(ann_img)
+        os.remove(uploaded_img)
 
     ann_name = img
 
@@ -182,9 +186,9 @@ def remove(img):
     write_json(images_data)
 
 detection(['sample.JPG'])
-path = "website/uploads"
-images = os.listdir(path)
-if 'sample.JPG' in images:
+path = "website/annotated_images"
+ann_images = os.listdir(path)
+if 'output_sample.JPG' in ann_images:
     remove('sample.JPG')
 
 # Home page

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="eng">
+
 <head>
     <title>{% block title %}{% endblock %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    {% block links %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="/website/css/style.css"> {% block links %}{% endblock %}
 </head>
 
 <!-- Navbar (sit on top) -->
@@ -15,7 +15,7 @@
         <a href="/" class="w3-bar-item w3-button"><b>Taco</b> Project</a>
         <!-- Float links to the right. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
-            <a href="/" class="w3-bar-item w3-button">Home</a> 
+            <a href="/" class="w3-bar-item w3-button">Home</a>
             <a href="/uploadredirect" class="w3-bar-item w3-button">Upload</a>
             <a href="/library" class="w3-bar-item w3-button">Library</a>
             <a href="/searchredirect" class="w3-bar-item w3-button">Search</a>
@@ -27,4 +27,5 @@
 </div>
 
 {% block content %}{% endblock %}
+
 </html>
