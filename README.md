@@ -165,7 +165,7 @@ Enter this link: https://github.com/abbesmoe/TrashDetection.git
 ```
 conda create -n env python=3.7
 ```
-6. Change directory to ```/TrashDetection```<br>
+6. Change directory to ```TrashDetection/```<br>
 Example:
 ```
 cd C:\Users\abbes\vscode\TrashDetection
