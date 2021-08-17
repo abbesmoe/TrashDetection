@@ -186,9 +186,9 @@ pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&sub
 
 ![image](https://user-images.githubusercontent.com/85749429/129078439-4e1933a7-b71e-4106-b2ba-9484620fc920.png)
 
-9. Run trash.py
+9. Run main.py
 
-10. Once trash.py is running, click the link at the bottom of the terminal to be taken to the website
+10. Once main.py is running, click the link at the bottom of the terminal to be taken to the website
 ![image](https://user-images.githubusercontent.com/85749429/129077643-87f979fe-7b5c-4139-842b-44fe7c9afb4d.png)
 
 
