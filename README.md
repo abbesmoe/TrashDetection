@@ -50,7 +50,7 @@ The Colab notebooks in ```samples/``` are a great starting point and will help y
 
 ### Download
 
-To train your own weights, you will need to download all of the annotated images or TACO has [pre-trained weights](https://github.com/pedropro/TACO/releases/tag/1.0) ready for use.
+To train your own weights, you will need to download all of the annotated images or TACO has [pre-trained weights](https://github.com/pedropro/TACO/releases/tag/1.0) ready for use.<br>
 To download the original 1500 taco dataset images we started with, simply clone our repo and run:
 ```
 # Change directory to detector/
