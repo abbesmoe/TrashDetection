@@ -59,6 +59,8 @@ To download the original 1500 taco dataset images we started with, simply clone 
 # Training
 ### Google Colab
 Google colab is free and has GPU support, though their computing power and memory is not as good as AWS. At some point, Google will restrict you from using GPU if you are using too much memory. Since that's the case, we trained on AWS during the day and Colab at night.<br> To train on Colab, review ```samples/training.ipynb```
+
+NOTE: For training, we used tensorflow 1.x, as using tensorflow 2.6 caused too many errors. Thus we have another [github](https://github.com/abbesmoe/Taco-Mask) that still runs perfectly on tensorflow 1.15
 ### The Use of AWS
 
 We used an AWS ec2 instance to train our model. We struggled with utilitizing the GPU on the instances and found out our initial AMI did not come with graphics card drivers (NVIDIA drivers). We mainly tried two different instances:
