@@ -258,14 +258,6 @@ def search():
                 else:
                     v.NON_RECYCLABLE_FILTER = "False"
 
-                ############# Trash Categories Filter #############
-                # adds selected trash categories to the table headers
-                for t in v.SELECTED_TRASH_LIST:
-                    v.SEARCH_TABLE_HEADERS.append(t)
-                # call checkClasses function to return a list of the names of
-                # the images that has at least one of the selected trash categories
-                classSet = func.checkClasses(v.SELECTED_TRASH_LIST, intersect)
-
                 ################ Quantity Filter ################
                 # if the user entered a quantity
                 if "quantity" in request.form:
@@ -289,6 +281,14 @@ def search():
                 # if intersection checkbox is not checked
                 else:
                     v.INTERSECTION_FILTER = "False"
+
+                ############# Trash Categories Filter #############
+                # adds selected trash categories to the table headers
+                for t in v.SELECTED_TRASH_LIST:
+                    v.SEARCH_TABLE_HEADERS.append(t)
+                # call checkClasses function to return a list of the names of
+                # the images that has at least one of the selected trash categories
+                classSet = func.checkClasses(v.SELECTED_TRASH_LIST, intersect)
 
                 ############## Merging Filters ###############
                 # initialize finalSet which will contain the names of the images that fit all the entered filters by the user
