@@ -220,7 +220,7 @@ def search():
                 v.TRASH_LIST.remove(trash)
                 v.SELECTED_TRASH_LIST.append(trash)
         # if - button clicked remove selected trash category from the selected trash list and add it back to the trash categories
-        elif "-" in request.form:
+        if "-" in request.form:
             if "selectedtrash" in request.form:
                 selectedtrash = request.form["selectedtrash"]
                 v.SELECTED_TRASH_LIST.remove(selectedtrash)
@@ -229,7 +229,7 @@ def search():
         result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
         ############# Search button ##############
         # if search button is clicked
-        elif "Search" in request.form:
+        if "Search" in request.form:
             # reset predefined search table headers and rows
             v.SEARCH_TABLE_HEADERS = ["Images", "Quantity"]
             v.SEARCH_TABLE_ROWS = []
