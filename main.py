@@ -174,7 +174,8 @@ def remove_files():
     images = request.args.getlist("images")
     # reset all json image data
     v.IMAGES_DATA = {"Images":[]}
-    func.write_json(v.IMAGES_DATA)
+    with open(v.JSON_DATA_FILE, "w") as f:
+        json.dump(v.IMAGES_DATA, f, indent=4)
     # remove all images (both original and annoated)
     for image in images:
         uploaded_img = "static/uploads/"+image
