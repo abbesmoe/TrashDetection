@@ -44,7 +44,7 @@ def download_file():
         image = "static/uploads/"+request.args.get("img")
         return send_file(image,as_attachment=True)
 
-# Download an Image from the library page
+# Download all Images from the library page and save it in a zip file
 @app.route('/downloadall', methods=['GET'])
 def download_files():
     zipf = zipfile.ZipFile('Images.zip','w', zipfile.ZIP_DEFLATED)
@@ -88,6 +88,7 @@ def library():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     total = len(images)
+    # pagination allows us to break up the page into multiple pages. We set the number of images displayed per page to 10 and anything more will be put on a new page
     pagination_images = func.get_images(images, offset=offset, per_page=per_page)
     pagination_ann_images = func.get_images(ann_images, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=total,
@@ -145,12 +146,14 @@ def display_image(filename, is_ann=False):
 def search():
     result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
     if request.method == "POST":
+        # this code displays how an item is added to the search list
         if "+" in request.form:
             if "trash" in request.form:
                 trash = request.form["trash"]
                 v.TRASH_LIST.remove(trash)
                 v.SELECTED_TRASH_LIST.append(trash)
                 result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
+      # this code displays how an item is removed from the search list
         elif "-" in request.form:
             if "selectedtrash" in request.form:
                 selectedtrash = request.form["selectedtrash"]
@@ -205,6 +208,7 @@ def search():
                     #print error
                     #print nothing
                     finalSet = set()
+                    # this checks through the different specifcations the user seletec to searh for and "finalSet" will print the images that match the selected search options
                 elif len(quantitySet) == 0 and len(classSet) == 0:
                     for image in imgs_data["Images"]:
                         finalSet.add(image["Name"])
@@ -229,12 +233,14 @@ def search():
                             img_data.append(image["Name"])
                             img_data.append(image["Quantity"])
                             r_count = 0
+                            # counts the number of recyclable items in the image
                             if v.RECYCLABLE_FILTER == "True":
                                 for c,c_count in classes_info[n].items():
                                     if c in v.RECYCLABLES:
                                         r_count+=c_count
                                 img_data.append(r_count)
                             nonr_count = 0
+                             # counts the number of non-recyclable items in the image
                             if v.NON_RECYCLABLE_FILTER == "True":
                                 for c,c_count in classes_info[n].items():
                                     if c in v.NON_RECYCLABLES:
