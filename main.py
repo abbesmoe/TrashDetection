@@ -327,11 +327,14 @@ def search():
                     img_data = []
                     # call get_classes_info which returns a dictionary with each image and its trash categories and corresponding count
                     classes_info = func.get_classes_info()
+                    # for every image that's about to be displayed in the search table
                     for n in finalSet:
                         if image["Name"] == n:
+                            # add the name and trash quantity of the image
                             img_data.append(image["Name"])
                             img_data.append(image["Quantity"])
                             
+                            ################# recyblables count #################
                             r_count = 0
                             # check if recyblables filter is checked
                             if v.RECYCLABLE_FILTER == "True":
@@ -341,6 +344,7 @@ def search():
                                         r_count+=c_count
                                 img_data.append(r_count)
                             
+                            ############### non-recyblables count ###############
                             nonr_count = 0
                             # check if non-recyblables filter is checked
                             if v.NON_RECYCLABLE_FILTER == "True":
@@ -350,6 +354,7 @@ def search():
                                         nonr_count+=c_count
                                 img_data.append(nonr_count)
                             
+                            ########### selected trash categories count ###########
                             # counts the number of each selected trash category
                             for t in v.SELECTED_TRASH_LIST:
                                 if t in classes_info[n]:
