@@ -14,18 +14,22 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 </br>
 
 # This Repository Includes:
-* Annotated image data in ```/data```
-* Implementation of Mask-RCNN in ```/detector```
-* Colab notebooks to train and test the model in ```/samples```
-* Uploaded and annotated images in ```/static```
-* Website html code in ```/templates```
-* For functions go to ```/functions.py```
-* Global variables used go to ```/variables.py```
-* To start the app run ```/main.py```
+* Annotated image data in ```data/```
+* Implementation of Mask-RCNN in ```detector/```
+* Packages used in our anaconda environment in ```env/```
+* Colab notebooks to train and test the model in ```samples/```
+* Uploaded and annotated images in ```static/```
+* Website html code in ```templates/```
+* Pre-trained weights used for detection in ```weights/```
+* Required packages to install in ```requirements.txt```
+* For functions go to ```functions.py```
+* Global variables used go to ```variables.py```
+* To start the app run ```main.py```
 
 **Implemented Repositories:**
 * Taco dataset: https://github.com/pedropro/TACO
 * Mask-RCNN: https://github.com/matterport/Mask_RCNN
+* Repository that uses tensorflow 1.x: https://github.com/abbesmoe/Taco-Mask
 
 # Improvements
 * Updated tensorflow and keras to the newest versions
@@ -40,21 +44,26 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 * Add a location feature
 * Create a user friendly app
 
+# Getting Started
 
+The Colab notebooks in ```samples/``` are a great starting point and will help you understand machine learning and Mask-RCNN.
 
 ### Download
 
-To download the original 1500 taco dataset images we started with, simply issue:
+To download the original 1500 taco dataset images we started with, simply clone our repo and run:
 ```
-%cd TrashDetection/
+# Change directory to detector/
+%cd TrashDetection/detector/
 !python3 download.py
 ```
-
+# Training
+### Google Colab
+Google colab is free and has GPU support, though their computing power and memory is not as good as AWS. At some point, Google will restrict you from using GPU if you are using too much memory. Since that's the case, we trained on AWS during the day and Colab at night.<br> To train on Colab, review ```samples/training.ipynb```
 ### The Use of AWS
 
 We used an AWS ec2 instance to train our model. We struggled with utilitizing the GPU on the instances and found out our initial AMI did not come with graphics card drivers (NVIDIA drivers). We mainly tried two different instances:
 * p3.2xlarge is cheaper and trained one epoch in roughly 16 minutes.
-* p3.16xlarge was eight times the price but was not training eight times faster, training one epoch in roughly 14 minutes.
+* p3.16xlarge was eight times the price but did not train eight times faster, training one epoch in roughly 14 minutes.
 Thus we stuck with the p3.2xlarge instance.
 
 **How to Link s3 bucket to ec2 instance**
