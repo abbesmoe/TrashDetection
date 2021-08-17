@@ -1,3 +1,4 @@
+# Imports
 from detector.config import Config
 from collections import Counter
 import csv
@@ -72,14 +73,18 @@ def min_accuracy(r,a):
     :param a: the minimum accuracy value
     :return: list of results from the image detection with object that have accuracy grater than parameter a
     """
+    # initialize result dictionary
     result = {'rois': [], 'masks': [], 'class_ids': [], 'scores': []}
+    # list of indecies
     indecies = []
+    # add the detected object info only if they have an accuracy greated than or equal to a
     for i,ele in enumerate(r['scores']):
         if ele >= a:
             result['rois'].append(r['rois'][i])
             result['class_ids'].append(r['class_ids'][i])
             result['scores'].append(r['scores'][i])
             indecies.append(i)
+    # convert the lists within the result dictionary to numpy
     result['masks'] = r['masks'][:,:,indecies]
     result['rois'] = np.asarray(result['rois'])
     result['masks'] = np.asarray(result['masks'])
@@ -96,17 +101,26 @@ def detection(model, images):
     :return:
     """
     for i, img in enumerate(images):
+        # handle the sample.JPG case
+        # side note: we're running the sample.JPG through detection to lower the detection time of the first upload
         img_path = ''
         if img == 'sample.JPG':
             img_path = "static/assets/" + img
         else:
             img_path = "static/uploads/" + img
+        
+        # read the image
         image = skimage.io.imread(img_path)
+        # initialize class names
         class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
+        # run the image through detection using the loaded model
         r = model.detect([image], verbose=0)[0]
+        # run image detection results through the min_accuracy function to get detected objects with accuracy greater than or equal to 90%
         r = min_accuracy(r,0.9)
         print('(',i,'/',len(images),') detected scores: ',r['scores'])
-        visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+        # save the image with its corresponsing detected objects
+        visualize.save_detected_img(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+        # add image info to json data file
         add_to_json(r,class_names,img)
 
 def add_to_json(r,class_names,imageName):
@@ -118,7 +132,6 @@ def add_to_json(r,class_names,imageName):
     :param imageName: name of the image that will be added to the json data file
     :return: 
     """
-    global images_data
     classNameList = []
     for i in range(len(r['class_ids'])):
         obj_name = class_names[r['class_ids'][i]]
@@ -132,6 +145,12 @@ def add_to_json(r,class_names,imageName):
         json.dump(v.IMAGES_DATA, f, indent=4)
 
 def remove(img):
+    """
+    Removes a passed image.
+    
+    :param img: the image name to remove
+    :return: 
+    """
     uploaded_img = v.UPLOAD_PATH+img
     ann_img = v.ANNOTATED_IMAGES_PATH + "output_" +img
     print('annotated image: ',ann_img)
@@ -147,30 +166,51 @@ def remove(img):
     with open(v.JSON_DATA_FILE, "w") as f:
         json.dump(v.IMAGES_DATA, f, indent=4)
 
-# Checks if the uploaded images have supported extensions
 def allowed_file(filename):
+    """
+    Checks if the passed filename has an allowed extension.
+    
+    :param filename: filename to check the extension on
+    :return: 
+    """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in v.ALLOWED_EXTENSIONS
 
-# Used to grab a set amount of the images for pagination in library page
 def get_images(images, offset=0, per_page=10):
+    """
+    Used to grab a set amount of the images for pagination in library page
+    
+    :param images: images to display
+    :param offset: offset number (defaults to 0 if it isn't specified)
+    :param per_page: number of images per page desired (defaults to 10 if it isn't specified)
+    :return: list of images to display
+    """
     return images[offset: offset + per_page]
 
 def checkQuantity(quantityType, quantity):
+    """
+    Returning list of images that pass the quantity filter passed
+    
+    :param quantityType: the user input for the quantityType (greater than, less than, equal to, or empty if nothing is selected)
+    :param quantity: The quantity the user have inputed
+    :return: a list of the names of the images that pass the quantity filter
+    """
     quantitySet = set()
 
     quantity = int(quantity)
     with open(v.JSON_DATA_FILE,'r') as json_data:
+        # load the data
         data = json.load(json_data)
 
         for i in range(len(data["Images"])):
+            # greater than
             if quantityType == 'Greater than':
                 if data['Images'][i]['Quantity'] > quantity:
                     quantitySet.add(data['Images'][i]['Name'])
-
+            # less than
             elif quantityType == 'Less than':
                 if data['Images'][i]['Quantity'] < quantity:
                     quantitySet.add(data['Images'][i]['Name'])
-
+            # equal to
             elif quantityType == 'Equal to':
                 if data['Images'][i]['Quantity'] == quantity:
                     quantitySet.add(data['Images'][i]['Name'])
@@ -178,16 +218,27 @@ def checkQuantity(quantityType, quantity):
     return quantitySet
 
 def checkClasses(selected_trash, intersection):
-    # REPLACE with get method from search page
+    """
+    Returns list of images that has at least one of the selected trash categories if the intersection
+    is not selected and images that has all of the selected trash categories if intersection checkbox
+    is selected.
+    
+    :param selected_trash: list of the selected trash categories
+    :param intersection: True if intersection checkbox is selected and False otherwise
+    :return: list of the names of the images that has at least one of the selected trash categories
+    """
     classSet = set()
 
     with open(v.JSON_DATA_FILE,'r') as json_data:
+        # loads data
         data = json.load(json_data)
+        # if intersection checkbox is not selected
         if intersection == "":
             for i in selected_trash:
                 for j in range(len(data["Images"])):
                     if i in data['Images'][j]['Classes']:
                         classSet.add(data['Images'][j]['Name'])
+        # if intersection checkbox is selected
         else:
             for i in range(len(data["Images"])):
                 if set(selected_trash) <= set(data['Images'][i]['Classes']):
@@ -196,9 +247,16 @@ def checkClasses(selected_trash, intersection):
     return classSet
 
 def get_classes_info():
+    """
+    Returns a dictionary with each image and its trash categories and corresponding count.
+    
+    :return: a dictionary with each image and its trash categories and corresponding count
+    """
     class_info = dict()
     with open(v.JSON_DATA_FILE,'r') as json_data:
+        # loads data
         data = json.load(json_data)
+        # use imported Counter package to get the number of each trash class category within each image
         for img in data["Images"]:
             c = Counter(img["Classes"])
             class_info[img["Name"]] = dict(c)
