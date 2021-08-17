@@ -1,8 +1,8 @@
 # Imports
 from flask import Flask, redirect, url_for, render_template, request, flash, send_file, jsonify, make_response
-import os
 from werkzeug.utils import secure_filename
 from flask_paginate import Pagination, get_page_args
+import os
 import json
 import threading
 import zipfile
