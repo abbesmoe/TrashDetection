@@ -10,9 +10,12 @@ import os
 import json
 import numpy as np
 
-# Loads the model
 def load_model():
-    ## Load Dataset
+    """
+    Loads the model when app starts.
+    
+    :return: returns the model which then will be used for detection
+    """
     # Load class map - these tables map the original TACO classes to your desired class system
     # and allow you to discard classes that you don't want to include.
     class_map = {}
@@ -44,6 +47,7 @@ def load_model():
         NUM_CLASSES = dataset.num_classes
     config = TacoTestConfig()
     
+    # print configurations
     print("\n---------- CONFIG HYPERPARAMETERS ----------")
     config.display()
 
@@ -60,8 +64,14 @@ def load_model():
     model.keras_model.make_predict_function()
     return model
 
-# Filter detection results to a passed min accuracy
 def min_accuracy(r,a):
+    """
+    Filter the list of detected objects to only contain objects with accuracy grater than parameter a.
+    
+    :param r: list of results from the image detection
+    :param a: the minimum accuracy value
+    :return: list of results from the image detection with object that have accuracy grater than parameter a
+    """
     result = {'rois': [], 'masks': [], 'class_ids': [], 'scores': []}
     indecies = []
     for i,ele in enumerate(r['scores']):
@@ -77,12 +87,15 @@ def min_accuracy(r,a):
     result['scores'] = np.asarray(result['scores'])
     return result
 
-# Run detection on an image
 def detection(model, images):
-    # load an image #
-    # skimage helps with image processing on a computer #
-    for img in images:
-        print(img)
+    """
+    Perform detection using the model passed on the list of images.
+    
+    :param model: model which was loaded when the web app started to perfect detection
+    :param images: list of uploaded images that will run through detection
+    :return:
+    """
+    for i, img in enumerate(images):
         img_path = ''
         if img == 'sample.JPG':
             img_path = "static/assets/" + img
@@ -92,13 +105,19 @@ def detection(model, images):
         class_names = ["BG","Bottle","Bottle cap","Can","Cigarette","Cup","Lid","Other","Plastic bag + wrapper","Pop tab","Straw"]
         r = model.detect([image], verbose=0)[0]
         r = min_accuracy(r,0.9)
-        print("detected scores: ",r['scores'])
+        print('(',i,'/',len(images),') detected scores: ',r['scores'])
         visualize.display_instances(image, img, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
         add_to_json(r,class_names,img)
-    return
 
-# Add image information to a json file after running through detection
 def add_to_json(r,class_names,imageName):
+    """
+    Adds detected iamge and its corresponding info to data json file.
+    
+    :param r: list of results from the image detection
+    :param class_names: list of all available trash category names
+    :param imageName: name of the image that will be added to the json data file
+    :return: 
+    """
     global images_data
     classNameList = []
     for i in range(len(r['class_ids'])):
@@ -109,12 +128,8 @@ def add_to_json(r,class_names,imageName):
     img_data["Quantity"] = len(classNameList)
     img_data['Classes'] = classNameList
     v.IMAGES_DATA['Images'].append(img_data)
-    write_json(v.IMAGES_DATA,v.JSON_DATA_FILE)
-
-# Writes the json file
-def write_json(data, filename):
-    with open(filename, "w") as f:
-        json.dump(data, f, indent=4)
+    with open(v.JSON_DATA_FILE, "w") as f:
+        json.dump(v.IMAGES_DATA, f, indent=4)
 
 def remove(img):
     uploaded_img = v.UPLOAD_PATH+img
@@ -129,7 +144,8 @@ def remove(img):
     for i, img in enumerate(v.IMAGES_DATA['Images']):
         if img['Name'] == ann_name:
             v.IMAGES_DATA['Images'].pop(i)
-    write_json(v.IMAGES_DATA, v.JSON_DATA_FILE)
+    with open(v.JSON_DATA_FILE, "w") as f:
+        json.dump(v.IMAGES_DATA, f, indent=4)
 
 # Checks if the uploaded images have supported extensions
 def allowed_file(filename):
