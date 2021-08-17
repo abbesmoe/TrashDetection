@@ -59,14 +59,14 @@ def download_files():
     zipf.close()
     return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
 
-# Removes an Image from the library page
+# Removes one Image from the library page
 @app.route('/remove', methods=['GET'])
 def remove_file():
     img = request.args.get("img")
     func.remove(img)
     return redirect(url_for("library"))
 
-# Removes an Image from the library page
+# Removes all Images from the library page
 @app.route('/removeall', methods=['GET'])
 def remove_files():
     images = request.args.getlist("images")
