@@ -9,99 +9,41 @@ import zipfile
 import variables as v
 import functions as func
 
-# Starts the web app
+# App configurations
 app = Flask(__name__)
 
-# app configurations
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = v.UPLOAD_PATH
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-# Dictionary for the json file to store image data
+# Load existing json image saved data
 with open(v.JSON_DATA_FILE,'r') as json_data:
     v.IMAGES_DATA = json.load(json_data)
 
 # Loading Sample Image
+# Gets the detection to run when the app starts which
+# results in decreasing detection runtime for the first upload
 func.detection(v.MODEL,[v.SAMPLE_IMG])
 ann_images = os.listdir(v.ANNOTATED_IMAGES_PATH)
 if v.SAMPLE_ANN_IMG in ann_images:
     func.remove(v.SAMPLE_IMG)
 
-# Home page
 @app.route("/")
 def home():
+    """
+    Home page.
+    
+    :return: returns the index.html template
+    """
     return render_template("index.html")
 
-# Download an Image from the library page
-@app.route('/download', methods=['GET'])
-def download_file():
-    is_ann = request.args.get("is_ann")
-    if is_ann == "True":
-        image = "static/annotated_images/"+request.args.get("img")
-        return send_file(image,as_attachment=True)
-    else:
-        image = "static/uploads/"+request.args.get("img")
-        return send_file(image,as_attachment=True)
-
-# Download all Images from the library page and save it in a zip file
-@app.route('/downloadall', methods=['GET'])
-def download_files():
-    zipf = zipfile.ZipFile('Images.zip','w', zipfile.ZIP_DEFLATED)
-    is_ann = request.args.get("is_ann")
-    images = request.args.getlist("images")
-    for image in images:
-        if is_ann == "True":
-            image_path = "static/annotated_images/"+image
-        else:
-            image_path = "static/uploads/"+image
-        zipf.write(image_path)
-    zipf.close()
-    return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
-
-# Removes one Image from the library page
-@app.route('/remove', methods=['GET'])
-def remove_file():
-    img = request.args.get("img")
-    func.remove(img)
-    return redirect(url_for("library"))
-
-# Removes all Images from the library page
-@app.route('/removeall', methods=['GET'])
-def remove_files():
-    images = request.args.getlist("images")
-    v.IMAGES_DATA = {"Images":[]}
-    func.write_json(v.IMAGES_DATA)
-    for image in images:
-        uploaded_img = "static/uploads/"+image
-        ann_img = "static/annotated_images/output_"+image
-        os.remove(uploaded_img)
-        os.remove(ann_img)
-    return redirect(url_for("library"))
-
-# Library Page
-@app.route("/library")
-def library():
-    images = os.listdir(v.UPLOAD_PATH)
-    ann_images = os.listdir(v.ANNOTATED_IMAGES_PATH)
-
-    page, per_page, offset = get_page_args(page_parameter='page',
-                                           per_page_parameter='per_page')
-    total = len(images)
-    # pagination allows us to break up the page into multiple pages. We set the number of images displayed per page to 10 and anything more will be put on a new page
-    pagination_images = func.get_images(images, offset=offset, per_page=per_page)
-    pagination_ann_images = func.get_images(ann_images, offset=offset, per_page=per_page)
-    pagination = Pagination(page=page, per_page=per_page, total=total,
-                            css_framework='bootstrap4')
-    return render_template("library.html", 
-                           images=pagination_images,
-                           ann_images=pagination_ann_images,
-                           page=page,
-                           per_page=per_page,
-                           pagination=pagination)
-
-# Upload Page when a post method is envoked
 @app.route('/upload', methods=['POST','GET'])
 def upload():
+    """
+    Upload Page. Uploads all selected files and pass them through the model for detection.
+    
+    :return: returns the upload.html template
+    """
     if request.method == "POST":
         if 'files[]' not in request.files:
             flash('No file part')
@@ -131,18 +73,113 @@ def upload():
 
     return render_template('upload.html')
 
-# Displays an Image
+@app.route("/library")
+def library():
+    """
+    Library page.
+    
+    :return: returns the library.html template
+    """
+    images = os.listdir(v.UPLOAD_PATH)
+    ann_images = os.listdir(v.ANNOTATED_IMAGES_PATH)
+
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    total = len(images)
+    # pagination allows us to break up the page into multiple pages. We set the number of images displayed per page to 10 and anything more will be put on a new page
+    pagination_images = func.get_images(images, offset=offset, per_page=per_page)
+    pagination_ann_images = func.get_images(ann_images, offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+    return render_template("library.html", 
+                           images=pagination_images,
+                           ann_images=pagination_ann_images,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination)
+
+@app.route('/download', methods=['GET'])
+def download_file():
+    """
+    Downloads file (used in library and search page tables).
+    
+    :return: send_file function which downloads the file
+    """
+    is_ann = request.args.get("is_ann")
+    if is_ann == "True":
+        image = "static/annotated_images/"+request.args.get("img")
+        return send_file(image,as_attachment=True)
+    else:
+        image = "static/uploads/"+request.args.get("img")
+        return send_file(image,as_attachment=True)
+
+@app.route('/downloadall', methods=['GET'])
+def download_files():
+    """
+    Downloads all files (used in library page).
+    
+    :return: send_file function which downloads all the files in a zip folder
+    """
+    zipf = zipfile.ZipFile('Images.zip','w', zipfile.ZIP_DEFLATED)
+    is_ann = request.args.get("is_ann")
+    images = request.args.getlist("images")
+    for image in images:
+        if is_ann == "True":
+            image_path = "static/annotated_images/"+image
+        else:
+            image_path = "static/uploads/"+image
+        zipf.write(image_path)
+    zipf.close()
+    return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
+
+@app.route('/remove', methods=['GET'])
+def remove_file():
+    """
+    Removes file (used in library page).
+    
+    :return: redircts back to the library page
+    """
+    img = request.args.get("img")
+    func.remove(img)
+    return redirect(url_for("library"))
+
+@app.route('/removeall', methods=['GET'])
+def remove_files():
+    """
+    Removes all files (used in library page).
+    
+    :return: redirects back to the library page
+    """
+    images = request.args.getlist("images")
+    v.IMAGES_DATA = {"Images":[]}
+    func.write_json(v.IMAGES_DATA)
+    for image in images:
+        uploaded_img = "static/uploads/"+image
+        ann_img = "static/annotated_images/output_"+image
+        os.remove(uploaded_img)
+        os.remove(ann_img)
+    return redirect(url_for("library"))
+
 @app.route('/display/<filename>')
 def display_image(filename, is_ann=False):
+    """
+    Displays Image (used in library and search page tables).
+    
+    :return: redircts back to the library page
+    """
     is_ann = request.args.get("is_ann")
     if is_ann == "True":
         return redirect(url_for('static', filename='annotated_images/' + filename))
     else:
         return redirect(url_for('static', filename='uploads/' + filename))
 
-# Search Page
 @app.route("/search", methods=["POST", "GET"])
 def search():
+    """
+    Search page. 
+    
+    :return: returns the search.html template
+    """
     result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
     if request.method == "POST":
         # this code displays how an item is added to the search list
