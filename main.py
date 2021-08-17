@@ -208,116 +208,157 @@ def search():
     
     :return: returns the search.html template
     """
+    # set result to return the search.html template with necessary params if the user access the search page through url (no button clicks)
     result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
+    # if +, -, or search button was clicked
     if request.method == "POST":
-        # this code displays how an item is added to the search list
+        ############### + button ################
+        # if + button clicked add selected trash category to the selected trash list
         if "+" in request.form:
             if "trash" in request.form:
                 trash = request.form["trash"]
                 v.TRASH_LIST.remove(trash)
                 v.SELECTED_TRASH_LIST.append(trash)
-                result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
-      # this code displays how an item is removed from the search list
+        # if - button clicked remove selected trash category from the selected trash list and add it back to the trash categories
         elif "-" in request.form:
             if "selectedtrash" in request.form:
                 selectedtrash = request.form["selectedtrash"]
                 v.SELECTED_TRASH_LIST.remove(selectedtrash)
                 v.TRASH_LIST.append(selectedtrash)
-                result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
+        # update result to return the search.html template with necessary params if + or - button was clicked but not the search
+        result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="none", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
+        ############# Search button ##############
+        # if search button is clicked
         elif "Search" in request.form:
+            # reset predefined search table headers and rows
             v.SEARCH_TABLE_HEADERS = ["Images", "Quantity"]
             v.SEARCH_TABLE_ROWS = []
+            # open json images data file
             with open(v.JSON_DATA_FILE,'r') as json_data:
+                # load images data
                 imgs_data = json.load(json_data)
-                # recyclables or nonrecyclables
-                # check if intersection checkbox is checked
+                
+                ############## Recyclables Filter ##############
+                # if recyclables filter is checked
                 if "Recyclables" in request.form:
                     r = request.form["Recyclables"]
                     v.SEARCH_TABLE_HEADERS.append(r)
                     v.RECYCLABLE_FILTER = "True"
+                # if recyclables filter is not checked
                 else:
                     v.NON_RECYCLABLE_FILTER = "False"
+                    
+                ############# Non-recyclables Filter #############
+                # if non-recyclables filter is checked
                 if "Non_recyclables" in request.form:
                     non_r = request.form["Non_recyclables"]
                     v.SEARCH_TABLE_HEADERS.append(non_r)
                     v.NON_RECYCLABLE_FILTER = "True"
+                # if non-recyclables filter is not checked
                 else:
                     v.NON_RECYCLABLE_FILTER = "False"
 
-                # adds selected trash to the headings
+                ############# Trash Categories Filter #############
+                # adds selected trash categories to the table headers
                 for t in v.SELECTED_TRASH_LIST:
                     v.SEARCH_TABLE_HEADERS.append(t)
+                # call checkClasses function to return a list of the names of
+                # the images that has at least one of the selected trash categories
+                classSet = func.checkClasses(v.SELECTED_TRASH_LIST, intersect)
 
+                ################ Quantity Filter ################
+                # if the user entered a quantity
                 if "quantity" in request.form:
                     quantity = request.form["quantity"]
+                # if the user entered a less than, greater than, or equal to associated with the quatity filter
                 if "quantityType" in request.form:
                     quantityType = request.form["quantityType"]
-                #handle quantity
+                # initialize quantity set which will holds the names of the images that pass the quantity filter
                 quantitySet = set()
+                # if both quantity and quantity type have been entered by the user
                 if quantity != "" and quantityType != "":
+                    # call checkQuantity function to return a list of the names of the images that pass the quantity filter
                     quantitySet = func.checkQuantity(quantityType, quantity)
                 
-                # check if intersection checkbox is checked
+                ############## Intersection Filter ###############
                 intersect = ""
+                # check if intersection checkbox is checked
                 if "Intersection" in request.form:
                     intersect = request.form["Intersection"]
                     v.INTERSECTION_FILTER = "True"
+                # if intersection checkbox is not checked
                 else:
                     v.INTERSECTION_FILTER = "False"
 
-                classSet = func.checkClasses(v.SELECTED_TRASH_LIST, intersect)
-
+                ############## Merging Filters ###############
+                # initialize finalSet which will contain the names of the images that fit all the entered filters by the user
                 finalSet = set()
+                # if a quantity or quantityType or trash categories have been entered or selected
+                # and both quantitySet and classSet are empty then no images to display
                 if len(quantitySet) == 0 and len(classSet) == 0 and (quantity != "" or quantityType != "" or len(v.SELECTED_TRASH_LIST) != 0):
-                    #print error
-                    #print nothing
                     finalSet = set()
-                    # this checks through the different specifcations the user seletec to searh for and "finalSet" will print the images that match the selected search options
+                # else if both quantitySet and classSet are empty and no quantity or trash categories
+                # have been entered or selected then display all images
                 elif len(quantitySet) == 0 and len(classSet) == 0:
                     for image in imgs_data["Images"]:
                         finalSet.add(image["Name"])
+                # if classSet is not empty and quantitySet is empty, but a quantity filter have been
+                # entered then no images to display
                 elif len(quantitySet) == 0 and len(classSet) != 0 and (quantity != "" or quantityType != ""):
                     finalSet = set()
+                # if classSet is not empty and quantitySet is empty and no quantity filter have been
+                # entered then display images in classSet
                 elif len(quantitySet) == 0 and len(classSet) != 0:
                     finalSet = classSet
+                # if quantitySet is not empty and classSet is empty, but one or more trash categories
+                # have been selected then no images to display
                 elif len(quantitySet) != 0 and len(classSet) == 0 and len(v.SELECTED_TRASH_LIST) != 0:
                     finalSet = set()
+                # if quantitySet is not empty and classSet is empty and no trash categories have been
+                # selected then display images in quantitySet
                 elif len(quantitySet) != 0 and len(classSet) == 0:
                     finalSet = quantitySet
+                # if non of the other conditions are met then dispaly the intersection of the quantitySet and classSet
                 else:
                     finalSet = quantitySet.intersection(classSet)
                 
-                print(finalSet)
-
+                # for every image in the images data
                 for image in imgs_data["Images"]:
                     img_data = []
+                    # call get_classes_info which returns a dictionary with each image and its trash categories and corresponding count
                     classes_info = func.get_classes_info()
                     for n in finalSet:
                         if image["Name"] == n:
                             img_data.append(image["Name"])
                             img_data.append(image["Quantity"])
+                            
                             r_count = 0
-                            # counts the number of recyclable items in the image
+                            # check if recyblables filter is checked
                             if v.RECYCLABLE_FILTER == "True":
+                                # counts the number of recyclable items in the imag
                                 for c,c_count in classes_info[n].items():
                                     if c in v.RECYCLABLES:
                                         r_count+=c_count
                                 img_data.append(r_count)
+                            
                             nonr_count = 0
-                             # counts the number of non-recyclable items in the image
+                            # check if non-recyblables filter is checked
                             if v.NON_RECYCLABLE_FILTER == "True":
+                                # counts the number of non-recyclable items in the image
                                 for c,c_count in classes_info[n].items():
                                     if c in v.NON_RECYCLABLES:
                                         nonr_count+=c_count
                                 img_data.append(nonr_count)
-
+                            
+                            # counts the number of each selected trash category
                             for t in v.SELECTED_TRASH_LIST:
                                 if t in classes_info[n]:
                                     img_data.append(classes_info[n][t])
                                 else:
                                     img_data.append(0)
-
+                    # add the rows to the table
                     v.SEARCH_TABLE_ROWS.append(img_data)
+            # update result to return the search.html template with necessary params if search button was clicked
             result = render_template("search.html", trash_list=v.TRASH_LIST, selected_trash_list=v.SELECTED_TRASH_LIST, headings=v.SEARCH_TABLE_HEADERS, data=v.SEARCH_TABLE_ROWS, style="inline", recyclable=v.RECYCLABLE_FILTER, non_recyclable=v.NON_RECYCLABLE_FILTER, quantity=v.QUANTITY_FILTER, quantityType=v.QUANTITY_TYPE_FILTER, intersection = v.INTERSECTION_FILTER)
     return result
 
