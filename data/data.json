@@ -22,14 +22,6 @@
                 "Bottle",
                 "Bottle cap"
             ]
-        },
-        {
-            "Name": "000002.jpg",
-            "Quantity": 2,
-            "Classes": [
-                "Cup",
-                "Other"
-            ]
         }
     ]
 }

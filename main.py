@@ -171,19 +171,22 @@ def remove_files():
     :return: redirects back to the library page
     """
     # all images to remove
-    images = request.args.getlist("images")
+    images = os.listdir(v.UPLOAD_PATH)
+    ann_images = os.listdir(v.ANNOTATED_IMAGES_PATH)
+
     # reset all json image data
     v.IMAGES_DATA = {"Images":[]}
     with open(v.JSON_DATA_FILE, "w") as f:
         json.dump(v.IMAGES_DATA, f, indent=4)
-    # remove all images (both original and annoated)
-    for image in images:
-        uploaded_img = "static/uploads/"+image
-        ann_img = "static/annotated_images/output_"+image
-        # remove original image
-        os.remove(uploaded_img)
-        # remove anotated image
-        os.remove(ann_img)
+
+    # remove all images (both original and annotated)
+    for img in images:
+        img_path = v.UPLOAD_PATH + img
+        os.remove(img_path)
+    for ann_img in ann_images:
+        ann_img_path = v.UPLOAD_PATH + ann_img
+        os.remove(ann_img_path)
+        
     return redirect(url_for("library"))
 
 @app.route('/display/<filename>')
