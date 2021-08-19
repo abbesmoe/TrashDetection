@@ -250,7 +250,7 @@ def search():
                     v.RECYCLABLE_FILTER = "True"
                 # if recyclables filter is not checked
                 else:
-                    v.NON_RECYCLABLE_FILTER = "False"
+                    v.RECYCLABLE_FILTER = "False"
                     
                 ############# Non-recyclables Filter #############
                 # if non-recyclables filter is checked
