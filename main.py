@@ -132,10 +132,14 @@ def download_files():
     
     :return: send_file function which downloads all the files in a zip folder
     """
-    # create a zip file
-    zipf = zipfile.ZipFile('Images.zip','w', zipfile.ZIP_DEFLATED)
     # check if the passed files are the original images or the annotated images
     is_ann = request.args.get("is_ann")
+    # create a zip file
+    zipf = ''
+    if is_ann == "True":
+        zipf = zipfile.ZipFile('static/assets/annotated_images.zip','w', zipfile.ZIP_DEFLATED)
+    else:
+        zipf = zipfile.ZipFile('static/assets/uploaded_images.zip','w', zipfile.ZIP_DEFLATED)
     # all the images to download
     images = request.args.getlist("images")
     for image in images:
@@ -148,7 +152,10 @@ def download_files():
         # add the images to the zip file
         zipf.write(image_path)
     zipf.close()
-    return send_file('Images.zip', mimetype = 'zip', attachment_filename= 'Images.zip' ,as_attachment=True)
+    if is_ann == "True":
+        return send_file('static/assets/annotated_images.zip', mimetype = 'zip', attachment_filename= 'annotated_images.zip' ,as_attachment=True)
+    else:
+        return send_file('static/assets/uploaded_images.zip', mimetype = 'zip', attachment_filename= 'uploaded_images.zip' ,as_attachment=True)
 
 @app.route('/remove', methods=['GET'])
 def remove_file():
@@ -373,4 +380,4 @@ def search():
 
 # Runs the web app
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.3', port=5000)
+    app.run(debug=False, host='127.0.0.3', port=5000)
