@@ -22,6 +22,7 @@ This is a web app implementation of the TACO dataset and Mask R-CNN on Python 3,
 * Website html code in ```templates/```
 * Pre-trained weights used for detection in ```weights/```
 * Required packages to install in ```requirements.txt```
+* Documentation of our training in ```trainingAttempts.docx```
 * For functions go to ```functions.py```
 * Global variables used go to ```variables.py```
 * To start the app run ```main.py```
@@ -58,6 +59,8 @@ To download the original 1500 taco dataset images we started with, simply clone 
 !python3 download.py
 ```
 # Training
+BEFORE TRAINING, PLEASE READ ```trainingAttempts.docx```. Hopefully this helps you save time.<br>
+
 ### Google Colab
 Google colab is free and has GPU support, though their computing power and memory is not as good as AWS. At some point, Google will restrict you from using GPU if you are using too much memory. Since that's the case, we trained on AWS during the day and Colab at night.<br> To train on Colab, review ```samples/training.ipynb```
 
